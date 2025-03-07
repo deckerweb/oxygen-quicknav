@@ -10,3 +10,4 @@ node_modules/
 # macOS
 .DS_Store
 .idea/
+.DS_Store

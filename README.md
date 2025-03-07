@@ -1,6 +1,6 @@
 # Oxygen QuickNav (Oxygen 6+)
 
-The **Oxygen QuickNav** adds a quick-access navigator to the WordPress Admin Bar (Toolbar). It allows easy access to Oxygen Builder Templates, Headers, Footers, Global Blocks, Popups, and (regular WordPress) Pages edited with Oxygen, along with other essential settings. – NOTE: This plugin is for Oxygen 6+ only (first released in February of 2025)!
+The **Oxygen QuickNav** plugin adds a quick-access navigator to the WordPress Admin Bar (Toolbar). It allows easy access to Oxygen Builder Templates, Headers, Footers, Global Blocks, Popups, and (regular WordPress) Pages edited with Oxygen, along with other essential settings. – NOTE: This plugin is for Oxygen 6+ only (first released in February of 2025)!
 
 ### Tested Compatibility
 - **Oxygen**: 6.0.0 Beta
