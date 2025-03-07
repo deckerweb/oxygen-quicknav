@@ -172,6 +172,27 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
         }
 
         /**
+         * Get items of a Oxygen 6+ template type. Helper function.
+         *
+         * @uses get_posts()
+         *
+         * @param string $post_type Slug of post type to query for.
+         */
+        private function get_oxygen_template_type( $post_type ) {
+            $args = array(
+                'post_type'      => sanitize_key( $post_type ),
+                'posts_per_page' => 10,
+                'post_status'    => 'publish',
+                'orderby'        => 'modified',
+                'order'          => 'DESC',
+            );
+            
+            apply_filters( 'ddw/quicknav/oxy_get_template_type', $args, $post_type );
+            
+            return get_posts( $args );
+        }
+        
+        /**
          * Add Oxygen Templates submenu (parent node)
          */
         private function add_templates_submenu( $wp_admin_bar ) {
@@ -189,7 +210,7 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
          * Add up to 10 Oxygen Templates (child nodes)
          */
         private function add_templates_to_admin_bar( $wp_admin_bar ) {
-            $templates = $this->get_oxygen_templates();
+            $templates = $this->get_oxygen_template_type( 'oxygen_template' );
 
             if ( $templates ) {
                 foreach ( $templates as $template ) {
@@ -211,20 +232,6 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
         }
 
         /**
-         * Get Oxygen Templates. Helper function.
-         */
-        private function get_oxygen_templates() {
-            $args = array(
-                'post_type'      => 'oxygen_template',
-                'posts_per_page' => 10,
-                'post_status'    => 'publish',
-                'orderby'        => 'modified',
-                'order'          => 'DESC',
-            );
-            return get_posts( $args );
-        }
-
-        /**
          * Add Oxygen Headers submenu (parent node)
          */
         private function add_headers_submenu( $wp_admin_bar ) {
@@ -242,7 +249,7 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
          * Add up to 10 Oxygen Header templates (child nodes)
          */
         private function add_headers_to_admin_bar( $wp_admin_bar ) {
-            $headers = $this->get_oxygen_headers();
+            $headers = $this->get_oxygen_template_type( 'oxygen_header' );
 
             if ( $headers ) {
                 foreach ( $headers as $header ) {
@@ -256,20 +263,6 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                     ) );
                 }  // end foreach
             }  // end if
-        }
-
-        /**
-         * Get Oxygen Header templates. Helper function.
-         */
-        private function get_oxygen_headers() {
-            $args = array(
-                'post_type'      => 'oxygen_header',
-                'posts_per_page' => 10,
-                'post_status'    => 'publish',
-                'orderby'        => 'modified',
-                'order'          => 'DESC',
-            );
-            return get_posts( $args );
         }
 
         /**
@@ -290,7 +283,7 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
          * Add up to 10 Oxygen Footer templates (child nodes)
          */
         private function add_footers_to_admin_bar( $wp_admin_bar ) {
-            $footers = $this->get_oxygen_footers();
+            $footers = $this->get_oxygen_template_type( 'oxygen_footer' );
 
             if ( $footers ) {
                 foreach ( $footers as $footer ) {
@@ -304,20 +297,6 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                     ) );
                 }
             }
-        }
-
-        /**
-         * Get Oxygen Footer templates. Helper function.
-         */
-        private function get_oxygen_footers() {
-            $args = array(
-                'post_type'      => 'oxygen_footer',
-                'posts_per_page' => 10,
-                'post_status'    => 'publish',
-                'orderby'        => 'modified',
-                'order'          => 'DESC',
-            );
-            return get_posts( $args );
         }
 
         /**
@@ -338,7 +317,7 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
          * Add up to 10 Oxygen Components templates (child nodes)
          */
         private function add_components_to_admin_bar( $wp_admin_bar ) {
-            $blocks = $this->get_oxygen_components();
+            $blocks = $this->get_oxygen_template_type( 'oxygen_block' );
 
             if ( $blocks ) {
                 foreach ( $blocks as $block ) {
@@ -352,20 +331,6 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                     ) );
                 }
             }
-        }
-
-        /**
-         * Get Oxygen Components. Helper function.
-         */
-        private function get_oxygen_components() {
-            $args = array(
-                'post_type'      => 'oxygen_block',
-                'posts_per_page' => 10,
-                'post_status'    => 'publish',
-                'orderby'        => 'modified',
-                'order'          => 'DESC',
-            );
-            return get_posts( $args );
         }
 
         /**
