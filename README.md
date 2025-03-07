@@ -43,10 +43,10 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 ## Custom Tweaks via Constants
 
 #### 1) Default capability (aka permission)
-The intended usage of this plugin is for Administrator users only. Therefore the default capability to see the new Admin Bar node is set to `activate_plugins`. You can change this via the constant OQN_VIEW_CAPABILITY – define that via wp-config.php or via a Code Snippet plugin: `define( 'OQN_VIEW_CAPABILITY', 'edit_posts' );`
+The intended usage of this plugin is for Administrator users only. Therefore the default capability to see the new Admin Bar node is set to `activate_plugins`. You can change this via the constant `OQN_VIEW_CAPABILITY` – define that via wp-config.php or via a Code Snippet plugin: `define( 'OQN_VIEW_CAPABILITY', 'edit_posts' );`
 
 #### 2) Name of main menu item
-The default is just "Oxy" – catchy and short. However, if you don't enjoy "Oxy" you can tweak that also via the constant OQN_NAME_IN_ADMINBAR – define that also via wp-config.php or via a Code Snippet plugin: `define( 'OQN_NAME_IN_ADMINBAR', 'Oxygen Nav' );`
+The default is just "Oxy" – catchy and short. However, if you don't enjoy "Oxy" you can tweak that also via the constant `OQN_NAME_IN_ADMINBAR` – define that also via wp-config.php or via a Code Snippet plugin: `define( 'OQN_NAME_IN_ADMINBAR', 'Oxygen Nav' );`
 
 #### 3) Default icon of main menu item 
 The blue-ish default logo icon is awesome but a bit too dark-ish for my taste – at least within the Admin Bar. Therefore I pull in the builder icon intended for dark mode (light logo on dark background). If that is not there for whatever reason it pulls in the blue original icon (in local plugin folder). You can also tweak that via a constant in wp-config.php or via a Code Snippets plugin: `define( 'OQN_ICON', 'blue' );`
