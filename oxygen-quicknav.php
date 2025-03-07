@@ -86,7 +86,7 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
             $icon_path  = trailingslashit( WP_PLUGIN_DIR ) . $oxy_builder_icon;
             $icon_url   = file_exists( $icon_path ) ? plugins_url( $oxy_builder_icon, dirname( __FILE__ ) ) : $oxy_packaged_icon;
             $icon_url   = ( defined( 'OQN_ICON' ) && 'blue' === OQN_ICON ) ? $oxy_packaged_icon : $icon_url;
-            $title_html = '<img src="' . esc_url( $icon_url ) . '" style="display:inline-block;padding-right:6px;vertical-align:middle;width:16px;height:16px;" alt="">' . $oqn_name;
+            $title_html = '<img src="' . esc_url( $icon_url ) . '" style="display:inline-block;padding-right:6px;padding-bottom:3px;vertical-align:middle;width:15px;height:15px;" alt="">' . $oqn_name;
             $title_html = wp_kses( $title_html, array(
                 'img' => array(
                     'src'   => array(),
