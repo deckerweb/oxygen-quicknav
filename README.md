@@ -15,8 +15,6 @@ The **Oxygen QuickNav** plugin adds a quick-access navigator to the WordPress Ad
 
 If you find this project helpful, consider showing your support by buying me a coffee! Your contribution helps me keep developing and improving this plugin.
 
-[![Buy me a coffee](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://buymeacoffee.com/daveshine)
-
 Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through the following options:
 
 - [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W81BNTZE)
@@ -44,16 +42,16 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 
 ## Custom Tweaks via Constants
 
-#### 1) Default capability (aka permission)
+### 1) Default capability (aka permission)
 The intended usage of this plugin is for Administrator users only. Therefore the default capability to see the new Admin Bar node is set to `activate_plugins`. You can change this via the constant `OQN_VIEW_CAPABILITY` – define that via wp-config.php or via a Code Snippet plugin: `define( 'OQN_VIEW_CAPABILITY', 'edit_posts' );`
 
-#### 2) Name of main menu item
+### 2) Name of main menu item
 The default is just "Oxy" – catchy and short. However, if you don't enjoy "Oxy" you can tweak that also via the constant `OQN_NAME_IN_ADMINBAR` – define that also via wp-config.php or via a Code Snippet plugin: `define( 'OQN_NAME_IN_ADMINBAR', 'Oxygen Nav' );`
 
-#### 3) Default icon of main menu item 
+### 3) Default icon of main menu item 
 The blue-ish default logo icon is awesome but a bit too dark-ish for my taste – at least within the Admin Bar. Therefore I pull in the builder icon intended for dark mode (light logo on dark background). If that is not there for whatever reason it pulls in the blue original icon (in local plugin folder). You can also tweak that via a constant in wp-config.php or via a Code Snippets plugin: `define( 'OQN_ICON', 'blue' );`
 
-#### 4) Disable footer items (Links & About)
+### 4) Disable footer items (Links & About)
 To disable these menu items, just use another constant in wp-config.php or via a Code Snippets plugin: `define( 'OQN_DISABLE_FOOTER', 'yes' );`
 
 ---
