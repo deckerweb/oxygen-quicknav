@@ -61,6 +61,7 @@ To disable these menu items, just use another constant in wp-config.php or via a
 ### 1.0.0
 - Initial release
 - Includes support for "Breakdance Migration Mode" (official add-on) which also works with Oxygen 6+ (!!)
+- Includes support for "Yabe Webfont" plugin (third-party; free & Pro version!)
 - Includes support for "WPSix Exporter" plugin (third-party)
 - _Note:_ Forked from "Breakdance Navigator" v1.0.1 by Peter Kulcsár (licensed GPL v2 or later)
 
@@ -80,4 +81,4 @@ _Most of all:_ Have fun building great Oxygen 6+ powered sites!!! ;-)
 
 ## Fork
 
-_Note:_ This plugin was originally developed by Peter Kulcsár under the name "Breakdance Navigator". Since it is licensed GPL v2 or later, I decided to fork it to aadapt it for Oxygen Builder v6+ and tweak some things. – Special thanks to the original author for his great work!
+_Note:_ This plugin was originally developed by [Peter Kulcsár](https://github.com/beamkiller) under the name ["Breakdance Navigator"](https://github.com/beamkiller/breakdance-navigator). Since it is licensed GPL v2 or later, I decided to fork it to aadapt it for Oxygen Builder v6+ and tweak some things. – Special thanks to the original author for his great work!

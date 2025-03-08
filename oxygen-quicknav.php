@@ -110,6 +110,7 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
             $this->add_components_submenu( $wp_admin_bar );
             $this->add_settings_submenu( $wp_admin_bar );
             $this->add_plugin_support_group( $wp_admin_bar );  // group node
+            $this->add_yabe_webfont_submenu( $wp_admin_bar );
             $this->add_wpsix_exporter_submenu( $wp_admin_bar );
             $this->add_footer_group( $wp_admin_bar );  // group node
             $this->add_links_submenu( $wp_admin_bar );
@@ -295,8 +296,8 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                         'href'   => esc_url( $edit_link ),
                         'parent' => 'oqn-footers',
                     ) );
-                }
-            }
+                }  // end foreach
+            }  // end if
         }
 
         /**
@@ -329,8 +330,8 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                         'href'   => esc_url( $edit_link ),
                         'parent' => 'oqn-components',
                     ) );
-                }
-            }
+                }  // end foreach
+            }  // end if
         }
 
         /**
@@ -385,6 +386,21 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                 'id'     => 'oqn-plugins',
                 'parent' => 'ddw-oxygen-quicknav',
             ) );
+        }
+ 
+        /**
+         * Add Yabe Webfont (free & Pro) submenu if the plugin is active
+         */
+        private function add_yabe_webfont_submenu( $wp_admin_bar ) {
+        
+            if ( class_exists( '\Yabe\Webfont\Plugin' ) ) {
+                $wp_admin_bar->add_node( array(
+                    'id'     => 'oqn-yabe-webfont',
+                    'title'  => esc_html__( 'Yabe Webfont', 'oxygen-quicknav' ),
+                    'href'   => esc_url( admin_url( 'themes.php?page=yabe_webfont' ) ),
+                    'parent' => 'oqn-plugins',
+                ) );
+            }
         }
         
         /**
