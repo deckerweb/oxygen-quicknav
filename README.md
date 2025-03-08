@@ -5,6 +5,7 @@ The **Oxygen QuickNav** plugin adds a quick-access navigator to the WordPress Ad
 ### Tested Compatibility
 - **Oxygen**: 6.0.0 Beta
 - **WPSix Exporter**: 1.0.8
+- **Yabe Webfont** 1.0.70 / 2.0.70
 - **WordPress**: 6.7.2
 - **PHP**: 8.3+
 
