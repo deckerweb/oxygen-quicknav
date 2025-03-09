@@ -11,3 +11,12 @@ node_modules/
 .DS_Store
 .idea/
 .DS_Store
+
+# GitHub
+.nova/
+.github/
+.git/
+.gitattributes
+.gitignore
+_config.yml
+assets-github/

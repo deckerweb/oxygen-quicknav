@@ -479,7 +479,7 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                     'parent' => 'oqn-links',
                     'meta'   => array( 'target' => '_blank' ),
                 ) );
-            }
+            }  // end foreach
         }
 
         /**
@@ -502,9 +502,9 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                     'title' => __( 'Plugin on GitHub', 'oxygen-quicknav' ),
                     'url'   => 'https://github.com/deckerweb/oxygen-quicknav',
                 ),
-                'buymeacoffee' => array(
+                'kofi' => array(
                     'title' => __( 'Buy Me a Coffee', 'oxygen-quicknav' ),
-                    'url'   => 'https://buymeacoffee.com/daveshine',
+                    'url'   => 'https://ko-fi.com/deckerweb',
                 ),
             );
 
@@ -516,10 +516,10 @@ if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) {
                     'parent' => 'oqn-about',
                     'meta'   => array( 'target' => '_blank' ),
                 ) );
-            }
+            }  // end foreach
         }
-    }
+    }  // end of class
 
     new DDW_Oxygen_QuickNav();
     
-}  // end of class
+}  // end if

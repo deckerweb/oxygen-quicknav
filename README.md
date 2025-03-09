@@ -1,6 +1,8 @@
 # Oxygen QuickNav (Oxygen 6+)
 
-The **Oxygen QuickNav** plugin adds a quick-access navigator to the WordPress Admin Bar (Toolbar). It allows easy access to Oxygen Builder Templates, Headers, Footers, Global Blocks, Popups, and (regular WordPress) Pages edited with Oxygen, along with other essential settings. – NOTE: This plugin is for Oxygen 6+ only (first released in February of 2025)!
+![Oxygen QuickNav plugin in action](https://raw.githubusercontent.com/deckerweb/oxygen-quicknav/master/assets-github/oxygen-quicknav-screenshot.png)
+
+The **Oxygen QuickNav** plugin adds a quick-access navigator to the WordPress Admin Bar (Toolbar). It allows easy access to Oxygen Builder Templates, Headers, Footers, Components, and (regular WordPress) Pages edited with Oxygen, along with other essential settings. – _NOTE:_ This plugin is **for Oxygen 6+ only** (first released in February of 2025)!
 
 ### Tested Compatibility
 - **Oxygen**: 6.0.0 Beta
@@ -8,6 +10,10 @@ The **Oxygen QuickNav** plugin adds a quick-access navigator to the WordPress Ad
 - **Yabe Webfont** 1.0.70 / 2.0.70
 - **WordPress**: 6.7.2
 - **PHP**: 8.3+
+
+---
+
+[Support Project](#support-the-project) | [Installation](#installation) | [How Plugin Works](#how-this-plugin-works) | [Custom Tweaks](#custom-tweaks) | [Changelog](#changelog--releases) | [Plugin Scope / Disclaimer](#plugin-scope--disclaimer) | [Fork](#fork)
 
 ---
 
@@ -24,10 +30,10 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 
 ## Installation
 
-1. Click the `Code` button above and select `Download ZIP` to download the plugin.
-2. In your WordPress admin dashboard, go to **Plugins** > **Add New**, then click on `Upload Plugin` and select the downloaded ZIP file.
-3. Activate the plugin.
-4. Once activated, you’ll see the **Oxy** menu item in the Admin Bar.
+**Quick Install**
+1. Download [oxygen-quicknav.zip](https://github.com/deckerweb/oxygen-quicknav/releases/latest/download/oxygen-quicknav.zip)
+2. Upload via WordPress Plugins > Add New > Upload Plugin
+3. Once activated, you’ll see the **Oxy** menu item in the Admin Bar.
 
 ---
 
@@ -56,7 +62,7 @@ To disable these menu items, just use another constant in wp-config.php or via a
 
 ---
 
-## Changelog
+## Changelog / Releases
 
 ### 1.0.0
 - Initial release
