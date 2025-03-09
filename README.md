@@ -41,7 +41,7 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 
 1. **Pages, Templates, Headers, Footers, Components**: Displays up to 10 items, ordered by the last modified date (descending). The "Pages" menu only shows pages built with Oxygen by checking the `_oxygen_data` custom field.
 2. **Settings**: Direct links to relevant sections.
-3. **Additional Links**: Includes links to resources like the Breakdance website and Facebook group. Some may contain affiliate links.
+3. **Additional Links**: Includes links to resources like the Oxygen website and Facebook group. Some may contain affiliate links.
 4. **About**: Includes links to the plugin author.
 
 ---
