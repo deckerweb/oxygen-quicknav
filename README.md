@@ -88,3 +88,7 @@ _Most of all:_ Have fun building great Oxygen 6+ powered sites!!! ;-)
 ## Fork
 
 _Note:_ This plugin was originally developed by [Peter Kulcsár](https://github.com/beamkiller) under the name ["Breakdance Navigator"](https://github.com/beamkiller/breakdance-navigator). Since it is licensed GPL v2 or later, I decided to fork it to aadapt it for Oxygen Builder v6+ and tweak some things. – Special thanks to the original author for his great work!
+
+---
+
+Copyright © 2025 David Decker – DECKERWEB.de
