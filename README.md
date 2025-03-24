@@ -25,13 +25,15 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 
 - [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W81BNTZE)
 - [Buy me a coffee](https://buymeacoffee.com/daveshine)
+- [PayPal donation](https://paypal.me/deckerweb)
+- [Join my **newsletter** for DECKERWEB WordPress Plugins](https://eepurl.com/gbAUUn)
 
 ---
 
 ## Installation
 
-**Quick Install**
-1. Download [oxygen-quicknav.zip](https://github.com/deckerweb/oxygen-quicknav/releases/latest/download/oxygen-quicknav.zip)
+**Quick Install:**
+1. **Download ZIP:** [**oxygen-quicknav.zip**](https://github.com/deckerweb/oxygen-quicknav/releases/latest/download/oxygen-quicknav.zip)
 2. Upload via WordPress Plugins > Add New > Upload Plugin
 3. Once activated, you’ll see the **Oxy** menu item in the Admin Bar.
 
@@ -91,4 +93,6 @@ _Note:_ This plugin was originally developed by [Peter Kulcsár](https://github.
 
 ---
 
-Copyright © 2025 David Decker – DECKERWEB.de
+Icon used in promo graphics: © Remix Icon
+
+Readme & Plugin Copyright © 2025 David Decker – DECKERWEB.de
