@@ -32,10 +32,20 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 
 ## Installation
 
-**Quick Install:**
+**Quick Install – as Plugin:**
 1. **Download ZIP:** [**oxygen-quicknav.zip**](https://github.com/deckerweb/oxygen-quicknav/releases/latest/download/oxygen-quicknav.zip)
-2. Upload via WordPress Plugins > Add New > Upload Plugin
-3. Once activated, you’ll see the **Oxy** menu item in the Admin Bar.
+2. Upload dd
+**Alternative: Use as Code Snippet**
+1. Below, download the appropriate snippet version
+2. activate or deactivate in your snippets plugin
+
+[**Download .json**](https://github.com/deckerweb/oxygen-quicknav/releases/latest/download/ddw-oxygen-quicknav.code-snippets.json) version for: _Code Snippets_ (free & Pro), _Advanced Scripts_ (Premium), _Scripts Organizer_ (Premium)
+--> just use their elegant script import features
+--> in _Scripts Organizer_ use the "Code Snippets Import"
+
+For all other snippet manager plugins just use our plugin's main .php file [`shortcode-item-updated.php`](https://github.com/deckerweb/oxygen-quicknav/blob/master/oxygen-quicknav.php) and use its content as snippet (bevor saving your snippet: please check for your plugin if the opening php tag needs to be removed or not!).
+
+--> Please decide for one of both alternatives!
 
 ---
 
@@ -51,27 +61,34 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 ## Custom Tweaks via Constants
 
 ### 1) Default capability (aka permission)
-The intended usage of this plugin is for Administrator users only. Therefore the default capability to see the new Admin Bar node is set to `activate_plugins`. You can change this via the constant `OQN_VIEW_CAPABILITY` – define that via wp-config.php or via a Code Snippet plugin: `define( 'OQN_VIEW_CAPABILITY', 'edit_posts' );`
+The intended usage of this plugin is for Administrator users only. Therefore the default capability to see the new Admin Bar node is set to `activate_plugins`. You can change this via the constant `OQN_VIEW_CAPABILITY` – define that via `wp-config.php` or via a Code Snippet plugin: `define( 'OQN_VIEW_CAPABILITY', 'edit_posts' );`
 
 ### 2) Name of main menu item
-The default is just "Oxy" – catchy and short. However, if you don't enjoy "Oxy" you can tweak that also via the constant `OQN_NAME_IN_ADMINBAR` – define that also via wp-config.php or via a Code Snippet plugin: `define( 'OQN_NAME_IN_ADMINBAR', 'Oxygen Nav' );`
+The default is just "Oxy" – catchy and short. However, if you don't enjoy "Oxy" you can tweak that also via the constant `OQN_NAME_IN_ADMINBAR` – define that also via `wp-config.php` or via a Code Snippet plugin: `define( 'OQN_NAME_IN_ADMINBAR', 'Oxygen Nav' );`
 
 ### 3) Default icon of main menu item 
-The blue-ish default logo icon is awesome but a bit too dark-ish for my taste – at least within the Admin Bar. Therefore I pull in the builder icon intended for dark mode (light logo on dark background). If that is not there for whatever reason it pulls in the blue original icon (in local plugin folder). You can also tweak that via a constant in wp-config.php or via a Code Snippets plugin: `define( 'OQN_ICON', 'blue' );`
+The blue-ish default logo icon is awesome but a bit too dark-ish for my taste – at least within the Admin Bar. Therefore I pull in the builder icon intended for dark mode (light logo on dark background). If that is not there for whatever reason it pulls in the blue original icon (in local plugin folder). You can also tweak that via a constant in `wp-config.php` or via a Code Snippets plugin: `define( 'OQN_ICON', 'blue' );`
 
 ### 4) Disable footer items (Links & About)
-To disable these menu items, just use another constant in wp-config.php or via a Code Snippets plugin: `define( 'OQN_DISABLE_FOOTER', 'yes' );`
+To disable these menu items, just use another constant in `wp-config.php` or via a Code Snippets plugin: `define( 'OQN_DISABLE_FOOTER', 'yes' );`
 
 ---
 
-## Changelog / Releases
+## [Changelog / Releases](https://github.com/deckerweb/oxygen-quicknav/releases)
 
-### 1.0.0
-- Initial release
-- Includes support for "Breakdance Migration Mode" (official add-on) which also works with Oxygen 6+ (!!)
-- Includes support for "Yabe Webfont" plugin (third-party; free & Pro version!)
-- Includes support for "WPSix Exporter" plugin (third-party)
-- _Note:_ Forked from "Breakdance Navigator" v1.0.1 by Peter Kulcsár (licensed GPL v2 or later)
+### 🎉 v1.1.0 – 2025-03-??
+* New: Show Admin Bar also in Block Editor full screen mode
+* New: Add info to Site Health Debug, useful for our constants for custom tweaking
+* New: Added `.pot` file (to translate plugin into your language), plus packaged German translations
+* Plugin: Add meta links on WP Plugins page
+* Alternate install: Use "plugin" as Code Snippet version
+
+### 🎉 v1.0.0 – 2025-03-09
+* Initial release
+* Includes support for "Breakdance Migration Mode" (official add-on) which also works with Oxygen 6+ (!!)
+* Includes support for "Yabe Webfont" plugin (third-party; free & Pro version!)
+* Includes support for "WPSix Exporter" plugin (third-party)
+* _Note:_ Forked from "Breakdance Navigator" v1.0.1 by Peter Kulcsár (licensed GPL v2 or later)
 
 ---
 
@@ -92,6 +109,8 @@ _Most of all:_ Have fun building great Oxygen 6+ powered sites!!! ;-)
 _Note:_ This plugin was originally developed by [Peter Kulcsár](https://github.com/beamkiller) under the name ["Breakdance Navigator"](https://github.com/beamkiller/breakdance-navigator). Since it is licensed GPL v2 or later, I decided to fork it to aadapt it for Oxygen Builder v6+ and tweak some things. – Special thanks to the original author for his great work!
 
 ---
+
+Official _Oxygen_ product logo icon: © Soflyy
 
 Icon used in promo graphics: © Remix Icon
 
