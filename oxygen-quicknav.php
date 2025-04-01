@@ -3,23 +3,28 @@
 Forked from "Breakdance Navigator" by Peter Kulcsár
 License: GPL v2 or later
 GitHub Repository: https://github.com/beamkiller/breakdance-navigator
+Original Copyright: © 2024, Peter Kulcsár
 */
  
 /*
-Plugin Name:  Oxygen QuickNav
-Plugin URI:   https://github.com/deckerweb/oxygen-quicknav
-Description:  Adds a quick-access navigator to the WordPress Admin Bar (Toolbar). It allows easy access to Oxygen Templates, Headers, Footers, Components, and Pages edited with Oxygen, along with some other essential settings. For Oxygen 6+ only!
-Version:      1.1.0
-Author:       David Decker – DECKERWEB
-Author URI:   https://deckerweb.de/
-Text Domain:  oxygen-quicknav
-License:      GPL v2 or later
-License URI:  https://www.gnu.org/licenses/gpl-2.0.html
-Requires WP:  6.7
-Requires PHP: 7.4
+Plugin Name:        Oxygen QuickNav
+Plugin URI:         https://github.com/deckerweb/oxygen-quicknav
+Description:        Adds a quick-access navigator to the WordPress Admin Bar (Toolbar). It allows easy access to Oxygen Templates, Headers, Footers, Components, and Pages edited with Oxygen, along with some other essential settings. For Oxygen 6+ only!
+Project:            Code Snippet: DDW Oxygen QuickNav
+Version:            1.1.0
+Author:             David Decker – DECKERWEB
+Author URI:         https://deckerweb.de/
+Text Domain:        oxygen-quicknav
+Domain Path:        /languages/
+License:            GPL-2.0-or-later
+License URI:        https://www.gnu.org/licenses/gpl-2.0.html
+Requires WP:        6.7
+Requires PHP:       7.4
+GitHub Plugin URI:  deckerweb/oxygen-quicknav
+GitHub Branch:      master
 
-Original Copyright: © 2024 Peter Kulcsár
-Copyright:    © 2025 David Decker – DECKERWEB
+Original Copyright: © 2024, Peter Kulcsár
+Copyright:          © 2025, David Decker – DECKERWEB
 
 TESTED WITH:
 Product			Versions
@@ -32,8 +37,9 @@ Oxygen 6+	    6.0.0 Beta
 VERSION HISTORY:
 Date        Version     Description
 --------------------------------------------------------------------------------------------------------------
-2025-03-??	1.1.0       New: Show Admin Bar also in Block Editor full screen mode
+2025-04-??	1.1.0       New: Show Admin Bar also in Block Editor full screen mode
                         New: Add info to Site Health Debug, useful for our constants for custom tweaking
+                        New: Installable and updateable via Git Updater plugin
 2025-03-09	1.0.0	    Initial release
 2025-03-07	0.5.0       Internal test version
 2025-03-07	0.0.0	    Development start
@@ -43,13 +49,13 @@ Date        Version     Description
 /** Prevent direct access */
 if ( ! defined( 'ABSPATH' ) ) exit;  // Exit if accessed directly.
 
-
 if ( ! class_exists( 'DDW_Oxygen_QuickNav' ) ) :
 
 class DDW_Oxygen_QuickNav {
-
+    
     /** Class constants & variables */
     private const VERSION = '1.1.0';
+    private const NUMBER_OF_TEMPLATES = 20;
     
     /**
      * Constructor
@@ -132,6 +138,7 @@ class DDW_Oxygen_QuickNav {
          * Depending on user color scheme get proper base and hover color values for the main item (svg) icon.
          */
         $user_color_scheme = get_user_option( 'admin_color' );
+        $user_color_scheme = is_network_admin() ? $user_color_scheme : 'fresh';
         $admin_scheme      = $this->get_scheme_colors();
         
         $base_color  = $admin_scheme[ $user_color_scheme ][ 'base' ];
@@ -144,6 +151,15 @@ class DDW_Oxygen_QuickNav {
                 border-bottom: 1px dashed rgba(255, 255, 255, 0.33);
                 padding-bottom: 5px;
             }
+            
+            /* for icons */
+            #wpadminbar .has-icon .icon-svg svg {
+                display: inline-block;
+                margin-bottom: 3px;
+                vertical-align: middle;
+                width: 16px;
+                height: 16px;
+            }
             '
         );
         
@@ -153,11 +169,57 @@ class DDW_Oxygen_QuickNav {
     }
 
     /**
+     * Number of templates/pages to query for. Can be tweaked via constant.
+     *   (Helper function)
+     *
+     * @return int Number of templates.
+     */
+    private function number_of_templates() {
+            
+        $number_of_templates = defined( 'OQN_NUMBER_TEMPLATES' ) ? (int) OQN_NUMBER_TEMPLATES : self::NUMBER_OF_TEMPLATES;
+        
+        return $number_of_templates;
+    }
+    
+    /**
+     * Get items of a Breakdance template type. (Helper function)
+     *
+     * @uses get_posts()
+     *
+     * @param string $post_type Slug of post type to query for.
+     */
+    private function get_oxygen_template_type( $post_type ) {
+        
+        /** only Oxygen-edited pages have the key: '_breakdance_data' */
+        $pages_meta_query = ( 'page' === $post_type ) ? [ 'key' => '_oxygen_data', 'compare' => 'EXISTS' ] : [];
+            
+        $args = array(
+            'post_type'      => sanitize_key( $post_type ),
+            'posts_per_page' => absint( $this->number_of_templates() ),
+            'post_status'    => 'publish',
+            'orderby'        => 'modified',
+            'order'          => 'DESC',
+            'meta_query'     => [ $pages_meta_query ],  // optional
+        );
+        
+        apply_filters( 'ddw/quicknav/oxy_get_template_type', $args, $post_type );
+        
+        return get_posts( $args );
+    }
+    
+    /**
      * Adds the main Oxygen menu and its submenus to the Admin Bar.
      *
      * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar instance.
      */
     public function add_admin_bar_menu( $wp_admin_bar ) {
+        
+        $enabled_users = defined( 'OQN_ENABLED_USERS' ) ? (array) OQN_ENABLED_USERS : [];
+        
+        /** Optional: let only defined user IDs access the plugin */
+        if ( defined( 'OQN_ENABLED_USERS' ) && ! in_array( get_current_user_id(), $enabled_users ) ) {
+            return;
+        }
         
         /** Don't do anything if Oxygen Builder v6+ plugin is NOT active */
         if ( ! defined( 'BREAKDANCE_MODE' ) && 'oxygen' !== BREAKDANCE_MODE ) return;
@@ -195,46 +257,46 @@ class DDW_Oxygen_QuickNav {
             'href'  => '#',
         ) );
 
-        /** Add submenus */
+        /** Add submenus (all group nodes!) */
+        $this->add_templates_group( $wp_admin_bar );
+        $this->add_settings_group( $wp_admin_bar );
+        $this->add_plugin_support_group( $wp_admin_bar );
+        $this->add_footer_group( $wp_admin_bar );
+    }
+
+    /**
+     * Add group node for Oxygen-edited Pages and all Oxygen Template types.
+     */
+    private function add_templates_group( $wp_admin_bar ) {
+        $wp_admin_bar->add_group( array(
+            'id'     => 'oqn-group-templates',
+            'parent' => 'ddw-oxygen-quicknav',
+        ) );
+        
         $this->add_pages_submenu( $wp_admin_bar );
         $this->add_templates_submenu( $wp_admin_bar );
         $this->add_headers_submenu( $wp_admin_bar );
         $this->add_footers_submenu( $wp_admin_bar );
         $this->add_components_submenu( $wp_admin_bar );
-        $this->add_settings_submenu( $wp_admin_bar );
-        $this->add_plugin_support_group( $wp_admin_bar );  // group node
-        $this->add_yabe_webfont_submenu( $wp_admin_bar );
-        $this->add_wpsix_exporter_submenu( $wp_admin_bar );
-        $this->add_footer_group( $wp_admin_bar );  // group node
-        $this->add_links_submenu( $wp_admin_bar );
-        $this->add_about_submenu( $wp_admin_bar );
     }
-
+    
     /**
-     * Add Pages submenu (just regular WordPress Pages)
-     * NOTE: This sets the parent item; no Oxygen related stuff here, yet.
+     * Add Oxygen-edited Pages submenu (just regular WordPress Pages).
      */
     private function add_pages_submenu( $wp_admin_bar ) {
         $wp_admin_bar->add_node( array(
             'id'     => 'oqn-pages',
             'title'  => esc_html__( 'Pages', 'oxygen-quicknav' ),
             'href'   => esc_url( admin_url( 'edit.php?post_type=page' ) ),
-            'parent' => 'ddw-oxygen-quicknav',
+            'parent' => 'oqn-group-templates',
         ) );
 
-        $this->add_oxygen_pages_to_admin_bar( $wp_admin_bar );
-    }
-
-    /**
-     * Add up to 10 Oxygen-edited Pages
-     */
-    private function add_oxygen_pages_to_admin_bar( $wp_admin_bar ) {
-        $oxy_pages = $this->get_oxygen_pages();
-
+        $oxy_pages = $this->get_oxygen_template_type( 'page' );
+        
         if ( $oxy_pages ) {
             foreach ( $oxy_pages as $oxy_page ) {
                 $edit_link = site_url( '/?oxygen=builder&id=' . intval( $oxy_page->ID ) );
-
+        
                 $wp_admin_bar->add_node( array(
                     'id'     => 'oqn-page-' . intval( $oxy_page->ID ),
                     'title'  => esc_html( $oxy_page->post_title ),
@@ -244,77 +306,29 @@ class DDW_Oxygen_QuickNav {
             }  // end foreach
         }  // end if
     }
-
-    /**
-     * Get all Oxygen-edited Pages. Helper function.
-     */
-    private function get_oxygen_pages() {
-        $args = array(
-            'post_type'      => 'page',
-            'posts_per_page' => 10,
-            'post_status'    => 'publish',
-            'orderby'        => 'modified',
-            'order'          => 'DESC',
-            'meta_query'     => array(
-                array(
-                    'key'     => '_oxygen_data',  // only Oxy-edited pages have that
-                    'compare' => 'EXISTS',
-                ),
-            ),
-        );
-        return get_posts( $args );
-    }
-
-    /**
-     * Get items of a Oxygen 6+ template type. Helper function.
-     *
-     * @uses get_posts()
-     *
-     * @param string $post_type Slug of post type to query for.
-     */
-    private function get_oxygen_template_type( $post_type ) {
-        $args = array(
-            'post_type'      => sanitize_key( $post_type ),
-            'posts_per_page' => 10,
-            'post_status'    => 'publish',
-            'orderby'        => 'modified',
-            'order'          => 'DESC',
-        );
-        
-        apply_filters( 'ddw/quicknav/oxy_get_template_type', $args, $post_type );
-        
-        return get_posts( $args );
-    }
     
     /**
-     * Add Oxygen Templates submenu (parent node)
+     * Add Oxygen Templates submenu.
      */
     private function add_templates_submenu( $wp_admin_bar ) {
         $wp_admin_bar->add_node( array(
             'id'     => 'oqn-templates',
             'title'  => esc_html__( 'Templates', 'oxygen-quicknav' ),
             'href'   => esc_url( admin_url( 'admin.php?page=oxygen_template' ) ),
-            'parent' => 'ddw-oxygen-quicknav',
+            'parent' => 'oqn-group-templates',
         ) );
 
-        $this->add_templates_to_admin_bar( $wp_admin_bar );
-    }
-
-    /**
-     * Add up to 10 Oxygen Templates (child nodes)
-     */
-    private function add_templates_to_admin_bar( $wp_admin_bar ) {
         $templates = $this->get_oxygen_template_type( 'oxygen_template' );
-
+        
         if ( $templates ) {
             foreach ( $templates as $template ) {
                 /** Skip the internal Oxy Fallback templates */
                 if ( strpos( $template->post_title, 'Fallback: ' ) === 0 ) {
                     continue;
                 }
-
+        
                 $edit_link = site_url( '/?oxygen=builder&id=' . intval( $template->ID ) );
-
+        
                 $wp_admin_bar->add_node( array(
                     'id'     => 'oqn-template-' . intval( $template->ID ),
                     'title'  => esc_html( $template->post_title ),
@@ -326,29 +340,22 @@ class DDW_Oxygen_QuickNav {
     }
 
     /**
-     * Add Oxygen Headers submenu (parent node)
+     * Add Oxygen Headers submen.
      */
     private function add_headers_submenu( $wp_admin_bar ) {
         $wp_admin_bar->add_node( array(
             'id'     => 'oqn-headers',
             'title'  => esc_html__( 'Headers', 'oxygen-quicknav' ),
             'href'   => esc_url( admin_url( 'admin.php?page=oxygen_header' ) ),
-            'parent' => 'ddw-oxygen-quicknav',
+            'parent' => 'oqn-group-templates',
         ) );
 
-        $this->add_headers_to_admin_bar( $wp_admin_bar );
-    }
-
-    /**
-     * Add up to 10 Oxygen Header templates (child nodes)
-     */
-    private function add_headers_to_admin_bar( $wp_admin_bar ) {
         $headers = $this->get_oxygen_template_type( 'oxygen_header' );
-
+        
         if ( $headers ) {
             foreach ( $headers as $header ) {
                 $edit_link = site_url( '/?oxygen=builder&id=' . intval( $header->ID ) );
-
+        
                 $wp_admin_bar->add_node( array(
                     'id'     => 'oqn-header-' . intval( $header->ID ),
                     'title'  => esc_html( $header->post_title ),
@@ -360,29 +367,22 @@ class DDW_Oxygen_QuickNav {
     }
 
     /**
-     * Add Oxygen Footers submenu (parent node)
+     * Add Oxygen Footers submenu.
      */
     private function add_footers_submenu( $wp_admin_bar ) {
         $wp_admin_bar->add_node( array(
             'id'     => 'oqn-footers',
             'title'  => esc_html__( 'Footers', 'oxygen-quicknav' ),
             'href'   => esc_url( admin_url( 'admin.php?page=oxygen_footer' ) ),
-            'parent' => 'ddw-oxygen-quicknav',
+            'parent' => 'oqn-group-templates',
         ) );
 
-        $this->add_footers_to_admin_bar( $wp_admin_bar );
-    }
-
-    /**
-     * Add up to 10 Oxygen Footer templates (child nodes)
-     */
-    private function add_footers_to_admin_bar( $wp_admin_bar ) {
         $footers = $this->get_oxygen_template_type( 'oxygen_footer' );
-
+        
         if ( $footers ) {
             foreach ( $footers as $footer ) {
                 $edit_link = site_url( '/?oxygen=builder&id=' . intval( $footer->ID ) );
-
+        
                 $wp_admin_bar->add_node( array(
                     'id'     => 'bdn-footer-' . intval( $footer->ID ),
                     'title'  => esc_html( $footer->post_title ),
@@ -394,29 +394,22 @@ class DDW_Oxygen_QuickNav {
     }
 
     /**
-     * Add Oxygen Components submenu (parent node)
+     * Add Oxygen Components submenu.
      */
     private function add_components_submenu( $wp_admin_bar ) {
         $wp_admin_bar->add_node( array(
             'id'     => 'oqn-components',
             'title'  => esc_html__( 'Components', 'oxygen-quicknav' ),
             'href'   => esc_url( admin_url( 'admin.php?page=oxygen_block' ) ),
-            'parent' => 'ddw-oxygen-quicknav',
+            'parent' => 'oqn-group-templates',
         ) );
 
-        $this->add_components_to_admin_bar( $wp_admin_bar );
-    }
-
-    /**
-     * Add up to 10 Oxygen Components templates (child nodes)
-     */
-    private function add_components_to_admin_bar( $wp_admin_bar ) {
         $blocks = $this->get_oxygen_template_type( 'oxygen_block' );
-
+        
         if ( $blocks ) {
             foreach ( $blocks as $block ) {
                 $edit_link = site_url( '/?oxygen=builder&id=' . intval( $block->ID ) );
-
+        
                 $wp_admin_bar->add_node( array(
                     'id'     => 'oqn-component-' . intval( $block->ID ),
                     'title'  => esc_html( $block->post_title ),
@@ -428,15 +421,31 @@ class DDW_Oxygen_QuickNav {
     }
 
     /**
+     * Add group node for actions & settings.
+     */
+    private function add_settings_group( $wp_admin_bar ) {
+        $wp_admin_bar->add_group( array(
+            'id'     => 'oqn-group-settings',
+            'parent' => 'ddw-oxygen-quicknav',
+        ) );
+        
+        //$this->add_actions_submenu( $wp_admin_bar );
+        $this->add_settings_submenu( $wp_admin_bar );
+    }
+    
+    /**
      * Add Oxygen Settings submenu (parent node)
      */
     private function add_settings_submenu( $wp_admin_bar ) {
+        
+        $icon_settings = '<span class="icon-svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5.32943 3.27158C6.56252 2.8332 7.9923 3.10749 8.97927 4.09446C10.1002 5.21537 10.3019 6.90741 9.5843 8.23385L20.293 18.9437L18.8788 20.3579L8.16982 9.64875C6.84325 10.3669 5.15069 10.1654 4.02952 9.04421C3.04227 8.05696 2.7681 6.62665 3.20701 5.39332L5.44373 7.63C6.02952 8.21578 6.97927 8.21578 7.56505 7.63C8.15084 7.04421 8.15084 6.09446 7.56505 5.50868L5.32943 3.27158ZM15.6968 5.15512L18.8788 3.38736L20.293 4.80157L18.5252 7.98355L16.7574 8.3371L14.6361 10.4584L13.2219 9.04421L15.3432 6.92289L15.6968 5.15512ZM8.97927 13.2868L10.3935 14.7011L5.09018 20.0044C4.69966 20.3949 4.06649 20.3949 3.67597 20.0044C3.31334 19.6417 3.28744 19.0699 3.59826 18.6774L3.67597 18.5902L8.97927 13.2868Z"></path></svg></span> ';
+        
         $wp_admin_bar->add_node( array(
             'id'     => 'oqn-settings',
-            'title'  => esc_html__( 'Settings', 'oxygen-quicknav' ),
+            'title'  => $icon_settings . esc_html__( 'Settings', 'oxygen-quicknav' ),
             'href'   => esc_url( admin_url( 'admin.php?page=oxygen_settings' ) ),
-            'parent' => 'ddw-oxygen-quicknav',
-            'meta'   => array( 'class' => 'oxy-settings-separator' ),
+            'parent' => 'oqn-group-settings',
+            'meta'   => array( 'class' => 'has-icon oxy-settings-separator' ),
         ) );
 
         $settings_submenus = array(
@@ -468,7 +477,7 @@ class DDW_Oxygen_QuickNav {
                 'href'   => esc_url( admin_url( 'admin.php?page=oxygen_settings&tab=' . urlencode( $tab ) ) ),
                 'parent' => 'oqn-settings',
             ) );
-        }
+        }  // end foreach
     }
 
     /**
@@ -476,39 +485,35 @@ class DDW_Oxygen_QuickNav {
      */
     private function add_plugin_support_group( $wp_admin_bar ) {
         $wp_admin_bar->add_group( array(
-            'id'     => 'oqn-plugins',
+            'id'     => 'oqn-group-plugins',
             'parent' => 'ddw-oxygen-quicknav',
         ) );
+        
+        $this->maybe_add_plugin_submenus( $wp_admin_bar );
     }
 
     /**
-     * Add Yabe Webfont (free & Pro) submenu if the plugin is active
+     * Add submenus for supported plugins - if they are active.
      */
-    private function add_yabe_webfont_submenu( $wp_admin_bar ) {
-    
+    private function maybe_add_plugin_submenus( $wp_admin_bar ) {
+        
         if ( class_exists( '\Yabe\Webfont\Plugin' ) ) {
             $wp_admin_bar->add_node( array(
                 'id'     => 'oqn-yabe-webfont',
                 'title'  => esc_html__( 'Yabe Webfont', 'oxygen-quicknav' ),
                 'href'   => esc_url( admin_url( 'themes.php?page=yabe_webfont' ) ),
-                'parent' => 'oqn-plugins',
+                'parent' => 'oqn-group-plugins',
             ) );
         }
-    }
-    
-    /**
-     * Add WPSix Exporter submenu if the plugin is active
-     */
-    private function add_wpsix_exporter_submenu( $wp_admin_bar ) {
-    
+        
         if ( defined( 'WPSIX_EXPORTER_URL' ) ) {
             $wp_admin_bar->add_node( array(
                 'id'     => 'oqn-wpsix-exporter',
                 'title'  => esc_html__( 'WPSix Exporter', 'oxygen-quicknav' ),
                 'href'   => esc_url( admin_url( 'admin.php?page=wpsix_exporter' ) ),
-                'parent' => 'oqn-plugins',
+                'parent' => 'oqn-group-plugins',
             ) );
-        }
+        }   
     }
     
     /**
@@ -517,24 +522,32 @@ class DDW_Oxygen_QuickNav {
     private function add_footer_group( $wp_admin_bar ) {
         /** Allows for custom disabling */
         if ( defined( 'OQN_DISABLE_FOOTER' ) && 'yes' === OQN_DISABLE_FOOTER ) {
-            return;
+            return $wp_admin_bar;
         }
         
         $wp_admin_bar->add_group( array(
-            'id'     => 'oqn-footer',
+            'id'     => 'oqn-group-footer',
             'parent' => 'ddw-oxygen-quicknav',
+            'meta'   => array( 'class' => 'ab-sub-secondary' ),
         ) );
+        
+        $this->add_links_submenu( $wp_admin_bar );
+        $this->add_about_submenu( $wp_admin_bar );
     }
     
     /**
      * Add Links submenu
      */
     private function add_links_submenu( $wp_admin_bar ) {
+        
+        $icon = '<span class="icon-svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg></span> ';
+        
         $wp_admin_bar->add_node( array(
             'id'     => 'oqn-links',
-            'title'  => esc_html__( 'Links', 'oxygen-quicknav' ),
+            'title'  => $icon . esc_html__( 'Links', 'oxygen-quicknav' ),
             'href'   => '#',
-            'parent' => 'oqn-footer',
+            'parent' => 'oqn-group-footer',
+            'meta'   => array( 'class' => 'has-icon' ),
         ) );
 
         $links = array(
@@ -570,7 +583,7 @@ class DDW_Oxygen_QuickNav {
                 'title'  => esc_html( $info[ 'title' ] ),
                 'href'   => esc_url( $info[ 'url' ] ),
                 'parent' => 'oqn-links',
-                'meta'   => array( 'target' => '_blank' ),
+                'meta'   => array( 'target' => '_blank', 'rel' => 'nofollow noopener noreferrer' ),
             ) );
         }  // end foreach
     }
@@ -579,11 +592,15 @@ class DDW_Oxygen_QuickNav {
      * Add About submenu
      */
     private function add_about_submenu( $wp_admin_bar ) {
+        
+        $icon = '<span class="icon-svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.841 15.659L18.017 15.836L18.1945 15.659C19.0732 14.7803 20.4978 14.7803 21.3765 15.659C22.2552 16.5377 22.2552 17.9623 21.3765 18.841L18.0178 22.1997L14.659 18.841C13.7803 17.9623 13.7803 16.5377 14.659 15.659C15.5377 14.7803 16.9623 14.7803 17.841 15.659ZM12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.6651 7.44784 14.1355 11.7508 14.0038L12 14ZM12 1C15.315 1 18 3.685 18 7C18 10.2397 15.4357 12.8776 12.225 12.9959L12 13C8.685 13 6 10.315 6 7C6 3.76034 8.56434 1.12237 11.775 1.00414L12 1ZM12 3C9.78957 3 8 4.78957 8 7C8 9.21043 9.78957 11 12 11C14.2104 11 16 9.21043 16 7C16 4.78957 14.2104 3 12 3Z"></path></svg></span> ';
+        
         $wp_admin_bar->add_node( array(
             'id'     => 'oqn-about',
-            'title'  => esc_html__( 'About', 'oxygen-quicknav' ),
+            'title'  => $icon . esc_html__( 'About', 'oxygen-quicknav' ),
             'href'   => '#',
-            'parent' => 'oqn-footer',
+            'parent' => 'oqn-group-footer',
+            'meta'   => array( 'class' => 'has-icon' ),
         ) );
 
         $about_links = array(
@@ -607,7 +624,7 @@ class DDW_Oxygen_QuickNav {
                 'title'  => esc_html( $info[ 'title' ] ),
                 'href'   => esc_url( $info[ 'url' ] ),
                 'parent' => 'oqn-about',
-                'meta'   => array( 'target' => '_blank' ),
+                'meta'   => array( 'target' => '_blank', 'rel' => 'nofollow noopener noreferrer' ),
             ) );
         }  // end foreach
     }
@@ -627,7 +644,7 @@ class DDW_Oxygen_QuickNav {
         
         $bg_color = $admin_scheme[ $user_color_scheme ][ 'bg' ];
         
-        $inline_css = sprintf(
+        $inline_css_block_editor = sprintf(
             '
                 @media (min-width: 600px) {
                     body.is-fullscreen-mode .block-editor__container {
@@ -666,7 +683,26 @@ class DDW_Oxygen_QuickNav {
             sanitize_hex_color( $bg_color )
         );
         
-        wp_add_inline_style( 'wp-block-editor', $inline_css );
+        wp_add_inline_style( 'wp-block-editor', $inline_css_block_editor );
+        
+        $inline_css_edit_site = sprintf(
+            '
+            body.is-fullscreen-mode .edit-site {
+                top: var(--wp-admin--admin-bar--height);
+            }
+            
+            body.is-fullscreen-mode .edit-site-layout__canvas-container {
+                top: calc( var(--wp-admin--admin-bar--height) * -1 );
+            }
+            
+            .edit-site-editor__view-mode-toggle .edit-site-editor__view-mode-toggle-icon img,
+            .edit-site-editor__view-mode-toggle .edit-site-editor__view-mode-toggle-icon svg {
+                    background: %s;
+            }
+            '
+        );
+        
+        wp_add_inline_style( 'wp-edit-site', $inline_css_edit_site );
         
         add_action( 'admin_bar_menu', array( $this, 'remove_adminbar_nodes' ), 999 );
     }
@@ -709,10 +745,14 @@ class DDW_Oxygen_QuickNav {
                     'value' => ( is_multisite() ? esc_html__( 'Multisite install', 'oxygen-quicknav' ) : esc_html__( 'Single Site install', 'oxygen-quicknav' ) ),
                 ),
     
-                /** Breakdance QuickNav constants */
+                /** Oxygen QuickNav constants */
                 'OQN_VIEW_CAPABILITY' => array(
                     'label' => 'OQN_VIEW_CAPABILITY',
                     'value' => ( ! defined( 'OQN_VIEW_CAPABILITY' ) ? $string_undefined : ( OQN_VIEW_CAPABILITY ? $string_enabled : $string_disabled ) ),
+                ),
+                'OQN_ENABLED_USERS' => array(
+                    'label' => 'OQN_ENABLED_USERS',
+                    'value' => ( ! defined( 'OQN_ENABLED_USERS' ) ? $string_undefined : ( OQN_ENABLED_USERS ? $string_enabled . $string_value . implode( ', ', array_map( 'absint', OQN_ENABLED_USERS ) ) : $string_disabled ) ),
                 ),
                 'OQN_NAME_IN_ADMINBAR' => array(
                     'label' => 'OQN_NAME_IN_ADMINBAR',
@@ -721,6 +761,10 @@ class DDW_Oxygen_QuickNav {
                 'OQN_ICON' => array(
                     'label' => 'OQN_ICON',
                     'value' => ( ! defined( 'OQN_ICON' ) ? $string_undefined : ( OQN_ICON ? $string_enabled . $string_value . sanitize_key( OQN_ICON ) : $string_disabled ) ),
+                ),
+                'OQN_NUMBER_TEMPLATES' => array(
+                    'label' => 'OQN_NUMBER_TEMPLATES',
+                    'value' => ( ! defined( 'OQN_NUMBER_TEMPLATES' ) ? $string_undefined : ( OQN_NUMBER_TEMPLATES ? $string_enabled . $string_value . absint( OQN_NUMBER_TEMPLATES ) : $string_disabled ) ),
                 ),
                 'OQN_DISABLE_FOOTER' => array(
                     'label' => 'OQN_DISABLE_FOOTER',

@@ -6,10 +6,8 @@ The **Oxygen QuickNav** plugin adds a quick-access navigator to the WordPress Ad
 
 ### Tested Compatibility
 - **Oxygen**: 6.0.0 Beta
-- **WPSix Exporter**: 1.0.8
-- **Yabe Webfont** 1.0.70 / 2.0.70
-- **WordPress**: 6.7.2
-- **PHP**: 8.3+
+- **WordPress**: 6.7.2 / 6.8 Beta
+- **PHP**: 8.0 – 8.3
 
 ---
 
@@ -32,10 +30,12 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 
 ## Installation
 
-**Quick Install – as Plugin:**
+#### **Quick Install – as Plugin**
 1. **Download ZIP:** [**oxygen-quicknav.zip**](https://github.com/deckerweb/oxygen-quicknav/releases/latest/download/oxygen-quicknav.zip)
-2. Upload dd
-**Alternative: Use as Code Snippet**
+2. Upload via WordPress Plugins > Add New > Upload Plugin
+3. Once activated, you’ll see the **Oxy** menu item in the Admin Bar.
+
+#### **Alternative: Use as Code Snippet**
 1. Below, download the appropriate snippet version
 2. activate or deactivate in your snippets plugin
 
@@ -43,9 +43,15 @@ Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through th
 --> just use their elegant script import features
 --> in _Scripts Organizer_ use the "Code Snippets Import"
 
-For all other snippet manager plugins just use our plugin's main .php file [`shortcode-item-updated.php`](https://github.com/deckerweb/oxygen-quicknav/blob/master/oxygen-quicknav.php) and use its content as snippet (bevor saving your snippet: please check for your plugin if the opening php tag needs to be removed or not!).
+For all other snippet manager plugins just use our plugin's main .php file [`oxygen-quicknav.php`](https://github.com/deckerweb/oxygen-quicknav/blob/master/oxygen-quicknav.php) and use its content as snippet (bevor saving your snippet: please check for your plugin if the opening php tag needs to be removed or not!).
 
 --> Please decide for one of both alternatives!
+
+#### Minimum Requirements 
+* WordPress version 6.7 or higher
+* PHP version 7.4 or higher (better 8.3+)
+* MySQL version 8.0 or higher / OR MariaDB 10.1 or higher
+* Administrator user with capability `manage_options` and `activate_plugins`
 
 ---
 
@@ -55,6 +61,7 @@ For all other snippet manager plugins just use our plugin's main .php file [`sho
 2. **Settings**: Direct links to relevant sections.
 3. **Additional Links**: Includes links to resources like the Oxygen website and Facebook group. Some may contain affiliate links.
 4. **About**: Includes links to the plugin author.
+5. Show Admin Bar also in Block Editor full screen mode. (Not in WP default but this plugin here changes that!)
 
 ---
 
@@ -63,25 +70,50 @@ For all other snippet manager plugins just use our plugin's main .php file [`sho
 ### 1) Default capability (aka permission)
 The intended usage of this plugin is for Administrator users only. Therefore the default capability to see the new Admin Bar node is set to `activate_plugins`. You can change this via the constant `OQN_VIEW_CAPABILITY` – define that via `wp-config.php` or via a Code Snippet plugin: `define( 'OQN_VIEW_CAPABILITY', 'edit_posts' );`
 
-### 2) Name of main menu item
+### 2) Restrict to defined user IDs only (since v1.1.0)
+You can define an array of user IDs (can also be only _one_ ID) and that way restrict showing the Snippets Admin Bar item only for those users. Define that via `wp-config.php` or via a Code Snippet plugin:
+```
+define( 'OQN_ENABLED_USERS', [ 1, 500, 867 ] );
+```
+This would enable only for the users with the IDs 1, 500 and 867. Note the square brackets around, and no single quotes, just the ID numbers.
+
+For example you are one of many admin users (role `administrator`) but _only you_ want to show it _for yourself_. Given you have user ID 1:
+```
+define( 'OQN_ENABLED_USERS', [ 1 ] );
+```
+That way only you can see it, the other admins can't!
+
+### 3) Name of main menu item
 The default is just "Oxy" – catchy and short. However, if you don't enjoy "Oxy" you can tweak that also via the constant `OQN_NAME_IN_ADMINBAR` – define that also via `wp-config.php` or via a Code Snippet plugin: `define( 'OQN_NAME_IN_ADMINBAR', 'Oxygen Nav' );`
 
-### 3) Default icon of main menu item 
+### 4) Default icon of main menu item 
 The blue-ish default logo icon is awesome but a bit too dark-ish for my taste – at least within the Admin Bar. Therefore I pull in the builder icon intended for dark mode (light logo on dark background). If that is not there for whatever reason it pulls in the blue original icon (in local plugin folder). You can also tweak that via a constant in `wp-config.php` or via a Code Snippets plugin: `define( 'OQN_ICON', 'blue' );`
 
-### 4) Disable footer items (Links & About)
+### 5) Adjust the number of displayed Templates/ Pages.
+The default number of displayed Templates/ Pages got increased to 20 (instead of 10). That means up to 20 items, starting from latest (newest) down to older ones. And, now you can adjust that value via constant in `wp-config.php` or via a Code Snippets plugin:
+```
+define( 'OQN_NUMBER_TEMPLATES', 5 );
+```
+In that example it would only display up to 5 items. NOTE: just add the number, no quotes around it.
+
+### 6) Disable footer items (Links & About)
 To disable these menu items, just use another constant in `wp-config.php` or via a Code Snippets plugin: `define( 'OQN_DISABLE_FOOTER', 'yes' );`
 
 ---
 
 ## [Changelog / Releases](https://github.com/deckerweb/oxygen-quicknav/releases)
 
-### 🎉 v1.1.0 – 2025-03-??
+### 🎉 v1.1.0 – 2025-04-??
 * New: Show Admin Bar also in Block Editor full screen mode
+* New: Adjust the number of shown Templates / Pages via constant (default: up to 20 - instead of 10) (new custom tweak)
+* New: Optionally only enable for defined user IDs (new custom tweak)
 * New: Add info to Site Health Debug, useful for our constants for custom tweaking
 * New: Added `.pot` file (to translate plugin into your language), plus packaged German translations
+* New: Installable and updateable via [Git Updater plugin](https://git-updater.com/)
+* Change: Remove packaged icon image file in favor of svg-ed version, inline – makes "plugin" usable as code snippet
+* Improved and simplified code to make better maintainable
 * Plugin: Add meta links on WP Plugins page
-* Alternate install: Use "plugin" as Code Snippet version
+* Alternate install: Use "plugin" as Code Snippet version (see under [Installation](#installation))
 
 ### 🎉 v1.0.0 – 2025-03-09
 * Initial release
@@ -114,4 +146,4 @@ Official _Oxygen_ product logo icon: © Soflyy
 
 Icon used in promo graphics: © Remix Icon
 
-Readme & Plugin Copyright © 2025 David Decker – DECKERWEB.de
+Readme & Plugin Copyright: © 2025, David Decker – DECKERWEB.de
