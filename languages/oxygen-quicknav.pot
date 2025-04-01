@@ -1,0 +1,221 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oxygen QuickNav\n"
+"POT-Creation-Date: 2025-03-28 21:09+0100\n"
+"PO-Revision-Date: 2025-03-28 21:09+0100\n"
+"Last-Translator: David Decker DECKERWEB.de <David Decker DECKERWEB.de>\n"
+"Language-Team: David Decker DECKERWEB.de <David Decker DECKERWEB.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: oxygen-quicknav.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: oxygen-quicknav.php:230
+msgid "Oxy"
+msgstr ""
+
+#: oxygen-quicknav.php:286
+msgid "Pages"
+msgstr ""
+
+#: oxygen-quicknav.php:313
+msgid "Templates"
+msgstr ""
+
+#: oxygen-quicknav.php:345
+msgid "Headers"
+msgstr ""
+
+#: oxygen-quicknav.php:372
+msgid "Footers"
+msgstr ""
+
+#: oxygen-quicknav.php:399
+msgid "Components"
+msgstr ""
+
+#: oxygen-quicknav.php:442
+msgid "Settings"
+msgstr ""
+
+#: oxygen-quicknav.php:449
+msgid "Performance"
+msgstr ""
+
+#: oxygen-quicknav.php:450
+msgid "API Keys"
+msgstr ""
+
+#: oxygen-quicknav.php:451
+msgid "Post Types"
+msgstr ""
+
+#: oxygen-quicknav.php:452
+msgid "Advanced"
+msgstr ""
+
+#: oxygen-quicknav.php:453
+msgid "Design Library"
+msgstr ""
+
+#: oxygen-quicknav.php:454
+msgid "Custom Code"
+msgstr ""
+
+#: oxygen-quicknav.php:455
+msgid "Tools"
+msgstr ""
+
+#: oxygen-quicknav.php:456
+msgid "Extensions"
+msgstr ""
+
+#: oxygen-quicknav.php:461
+msgid "Migration Mode"
+msgstr ""
+
+#: oxygen-quicknav.php:465
+msgid "License"
+msgstr ""
+
+#: oxygen-quicknav.php:500
+msgid "Yabe Webfont"
+msgstr ""
+
+#: oxygen-quicknav.php:509
+msgid "WPSix Exporter"
+msgstr ""
+
+#: oxygen-quicknav.php:544
+msgid "Links"
+msgstr ""
+
+#: oxygen-quicknav.php:552
+msgid "Oxygen HQ"
+msgstr ""
+
+#: oxygen-quicknav.php:556
+msgid "Learn Oxygen (Tutorials)"
+msgstr ""
+
+#: oxygen-quicknav.php:560
+msgid "Oxygen Documentation"
+msgstr ""
+
+#: oxygen-quicknav.php:564
+msgid "Oxygen YouTube Channel"
+msgstr ""
+
+#: oxygen-quicknav.php:568
+msgid "Oxygen FB Group"
+msgstr ""
+
+#: oxygen-quicknav.php:572
+msgid "Oxygen4Fun (Tutorials, Tips, Resources)"
+msgstr ""
+
+#: oxygen-quicknav.php:597
+msgid "About"
+msgstr ""
+
+#: oxygen-quicknav.php:605
+msgid "Author: David Decker"
+msgstr ""
+
+#: oxygen-quicknav.php:609
+msgid "Plugin on GitHub"
+msgstr ""
+
+#: oxygen-quicknav.php:613
+msgid "Buy Me a Coffee"
+msgstr ""
+
+#: oxygen-quicknav.php:705
+msgctxt "Site Health Debug info"
+msgid "Undefined"
+msgstr ""
+
+#: oxygen-quicknav.php:706
+msgctxt "Site Health Debug info"
+msgid "Enabled"
+msgstr ""
+
+#: oxygen-quicknav.php:707
+msgctxt "Site Health Debug info"
+msgid "Disabled"
+msgstr ""
+
+#: oxygen-quicknav.php:708
+msgctxt "Site Health Debug info"
+msgid "value"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: oxygen-quicknav.php:713
+msgid "Oxygen QuickNav"
+msgstr ""
+
+#: oxygen-quicknav.php:713
+msgid "Plugin"
+msgstr ""
+
+#: oxygen-quicknav.php:718
+msgid "Plugin version"
+msgstr ""
+
+#: oxygen-quicknav.php:722
+msgid "WordPress Install Type"
+msgstr ""
+
+#: oxygen-quicknav.php:723
+msgid "Multisite install"
+msgstr ""
+
+#: oxygen-quicknav.php:723
+msgid "Single Site install"
+msgstr ""
+
+#: oxygen-quicknav.php:753
+msgid "Plugin not installed"
+msgstr ""
+
+#: oxygen-quicknav.php:797
+msgctxt "Plugins page listing"
+msgid "Donate"
+msgstr ""
+
+#: oxygen-quicknav.php:803
+msgctxt "Plugins page listing"
+msgid "Join our Newsletter"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/deckerweb/oxygen-quicknav"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Adds a quick-access navigator to the WordPress Admin Bar (Toolbar). It "
+"allows easy access to Oxygen Templates, Headers, Footers, Components, and "
+"Pages edited with Oxygen, along with some other essential settings. For "
+"Oxygen 6+ only!"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "David Decker – DECKERWEB"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://deckerweb.de/"
+msgstr ""
