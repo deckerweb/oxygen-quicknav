@@ -105,12 +105,13 @@ To disable these menu items, just use another constant in `wp-config.php` or via
 
 ### 🎉 v1.1.0 – 2025-04-??
 * New: Show Admin Bar also in Block Editor full screen mode
-* New: Adjust the number of shown Templates / Pages via constant (default: up to 20 - instead of 10) (new custom tweak)
-* New: Optionally only enable for defined user IDs (new custom tweak)
+* New: Adjust the number of shown Templates / Pages via constant (default: up to 20 - instead of 10) _(new custom tweak)_
+* New: Optionally only enable for defined user IDs _(new custom tweak)_
 * New: Add info to Site Health Debug, useful for our constants for custom tweaking
 * New: Added `.pot` file (to translate plugin into your language), plus packaged German translations
 * New: Installable and updateable via [Git Updater plugin](https://git-updater.com/)
 * Change: Remove packaged icon image file in favor of svg-ed version, inline – makes "plugin" usable as code snippet
+* Fix: Minor styling issues for top-level item
 * Improved and simplified code to make better maintainable
 * Plugin: Add meta links on WP Plugins page
 * Alternate install: Use "plugin" as Code Snippet version (see under [Installation](#installation))
