@@ -28,6 +28,9 @@ msgstr "Aktive Builder"
 msgid "Add-ons"
 msgstr "Addons"
 
+msgid "Admin Dashboard toolbar"
+msgstr "Toolbar im Admin-Dashboard"
+
 msgid "Advanced"
 msgstr "Erweitert"
 
@@ -72,9 +75,6 @@ msgstr "Das GitHub-Release-Paket konnte nicht vorbereitet werden."
 
 msgid "Custom Code"
 msgstr "Eigener Code"
-
-msgid "Dashboard toolbar"
-msgstr "Toolbar im Dashboard"
 
 msgid "Data"
 msgstr "Daten"
@@ -244,8 +244,8 @@ msgstr "Einstellungen"
 msgid "Show Links & About"
 msgstr "Links & Über das Plugin anzeigen"
 
-msgid "Show in the dashboard"
-msgstr "Im Dashboard anzeigen"
+msgid "Show in the Admin Dashboard"
+msgstr "Im Admin-Dashboard anzeigen"
 
 msgid "Show on the website"
 msgstr "Auf der Website anzeigen"

@@ -26,6 +26,9 @@ msgstr ""
 msgid "Add-ons"
 msgstr ""
 
+msgid "Admin Dashboard toolbar"
+msgstr ""
+
 msgid "Advanced"
 msgstr ""
 
@@ -69,9 +72,6 @@ msgid "Could not prepare the GitHub release package."
 msgstr ""
 
 msgid "Custom Code"
-msgstr ""
-
-msgid "Dashboard toolbar"
 msgstr ""
 
 msgid "Data"
@@ -242,7 +242,7 @@ msgstr ""
 msgid "Show Links & About"
 msgstr ""
 
-msgid "Show in the dashboard"
+msgid "Show in the Admin Dashboard"
 msgstr ""
 
 msgid "Show on the website"

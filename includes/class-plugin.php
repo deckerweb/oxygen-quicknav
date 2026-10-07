@@ -293,10 +293,10 @@ final class Plugin {
 		$this->field( 'icon', __( 'Icon', 'oxygen-quicknav' ), array( 'auto' => __( 'Navigation icon', 'oxygen-quicknav' ), 'blue' => __( 'Original blue icon', 'oxygen-quicknav' ), 'none' => __( 'No icon', 'oxygen-quicknav' ) ), $s );
 		$this->field( 'limit', __( 'Items per group', 'oxygen-quicknav' ), 'number', $s );
 		$this->field( 'orderby', __( 'Sort by', 'oxygen-quicknav' ), array( 'modified' => __( 'Recently modified', 'oxygen-quicknav' ), 'title' => __( 'Title', 'oxygen-quicknav' ) ), $s );
-		foreach ( array( 'backend' => __( 'Show in the dashboard', 'oxygen-quicknav' ), 'frontend' => __( 'Show on the website', 'oxygen-quicknav' ), 'footer' => __( 'Show Links & About', 'oxygen-quicknav' ), 'drafts' => __( 'Include unpublished content you can edit', 'oxygen-quicknav' ) ) as $key => $label ) { $this->field( $key, $label, 'checkbox', $s ); }
-		echo '<tr><th scope="row">' . esc_html__( 'Content types', 'oxygen-quicknav' ) . '</th><td><fieldset><input type="hidden" name="ddw_oqn_settings[post_types][]" value="">';
+		foreach ( array( 'backend' => __( 'Show in the Admin Dashboard', 'oxygen-quicknav' ), 'frontend' => __( 'Show on the website', 'oxygen-quicknav' ), 'footer' => __( 'Show Links & About', 'oxygen-quicknav' ), 'drafts' => __( 'Include unpublished content you can edit', 'oxygen-quicknav' ) ) as $key => $label ) { $this->field( $key, $label, 'checkbox', $s ); }
+		echo '<tr><th scope="row" id="oqn-content-types-label">' . esc_html__( 'Content types', 'oxygen-quicknav' ) . '</th><td><fieldset class="oqn-choices" aria-labelledby="oqn-content-types-label"><input type="hidden" name="ddw_oqn_settings[post_types][]" value="">';
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $type => $object ) { $this->choice( 'post_types', $type, $object->labels->name, $s['post_types'] ); }
-		echo '</fieldset></td></tr><tr><th scope="row">' . esc_html__( 'Menu groups', 'oxygen-quicknav' ) . '</th><td><fieldset><input type="hidden" name="ddw_oqn_settings[groups][]" value="">';
+		echo '</fieldset></td></tr><tr><th scope="row" id="oqn-menu-groups-label">' . esc_html__( 'Menu groups', 'oxygen-quicknav' ) . '</th><td><fieldset class="oqn-choices" aria-labelledby="oqn-menu-groups-label"><input type="hidden" name="ddw_oqn_settings[groups][]" value="">';
 		foreach ( array( 'content' => __( 'Content', 'oxygen-quicknav' ), 'templates' => __( 'Templates', 'oxygen-quicknav' ), 'headers' => __( 'Headers', 'oxygen-quicknav' ), 'footers' => __( 'Footers', 'oxygen-quicknav' ), 'components' => __( 'Components / Reusable Parts', 'oxygen-quicknav' ), 'settings' => __( 'Oxygen Settings', 'oxygen-quicknav' ), 'addons' => __( 'Add-ons', 'oxygen-quicknav' ) ) as $key => $label ) { $this->choice( 'groups', $key, $label, $s['groups'] ); }
 		echo '<p class="description">' . esc_html__( 'Only groups available in the active builder are displayed.', 'oxygen-quicknav' ) . '</p></fieldset></td></tr></table><h2>' . esc_html__( 'Access', 'oxygen-quicknav' ) . '</h2><table class="form-table" role="presentation">';
 		$this->field( 'capability', __( 'Required toolbar capability', 'oxygen-quicknav' ), 'text', $s );
@@ -349,7 +349,7 @@ final class Plugin {
 	 * @return void Outputs one escaped checkbox label.
 	 */
 	private function choice( $key, $value, $label, $selected ) {
-		echo '<label class="oqn-choice"><input type="checkbox" name="' . esc_attr( Settings::OPTION . '[' . $key . '][]' ) . '" value="' . esc_attr( $value ) . '"' . checked( in_array( $value, $selected, true ), true, false ) . '> ' . esc_html( $label ) . '</label>';
+		echo '<label class="oqn-choice"><input type="checkbox" name="' . esc_attr( Settings::OPTION . '[' . $key . '][]' ) . '" value="' . esc_attr( $value ) . '"' . checked( in_array( $value, $selected, true ), true, false ) . '><span>' . esc_html( $label ) . '</span></label>';
 	}
 
 	/**
@@ -364,7 +364,7 @@ final class Plugin {
 		echo '<h2>Oxygen QuickNav</h2><p>' . esc_html__( 'Personal preferences for this website. Website permissions and configuration overrides still apply.', 'oxygen-quicknav' ) . '</p>';
 		wp_nonce_field( 'oqn-profile-' . $user->ID, 'oqn_profile_nonce' );
 		echo '<table class="form-table" role="presentation">';
-		foreach ( array( 'backend' => __( 'Dashboard toolbar', 'oxygen-quicknav' ), 'frontend' => __( 'Website toolbar', 'oxygen-quicknav' ) ) as $key => $label ) {
+		foreach ( array( 'backend' => __( 'Admin Dashboard toolbar', 'oxygen-quicknav' ), 'frontend' => __( 'Website toolbar', 'oxygen-quicknav' ) ) as $key => $label ) {
 			echo '<tr><th><label for="oqn-personal-' . esc_attr( $key ) . '">' . esc_html( $label ) . '</label></th><td><select id="oqn-personal-' . esc_attr( $key ) . '" name="oqn_preferences[' . esc_attr( $key ) . ']"><option value="inherit">' . esc_html__( 'Use website default', 'oxygen-quicknav' ) . '</option><option value="hide"' . selected( $prefs[ $key ] ?? '', 'hide', false ) . '>' . esc_html__( 'Hide for me', 'oxygen-quicknav' ) . '</option></select></td></tr>';
 		}
 		echo '<tr><th><label for="oqn-personal-limit">' . esc_html__( 'Items per group', 'oxygen-quicknav' ) . '</label></th><td><input type="number" min="0" max="100" id="oqn-personal-limit" name="oqn_preferences[limit]" value="' . esc_attr( $prefs['limit'] ?? 0 ) . '"><p class="description">' . esc_html__( '0 uses the website default.', 'oxygen-quicknav' ) . '</p></td></tr></table>';
