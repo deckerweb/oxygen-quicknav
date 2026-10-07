@@ -14,9 +14,11 @@ node_modules/
 
 # GitHub
 .nova/
-.github/
 .git/
-.gitattributes
-.gitignore
 _config.yml
 assets-github/
+# Local diagnostics and generated archives
+*.sqlite
+*.sqlite-*
+.htaccess
+*.zip

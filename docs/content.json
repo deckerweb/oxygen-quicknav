@@ -1,0 +1,116 @@
+{
+  "en": {
+    "about": "Quick access to the content and settings you use every day, for Oxygen and Oxygen Classic. QuickNav chooses the active builder automatically and keeps its own settings available when the builder is inactive.",
+    "requirements": "Version 2.0.0-rc.1 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundled Library: PHP 8.0+. Bundled updater integration: PHP 8.1+. Oxygen has its own platform requirements.",
+    "features": [
+      "Automatic generation detection and generation-specific builder URLs.",
+      "Pages, posts, and selected public custom post types; published content by default.",
+      "Templates, headers, footers, and components in Oxygen; templates and reusable parts in Classic.",
+      "Official add-on detection, form submissions, element management, and optional product navigation.",
+      "Website defaults, personal profile preferences, legacy constants, and permission-aware destinations.",
+      "Local English, German (Du), and German (Sie) resources, structured local history, and Multisite support."
+    ],
+    "install": [
+      "Install the oxygen-quicknav.zip test package under Plugins → Add New → Upload Plugin.",
+      "Activate QuickNav alongside your supported Oxygen builder.",
+      "Open Settings → Oxygen QuickNav. Choose content types, groups, sorting, and visibility.",
+      "Open Users → Profile for personal visibility and item-count preferences."
+    ],
+    "faq": [
+      [
+        "Does it choose the right Oxygen automatically?",
+        "Yes. The active builder determines data queries, categories, permissions, settings, and edit URLs. If both integrations are present, they receive separate submenus. This does not make otherwise incompatible vendor plugins coexist."
+      ],
+      [
+        "Why are there no separate headers and footers in Classic?",
+        "Classic stores templates and reusable parts in ct_template. QuickNav follows that structure instead of guessing a header or footer from its name."
+      ],
+      [
+        "Can editors use it?",
+        "An administrator can change the required toolbar capability. Each destination still checks WordPress and Oxygen permissions; changing QuickNav visibility does not grant builder access."
+      ],
+      [
+        "Can I show drafts, posts, or products?",
+        "Yes. Choose public content types and optionally unpublished content in the settings. Only editable items with builder data appear. Products require their registered post type and user permission."
+      ],
+      [
+        "Does network activation share my settings?",
+        "No. Defaults and personal preferences are scoped to each website. New websites use defaults automatically. The shared Library manages its own website/network scope."
+      ],
+      [
+        "What happens to my data when I uninstall?",
+        "QuickNav settings remain by default. Optional deletion removes only each opted-in website’s QuickNav settings and personal preferences. Oxygen content stays. Library cleanup retains shared data while another embedded host is installed."
+      ],
+      [
+        "Does it contact external services?",
+        "The updater checks this public GitHub repository through WordPress update requests; GitHub receives normal request metadata. No token is required and no telemetry is added. The Library’s optional online catalog starts disabled; enabling it allows its documented GitHub catalog and package requests."
+      ]
+    ],
+    "titles": [
+      "About",
+      "At a Glance",
+      "Installation & First Steps",
+      "Features",
+      "FAQ",
+      "Changelog",
+      "Project & Support"
+    ]
+  },
+  "de": {
+    "about": "Schneller Zugriff auf die Inhalte und Einstellungen, die Du täglich brauchst – für Oxygen und Oxygen Classic. QuickNav wählt den aktiven Builder automatisch und hält die eigenen Einstellungen auch bei deaktiviertem Builder erreichbar.",
+    "requirements": "Version 2.0.0-rc.1 ist eine Testfassung. Navigation: WordPress 6.7+, PHP 7.4+. Mitgelieferte Library: PHP 8.0+. Updater-Anbindung: PHP 8.1+. Oxygen hat eigene Plattformanforderungen.",
+    "features": [
+      "Automatische Erkennung der Generation mit passenden Builder-URLs.",
+      "Seiten, Beiträge und ausgewählte öffentliche Custom Post Types; standardmäßig veröffentlichte Inhalte.",
+      "Templates, Header, Footer und Components in Oxygen; Templates und wiederverwendbare Teile in Classic.",
+      "Erkennung der Hersteller-Addons, Formular-Einsendungen, Elementverwaltung und optionale Produktnavigation.",
+      "Website-Standardwerte, persönliche Profil-Vorlieben, vorhandene Konstanten und Ziele mit Rechteprüfung.",
+      "Lokale Sprachressourcen für Englisch, Deutsch (Du) und Deutsch (Sie), strukturierter Verlauf und Multisite-Unterstützung."
+    ],
+    "install": [
+      "Installiere die Testfassung oxygen-quicknav.zip unter Plugins → Installieren → Plugin hochladen.",
+      "Aktiviere QuickNav zusammen mit Deinem unterstützten Oxygen-Builder.",
+      "Öffne Einstellungen → Oxygen QuickNav und wähle Inhaltstypen, Gruppen, Sortierung und Sichtbarkeit.",
+      "Öffne Benutzer → Profil für persönliche Sichtbarkeit und Eintragszahl."
+    ],
+    "faq": [
+      [
+        "Wählt QuickNav den passenden Oxygen automatisch?",
+        "Ja. Der aktive Builder bestimmt Datenabfragen, Gruppen, Rechte, Einstellungen und Bearbeitungs-URLs. Sind beide Integrationen vorhanden, erhalten sie getrennte Untermenüs. Dadurch werden ansonsten inkompatible Hersteller-Plugins nicht gleichzeitig betreibbar."
+      ],
+      [
+        "Warum gibt es in Classic keine getrennten Header und Footer?",
+        "Classic speichert Templates und wiederverwendbare Teile in ct_template. QuickNav folgt dieser Struktur, statt Header oder Footer anhand des Namens zu vermuten."
+      ],
+      [
+        "Können Redakteure QuickNav verwenden?",
+        "Ein Administrator kann die erforderliche Toolbar-Berechtigung ändern. Jedes Ziel prüft weiterhin WordPress- und Oxygen-Rechte; QuickNav-Sichtbarkeit erteilt keinen Builder-Zugriff."
+      ],
+      [
+        "Kann ich Entwürfe, Beiträge oder Produkte anzeigen?",
+        "Ja. Wähle öffentliche Inhaltstypen und optional unveröffentlichte Inhalte in den Einstellungen. Es erscheinen nur bearbeitbare Inhalte mit Builder-Daten. Produkte benötigen den registrierten Inhaltstyp und passende Benutzerrechte."
+      ],
+      [
+        "Teilt eine Netzwerkaktivierung meine Einstellungen?",
+        "Nein. Standardwerte und persönliche Vorlieben gelten pro Website. Neue Websites verwenden automatisch die Standardwerte. Die gemeinsame Library verwaltet ihren eigenen Website-/Netzwerk-Geltungsbereich."
+      ],
+      [
+        "Was passiert bei einer Deinstallation mit meinen Daten?",
+        "QuickNav-Einstellungen bleiben standardmäßig erhalten. Die optionale Löschung entfernt nur auf den zustimmenden Websites deren QuickNav-Einstellungen und persönliche Vorlieben. Oxygen-Inhalte bleiben erhalten. Library-Daten bleiben bestehen, solange ein anderer eingebetteter Host installiert ist."
+      ],
+      [
+        "Verbindet sich das Plugin mit externen Diensten?",
+        "Der Updater prüft dieses öffentliche GitHub-Repository im WordPress-Updateablauf; GitHub erhält übliche Anfrage-Metadaten. Kein Token ist nötig, Telemetrie kommt nicht hinzu. Der optionale Onlinekatalog der Library ist anfangs aus; seine Aktivierung erlaubt die dokumentierten GitHub-Katalog- und Paketabfragen."
+      ]
+    ],
+    "titles": [
+      "Über das Plugin",
+      "Auf einen Blick",
+      "Installation & Erste Schritte",
+      "Funktionen",
+      "FAQ",
+      "Änderungsverlauf",
+      "Projekt & Unterstützung"
+    ]
+  }
+}

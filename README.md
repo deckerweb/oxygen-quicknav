@@ -1,150 +1,120 @@
-# Oxygen QuickNav (Oxygen 6+)
+# Oxygen QuickNav
 
-![Oxygen QuickNav plugin in action](https://raw.githubusercontent.com/deckerweb/oxygen-quicknav/master/assets-github/oxygen-quicknav-screenshot.png)
+[Deutsch](README-de.md)
 
-The **Oxygen QuickNav** plugin adds a quick-access navigator to the WordPress Admin Bar (Toolbar). It allows easy access to Oxygen Builder Templates, Headers, Footers, Components, and (regular WordPress) Pages edited with Oxygen, along with other essential settings. – _NOTE:_ This plugin is **for Oxygen 6+ only** (first released in February of 2025)!
+![Oxygen QuickNav](assets-github/approved/banner-en.png)
 
-### Tested Compatibility
-- **Oxygen**: 6.0.0 Beta
-- **WordPress**: 6.7.2 / 6.8 Beta
-- **PHP**: 8.0 – 8.3
+## About
 
----
+Quick access to the content and settings you use every day, for Oxygen and Oxygen Classic. QuickNav chooses the active builder automatically and keeps its own settings available when the builder is inactive.
 
-[Support Project](#support-the-project) | [Installation](#installation) | [How Plugin Works](#how-this-plugin-works) | [Custom Tweaks](#custom-tweaks) | [Changelog](#changelog--releases) | [Plugin Scope / Disclaimer](#plugin-scope--disclaimer) | [Fork](#fork)
+Version 2.0.0-rc.1 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundled Library: PHP 8.0+. Bundled updater integration: PHP 8.1+. Oxygen has its own platform requirements.
 
----
+[FAQ](#faq) · [Changelog](#changelog) · [GitHub](https://github.com/deckerweb/oxygen-quicknav)
 
-## Support the Project
+**Contents:** [About](#about) · [At a Glance](#at-a-glance) · [Installation & First Steps](#installation--first-steps) · [Features](#features) · [FAQ](#faq) · [Changelog](#changelog) · [Project & Support](#project--support)
 
-If you find this project helpful, consider showing your support by buying me a coffee! Your contribution helps me keep developing and improving this plugin.
+## At a Glance
 
-Enjoying the plugin? Feel free to treat me to a cup of coffee ☕🙂 through the following options:
+- Automatic generation detection and generation-specific builder URLs.
+- Pages, posts, and selected public custom post types; published content by default.
+- Templates, headers, footers, and components in Oxygen; templates and reusable parts in Classic.
+- Official add-on detection, form submissions, element management, and optional product navigation.
+- Website defaults, personal profile preferences, legacy constants, and permission-aware destinations.
+- Local English, German (Du), and German (Sie) resources, structured local history, and Multisite support.
 
-- [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W81BNTZE)
-- [Buy me a coffee](https://buymeacoffee.com/daveshine)
-- [PayPal donation](https://paypal.me/deckerweb)
-- [Join my **newsletter** for DECKERWEB WordPress Plugins](https://eepurl.com/gbAUUn)
+## Installation & First Steps
 
----
+1. Install the oxygen-quicknav.zip test package under Plugins → Add New → Upload Plugin.
+2. Activate QuickNav alongside your supported Oxygen builder.
+3. Open Settings → Oxygen QuickNav. Choose content types, groups, sorting, and visibility.
+4. Open Users → Profile for personal visibility and item-count preferences.
 
-## Installation
+## Features
 
-#### **Quick Install – as Plugin**
-1. **Download ZIP:** [**oxygen-quicknav.zip**](https://github.com/deckerweb/oxygen-quicknav/releases/latest/download/oxygen-quicknav.zip)
-2. Upload via WordPress Plugins > Add New > Upload Plugin
-3. Once activated, you’ll see the **Oxy** menu item in the Admin Bar.
+### Automatic generation detection and generation-specific builder URLs.
 
-#### **Alternative: Use as Code Snippet**
-1. Below, download the appropriate snippet version
-2. activate or deactivate in your snippets plugin
+Automatic generation detection and generation-specific builder URLs.
 
-[**Download .json**](https://github.com/deckerweb/oxygen-quicknav/releases/latest/download/ddw-oxygen-quicknav.code-snippets.json) version for: _Code Snippets_ (free & Pro), _Advanced Scripts_ (Premium), _Scripts Organizer_ (Premium)
---> just use their elegant script import features
---> in _Scripts Organizer_ use the "Code Snippets Import"
+### Pages, posts, and selected public custom post types
 
-For all other snippet manager plugins just use our plugin's main .php file [`oxygen-quicknav.php`](https://github.com/deckerweb/oxygen-quicknav/blob/master/oxygen-quicknav.php) and use its content as snippet (bevor saving your snippet: please check for your plugin if the opening php tag needs to be removed or not!).
+Pages, posts, and selected public custom post types; published content by default.
 
---> Please decide for one of both alternatives!
+### Templates, headers, footers, and components in Oxygen
 
-#### Minimum Requirements 
-* WordPress version 6.7 or higher
-* PHP version 7.4 or higher (better 8.3+)
-* MySQL version 8.0 or higher / OR MariaDB 10.1 or higher
-* Administrator user with capability `manage_options` and `activate_plugins`
+Templates, headers, footers, and components in Oxygen; templates and reusable parts in Classic.
 
----
+### Official add-on detection, form submissions, element management, and optional product navigation.
 
-## How this Plugin Works
+Official add-on detection, form submissions, element management, and optional product navigation.
 
-1. **Pages, Templates, Headers, Footers, Components**: Displays up to 10 items, ordered by the last modified date (descending). The "Pages" menu only shows pages built with Oxygen by checking the `_oxygen_data` custom field.
-2. **Settings**: Direct links to relevant sections.
-3. **Additional Links**: Includes links to resources like the Oxygen website and Facebook group. Some may contain affiliate links.
-4. **About**: Includes links to the plugin author.
-5. Show Admin Bar also in Block Editor full screen mode. (Not in WP default but this plugin here changes that!)
+### Website defaults, personal profile preferences, legacy constants, and permission-aware destinations.
 
----
+Website defaults, personal profile preferences, legacy constants, and permission-aware destinations.
 
-## Custom Tweaks via Constants
+### Local English, German (Du), and German (Sie) resources, structured local history, and Multisite support.
 
-### 1) Default capability (aka permission)
-The intended usage of this plugin is for Administrator users only. Therefore the default capability to see the new Admin Bar node is set to `activate_plugins`. You can change this via the constant `OQN_VIEW_CAPABILITY` – define that via `wp-config.php` or via a Code Snippet plugin: `define( 'OQN_VIEW_CAPABILITY', 'edit_posts' );`
+Local English, German (Du), and German (Sie) resources, structured local history, and Multisite support.
 
-### 2) Restrict to defined user IDs only (since v1.1.0)
-You can define an array of user IDs (can also be only _one_ ID) and that way restrict showing the Snippets Admin Bar item only for those users. Define that via `wp-config.php` or via a Code Snippet plugin:
-```
-define( 'OQN_ENABLED_USERS', [ 1, 500, 867 ] );
-```
-This would enable only for the users with the IDs 1, 500 and 867. Note the square brackets around, and no single quotes, just the ID numbers.
+## FAQ
 
-For example you are one of many admin users (role `administrator`) but _only you_ want to show it _for yourself_. Given you have user ID 1:
-```
-define( 'OQN_ENABLED_USERS', [ 1 ] );
-```
-That way only you can see it, the other admins can't!
+### Does it choose the right Oxygen automatically?
 
-### 3) Name of main menu item
-The default is just "Oxy" – catchy and short. However, if you don't enjoy "Oxy" you can tweak that also via the constant `OQN_NAME_IN_ADMINBAR` – define that also via `wp-config.php` or via a Code Snippet plugin: `define( 'OQN_NAME_IN_ADMINBAR', 'Oxygen Nav' );`
+Yes. The active builder determines data queries, categories, permissions, settings, and edit URLs. If both integrations are present, they receive separate submenus. This does not make otherwise incompatible vendor plugins coexist.
 
-### 4) Default icon of main menu item 
-The blue-ish default logo icon is awesome but a bit too dark-ish for my taste – at least within the Admin Bar. Therefore I pull in the builder icon intended for dark mode (light logo on dark background). If that is not there for whatever reason it pulls in the blue original icon (in local plugin folder). You can also tweak that via a constant in `wp-config.php` or via a Code Snippets plugin: `define( 'OQN_ICON', 'blue' );`
+### Why are there no separate headers and footers in Classic?
 
-### 5) Adjust the number of displayed Templates/ Pages.
-The default number of displayed Templates/ Pages got increased to 20 (instead of 10). That means up to 20 items, starting from latest (newest) down to older ones. And, now you can adjust that value via constant in `wp-config.php` or via a Code Snippets plugin:
-```
-define( 'OQN_NUMBER_TEMPLATES', 5 );
-```
-In that example it would only display up to 5 items. NOTE: just add the number, no quotes around it.
+Classic stores templates and reusable parts in ct_template. QuickNav follows that structure instead of guessing a header or footer from its name.
 
-### 6) Disable footer items (Links & About)
-To disable these menu items, just use another constant in `wp-config.php` or via a Code Snippets plugin: `define( 'OQN_DISABLE_FOOTER', 'yes' );`
+### Can editors use it?
 
----
+An administrator can change the required toolbar capability. Each destination still checks WordPress and Oxygen permissions; changing QuickNav visibility does not grant builder access.
 
-## [Changelog / Releases](https://github.com/deckerweb/oxygen-quicknav/releases)
+### Can I show drafts, posts, or products?
 
-### 🎉 v1.1.0 – 2025-04-??
-* New: Show Admin Bar also in Block Editor full screen mode
-* New: Adjust the number of shown Templates / Pages via constant (default: up to 20 - instead of 10) _(new custom tweak)_
-* New: Optionally only enable for defined user IDs _(new custom tweak)_
-* New: Add info to Site Health Debug, useful for our constants for custom tweaking
-* New: Added `.pot` file (to translate plugin into your language), plus packaged German translations
-* New: Installable and updateable via [Git Updater plugin](https://git-updater.com/)
-* Change: Remove packaged icon image file in favor of svg-ed version, inline – makes "plugin" usable as code snippet
-* Fix: Minor styling issues for top-level item
-* Improved and simplified code to make better maintainable
-* Plugin: Add meta links on WP Plugins page
-* Alternate install: Use "plugin" as Code Snippet version (see under [Installation](#installation))
+Yes. Choose public content types and optionally unpublished content in the settings. Only editable items with builder data appear. Products require their registered post type and user permission.
 
-### 🎉 v1.0.0 – 2025-03-09
-* Initial release
-* Includes support for "Breakdance Migration Mode" (official add-on) which also works with Oxygen 6+ (!!)
-* Includes support for "Yabe Webfont" plugin (third-party; free & Pro version!)
-* Includes support for "WPSix Exporter" plugin (third-party)
-* _Note:_ Forked from "Breakdance Navigator" v1.0.1 by Peter Kulcsár (licensed GPL v2 or later)
+### Does network activation share my settings?
 
----
+No. Defaults and personal preferences are scoped to each website. New websites use defaults automatically. The shared Library manages its own website/network scope.
 
-## Plugin Scope / Disclaimer
+### What happens to my data when I uninstall?
 
-This plugin comes as is. I have no intention to add support for every little detail / third-party plugin / library etc. Its main focus is support for the template types and Oxygen 6+ settings. Plugin support is added where it makes sense for the daily work of an Administrator and Site Builder.
+QuickNav settings remain by default. Optional deletion removes only each opted-in website’s QuickNav settings and personal preferences. Oxygen content stays. Library cleanup retains shared data while another embedded host is installed.
 
-_Disclaimer 1:_ So far I will support the plugin for breaking errors to keep it working. Otherwise support will be very limited. Also, it will NEVER be released to WordPress.org Plugin Repository for a lot of reasons. Furthermore, I will ONLY add support for direct Oxygen 6+ add-on plugins. And I can only add support if I would own a license myself (for testing etc.). Therefore, if there might be Oxygen 6+ plugins you want me to add integration for, please open an issue on the plugin page on GitHub so we might discuss that. (Thanks in advance!)
+### Does it contact external services?
 
-_Disclaimer 2:_ All of the above might change. I do all this stuff only in my spare time.
+The updater checks this public GitHub repository through WordPress update requests; GitHub receives normal request metadata. No token is required and no telemetry is added. The Library’s optional online catalog starts disabled; enabling it allows its documented GitHub catalog and package requests.
 
-_Most of all:_ Have fun building great Oxygen 6+ powered sites!!! ;-)
+[FAQ by topic](docs/FAQ.md)
 
----
+## Changelog
 
-## Fork
+### 2.0.0-rc.1 · October 7, 2026 · Test build
 
-_Note:_ This plugin was originally developed by [Peter Kulcsár](https://github.com/beamkiller) under the name ["Breakdance Navigator"](https://github.com/beamkiller/breakdance-navigator). Since it is licensed GPL v2 or later, I decided to fork it to aadapt it for Oxygen Builder v6+ and tweak some things. – Special thanks to the original author for his great work!
+- **New:** Automatic support for Oxygen and Oxygen Classic, including reusable parts and official add-on shortcuts.
+- **New:** Website settings and personal toolbar preferences; configurable content types, groups, sorting, and unpublished content.
+- **Improved:** Each destination respects WordPress and builder permissions. Missing builders safely pause navigation.
+- **Fixed:** Corrected builder detection, settings links, query filters, and builder URLs for subdirectory installations.
+- **Misc:** Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.7.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.
 
----
+### 1.1.0 · April 2025
 
-Official _Oxygen_ product logo icon: © Soflyy
+- **New:** Configurable user IDs and item limits, Site Health information, German translations, and Git Updater integration.
+- **New:** Toolbar display in block editor fullscreen mode.
+- **Improved:** Toolbar styling and navigation defaults.
 
-Icon used in promo graphics: © Remix Icon
+### 1.0.0 · March 9, 2025
 
-Readme & Plugin Copyright: © 2025, David Decker – DECKERWEB.de
+- **New:** Oxygen 6 toolbar navigation for pages, templates, headers, footers, components, and settings.
+- **New:** Shortcuts for detected Migration Mode, Yabe Webfont, and WPSix Exporter integrations.
+
+## Project & Support
+
+David Decker – DECKERWEB. QuickNav.
+
+[Issues](https://github.com/deckerweb/oxygen-quicknav/issues) · [Security](SECURITY.md) · [Ko-fi](https://ko-fi.com/deckerweb) · [Buy Me a Coffee](https://buymeacoffee.com/daveshine) · [PayPal](https://paypal.me/deckerweb)
+
+This plugin originated as a fork of [Breakdance Navigator](https://github.com/beamkiller/breakdance-navigator), Peter Kulcsár, © 2024, GPL v2 or later.
+
+Copyright © 2025–2026 David Decker – DECKERWEB. GPL v2 or later. The existing Oxygen logo belongs to Soflyy. The navigation symbol is original vector artwork. deckerweb Updater 2.1.0 and Library 0.7.0: © 2026 David Decker – DECKERWEB, GPL-2.0-or-later.

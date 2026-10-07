@@ -1,2 +1,13 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Installable archives contain runtime and user documentation only.
+/.github export-ignore
+/assets-github export-ignore
+/tests export-ignore
+/tools export-ignore
+/.gitignore export-ignore
+/.gitattributes export-ignore
+/_config.yml export-ignore
+/languages/dictionary.json export-ignore
+/docs/content.json export-ignore
