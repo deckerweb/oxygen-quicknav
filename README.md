@@ -90,23 +90,16 @@ The updater checks this public GitHub repository through WordPress update reques
 
 ## Changelog
 
-### 2.0.0-rc.3 · October 8, 2026 · Test build
-
-- **New:** Oxygen Classic navigation includes Stylesheets and Export & Import in their appropriate menu positions.
-- **Improved:** Library 0.8.0 handles activation of the new dual-generation QuickNav directly. Clearer Admin Dashboard labels and separated checkbox rows improve settings readability.
-- **Fixed:** Original resource and author links are retained, and admin notices appear below the complete header.
-
-### 2.0.0-rc.2 · October 8, 2026 · Test build
-
-- **Fixed:** Activation remains available when another plugin has already loaded a newer Library. Missing Oxygen 6+ or Oxygen Classic is explained within WordPress admin.
-
-### 2.0.0-rc.1 · October 7, 2026 · Test build
+### 2.0.0 · October 8, 2026
 
 - **New:** Automatic support for Oxygen and Oxygen Classic, including reusable parts and official add-on shortcuts.
 - **New:** Website settings and personal toolbar preferences; configurable content types, groups, sorting, and unpublished content.
 - **Improved:** Each destination respects WordPress and builder permissions. Missing builders safely pause navigation.
 - **Fixed:** Corrected builder detection, settings links, query filters, and builder URLs for subdirectory installations.
-- **Misc:** Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.7.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.
+- **New:** Oxygen Classic navigation includes Stylesheets and Export & Import in their appropriate menu positions.
+- **Improved:** Clearer Admin Dashboard labels, readable checkbox groups, matching artwork, and original resource links. Registered Oxygen settings tabs include Migration Mode when available.
+- **Fixed:** Activation works without a supported builder; settings remain available and notices appear within WordPress admin below the complete header.
+- **Misc:** Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.8.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.
 
 ### 1.1.0 · April 2025
 

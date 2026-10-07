@@ -90,23 +90,16 @@ Der Updater prüft dieses öffentliche GitHub-Repository im WordPress-Updateabla
 
 ## Änderungsverlauf
 
-### 2.0.0-rc.3 · 8. Oktober 2026 · Testfassung
-
-- **Neu:** Die Oxygen-Classic-Navigation enthält Stylesheets sowie Export & Import an passenden Menüpositionen.
-- **Verbessert:** Library 0.8.0 berücksichtigt die Aktivierung des neuen QuickNav für beide Oxygen-Generationen direkt. Präzisere Admin-Dashboard-Bezeichnungen und getrennte Checkbox-Zeilen verbessern die Einstellungen.
-- **Behoben:** Die ursprünglichen Ressourcen- und Autorenlinks bleiben erhalten; Admin-Meldungen erscheinen unter dem vollständigen Header.
-
-### 2.0.0-rc.2 · 8. Oktober 2026 · Testfassung
-
-- **Behoben:** Die Aktivierung bleibt möglich, wenn ein anderes Plugin bereits eine neuere Library geladen hat. Ein fehlendes Oxygen 6+ oder Oxygen Classic wird innerhalb des WordPress-Admins erklärt.
-
-### 2.0.0-rc.1 · 7. Oktober 2026 · Testfassung
+### 2.0.0 · 8. Oktober 2026
 
 - **Neu:** Automatische Unterstützung für Oxygen und Oxygen Classic, einschließlich wiederverwendbarer Teile und Hersteller-Addons.
 - **Neu:** Website-Einstellungen und persönliche Toolbar-Vorlieben; einstellbare Inhaltstypen, Gruppen, Sortierung und unveröffentlichte Inhalte.
 - **Verbessert:** Jedes Ziel berücksichtigt WordPress- und Builder-Rechte. Fehlende Builder pausieren die Navigation sicher.
 - **Behoben:** Builder-Erkennung, Einstellungen-Links, Abfragefilter und Builder-URLs bei Unterverzeichnis-Installationen korrigiert.
-- **Sonstiges:** Nutzt die native Toolbar-Anzeige der WordPress-Editoren. Enthält deckerweb Updater 2.1.0 (PHP 8.1+) und Library 0.7.0 (PHP 8.0+); die Navigation bleibt mit PHP 7.4 kompatibel.
+- **Neu:** Die Oxygen-Classic-Navigation enthält Stylesheets sowie Export & Import an passenden Menüpositionen.
+- **Verbessert:** Präzisere Admin-Dashboard-Bezeichnungen, übersichtliche Checkbox-Gruppen, abgestimmte Grafiken und ursprüngliche Ressourcenlinks. Registrierte Oxygen-Einstellungstabs enthalten Migration Mode, sofern verfügbar.
+- **Behoben:** Die Aktivierung funktioniert ohne unterstützten Builder; Einstellungen bleiben erreichbar und Hinweise erscheinen innerhalb des WordPress-Admins unter dem vollständigen Header.
+- **Sonstiges:** Nutzt die native Toolbar-Anzeige der WordPress-Editoren. Enthält deckerweb Updater 2.1.0 (PHP 8.1+) und Library 0.8.0 (PHP 8.0+); die Navigation bleibt mit PHP 7.4 kompatibel.
 
 ### 1.1.0 · April 2025
 

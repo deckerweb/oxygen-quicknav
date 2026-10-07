@@ -1,47 +1,9 @@
 [
   {
-    "version": "2.0.0-rc.3",
+    "version": "2.0.0",
     "date": {
-      "en": "October 8, 2026 · Test build",
-      "de": "8. Oktober 2026 · Testfassung"
-    },
-    "items": [
-      {
-        "category": "new",
-        "en": "Oxygen Classic navigation includes Stylesheets and Export & Import in their appropriate menu positions.",
-        "de": "Die Oxygen-Classic-Navigation enthält Stylesheets sowie Export & Import an passenden Menüpositionen."
-      },
-      {
-        "category": "improved",
-        "en": "Library 0.8.0 handles activation of the new dual-generation QuickNav directly. Clearer Admin Dashboard labels and separated checkbox rows improve settings readability.",
-        "de": "Library 0.8.0 berücksichtigt die Aktivierung des neuen QuickNav für beide Oxygen-Generationen direkt. Präzisere Admin-Dashboard-Bezeichnungen und getrennte Checkbox-Zeilen verbessern die Einstellungen."
-      },
-      {
-        "category": "fixed",
-        "en": "Original resource and author links are retained, and admin notices appear below the complete header.",
-        "de": "Die ursprünglichen Ressourcen- und Autorenlinks bleiben erhalten; Admin-Meldungen erscheinen unter dem vollständigen Header."
-      }
-    ]
-  },
-  {
-    "version": "2.0.0-rc.2",
-    "date": {
-      "en": "October 8, 2026 · Test build",
-      "de": "8. Oktober 2026 · Testfassung"
-    },
-    "items": [
-      {
-        "category": "fixed",
-        "en": "Activation remains available when another plugin has already loaded a newer Library. Missing Oxygen 6+ or Oxygen Classic is explained within WordPress admin.",
-        "de": "Die Aktivierung bleibt möglich, wenn ein anderes Plugin bereits eine neuere Library geladen hat. Ein fehlendes Oxygen 6+ oder Oxygen Classic wird innerhalb des WordPress-Admins erklärt."
-      }
-    ]
-  },
-  {
-    "version": "2.0.0-rc.1",
-    "date": {
-      "en": "October 7, 2026 · Test build",
-      "de": "7. Oktober 2026 · Testfassung"
+      "en": "October 8, 2026",
+      "de": "8. Oktober 2026"
     },
     "items": [
       {
@@ -65,9 +27,24 @@
         "de": "Builder-Erkennung, Einstellungen-Links, Abfragefilter und Builder-URLs bei Unterverzeichnis-Installationen korrigiert."
       },
       {
+        "category": "new",
+        "en": "Oxygen Classic navigation includes Stylesheets and Export & Import in their appropriate menu positions.",
+        "de": "Die Oxygen-Classic-Navigation enthält Stylesheets sowie Export & Import an passenden Menüpositionen."
+      },
+      {
+        "category": "improved",
+        "en": "Clearer Admin Dashboard labels, readable checkbox groups, matching artwork, and original resource links. Registered Oxygen settings tabs include Migration Mode when available.",
+        "de": "Präzisere Admin-Dashboard-Bezeichnungen, übersichtliche Checkbox-Gruppen, abgestimmte Grafiken und ursprüngliche Ressourcenlinks. Registrierte Oxygen-Einstellungstabs enthalten Migration Mode, sofern verfügbar."
+      },
+      {
+        "category": "fixed",
+        "en": "Activation works without a supported builder; settings remain available and notices appear within WordPress admin below the complete header.",
+        "de": "Die Aktivierung funktioniert ohne unterstützten Builder; Einstellungen bleiben erreichbar und Hinweise erscheinen innerhalb des WordPress-Admins unter dem vollständigen Header."
+      },
+      {
         "category": "misc",
-        "en": "Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.7.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.",
-        "de": "Nutzt die native Toolbar-Anzeige der WordPress-Editoren. Enthält deckerweb Updater 2.1.0 (PHP 8.1+) und Library 0.7.0 (PHP 8.0+); die Navigation bleibt mit PHP 7.4 kompatibel."
+        "en": "Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.8.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.",
+        "de": "Nutzt die native Toolbar-Anzeige der WordPress-Editoren. Enthält deckerweb Updater 2.1.0 (PHP 8.1+) und Library 0.8.0 (PHP 8.0+); die Navigation bleibt mit PHP 7.4 kompatibel."
       }
     ]
   },
