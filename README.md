@@ -101,7 +101,7 @@ The updater checks this public GitHub repository through WordPress update reques
 - **Fixed:** Activation works without a supported builder; settings remain available and notices appear within WordPress admin below the complete header.
 - **Misc:** Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.8.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.
 
-### 1.1.0 · April 2025
+### 1.1.0 · April 7, 2025
 
 - **New:** Configurable user IDs and item limits, Site Health information, German translations, and Git Updater integration.
 - **New:** Toolbar display in block editor fullscreen mode.

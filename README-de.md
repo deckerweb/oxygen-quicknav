@@ -101,7 +101,7 @@ Der Updater prüft dieses öffentliche GitHub-Repository im WordPress-Updateabla
 - **Behoben:** Die Aktivierung funktioniert ohne unterstützten Builder; Einstellungen bleiben erreichbar und Hinweise erscheinen innerhalb des WordPress-Admins unter dem vollständigen Header.
 - **Sonstiges:** Nutzt die native Toolbar-Anzeige der WordPress-Editoren. Enthält deckerweb Updater 2.1.0 (PHP 8.1+) und Library 0.8.0 (PHP 8.0+); die Navigation bleibt mit PHP 7.4 kompatibel.
 
-### 1.1.0 · April 2025
+### 1.1.0 · 7. April 2025
 
 - **Neu:** Einstellbare Benutzer-IDs und Eintragszahlen, Site-Health-Informationen, deutsche Übersetzungen und Git-Updater-Anbindung.
 - **Neu:** Toolbar-Anzeige im Vollbildmodus des Block-Editors.
