@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 /** Coordinates toolbar rendering, diagnostics, and website/user settings. */
 final class Plugin {
 	/**
-	 * Keeps the historical Library 0.7.0 catalog from blocking this new dual-builder host.
+	 * Keeps historical Library catalogs from blocking this new dual-builder host.
 	 * The Library's cold activation handoff runs at -100; all other hosts retain its guard.
 	 * WordPress still checks this plugin's own platform headers before activation.
 	 * @param string $file Plugin being activated.
@@ -19,10 +19,14 @@ final class Plugin {
 			return;
 		}
 		global $wp_filter;
+		$library = $GLOBALS['deckerweb_library_runtime_v1'] ?? null;
+		if ( ! is_object( $library ) || 0 !== strpos( get_class( $library ), 'Deckerweb\\PluginLibrary\\' ) ) {
+			return;
+		}
 		$callbacks = isset( $wp_filter['activate_plugin']->callbacks[0] ) ? $wp_filter['activate_plugin']->callbacks[0] : array();
 		foreach ( $callbacks as $entry ) {
 			$callback = $entry['function'];
-			if ( ! is_array( $callback ) || ! is_object( $callback[0] ) || 'Deckerweb\\PluginLibrary\\V0_7_0\\Library' !== get_class( $callback[0] ) || 'activation_guard' !== $callback[1] ) {
+			if ( ! is_array( $callback ) || ! is_object( $callback[0] ) || $library !== $callback[0] || 'activation_guard' !== $callback[1] ) {
 				continue;
 			}
 			remove_action( 'activate_plugin', $callback, 0 );
@@ -48,6 +52,7 @@ final class Plugin {
 		add_action( 'init', array( '\Deckerweb\OxygenQuickNav\Updates', 'register' ), 20 );
 		add_action( 'admin_bar_menu', array( $this, 'toolbar' ), 999 );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_notices', array( $this, 'builder_notice' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
@@ -73,6 +78,15 @@ final class Plugin {
 	/** @return void Adds a native settings page even when neither builder is active. */
 	public function admin_menu() {
 		add_options_page( 'Oxygen QuickNav', 'Oxygen QuickNav', 'manage_options', 'oxygen-quicknav', array( $this, 'page' ) );
+	}
+
+	/** @return void Explains inactive navigation within the website's native plugin screen. */
+	public function builder_notice() {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || 'plugins' !== $screen->id || is_network_admin() || ! current_user_can( 'activate_plugins' ) || Builder::active() ) { return; }
+		echo '<div class="notice notice-info"><p><strong>Oxygen QuickNav:</strong> ' . esc_html__( 'No supported Oxygen builder (Oxygen 6+ or Oxygen Classic 4.x) is active. QuickNav settings remain available; toolbar navigation resumes when a supported builder is active.', 'oxygen-quicknav' );
+		if ( current_user_can( 'manage_options' ) ) { echo ' <a href="' . esc_url( self::url() ) . '">' . esc_html__( 'Settings', 'oxygen-quicknav' ) . '</a>'; }
+		echo '</p></div>';
 	}
 
 	/** @return void Registers one sanitized website option with the WordPress Settings API. */
@@ -270,7 +284,7 @@ final class Plugin {
 		if ( ! current_user_can( 'manage_options' ) ) { wp_die( esc_html__( 'You do not have permission to manage these settings.', 'oxygen-quicknav' ) ); }
 		$s = Settings::get( false );
 		echo '<div class="wrap oqn-settings"><header class="oqn-header"><img src="' . esc_url( plugins_url( 'assets/brand/icon.svg', DDW_OQN_FILE ) ) . '" width="52" height="52" alt=""><div><h1>Oxygen QuickNav</h1><p>' . esc_html__( 'Your shortcuts. Both Oxygen generations.', 'oxygen-quicknav' ) . '</p></div></header>';
-		if ( ! Builder::active() ) { echo '<div class="notice notice-info inline"><p>' . esc_html__( 'No supported Oxygen builder is active. Your settings remain available; toolbar navigation resumes when Oxygen is active.', 'oxygen-quicknav' ) . '</p></div>'; }
+		if ( ! Builder::active() ) { echo '<div class="notice notice-info inline"><p>' . esc_html__( 'No supported Oxygen builder (Oxygen 6+ or Oxygen Classic 4.x) is active. QuickNav settings remain available; toolbar navigation resumes when a supported builder is active.', 'oxygen-quicknav' ) . '</p></div>'; }
 		if ( version_compare( PHP_VERSION, '8.1', '<' ) || Updates::$error ) { echo '<div class="notice notice-warning inline"><p>' . esc_html__( 'Navigation remains available. The bundled Library needs PHP 8.0; the updater integration needs PHP 8.1 and a compatible deckerweb Updater. Update manually while a component is unavailable.', 'oxygen-quicknav' ) . '</p></div>'; }
 		echo '<form method="post" action="options.php">';
 		settings_fields( 'ddw_oqn' );

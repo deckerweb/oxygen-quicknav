@@ -3,7 +3,7 @@
  * Plugin Name: Oxygen QuickNav
  * Plugin URI: https://github.com/deckerweb/oxygen-quicknav
  * Description: Quick access to Oxygen and Oxygen Classic content, templates, settings, and official add-ons from the WordPress toolbar.
- * Version: 2.0.0-rc.1
+ * Version: 2.0.0-rc.2
  * Requires at least: 6.7
  * Requires PHP: 7.4
  * Author: David Decker – DECKERWEB
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'DDW_OQN_VERSION', '2.0.0-rc.1' );
+define( 'DDW_OQN_VERSION', '2.0.0-rc.2' );
 define( 'DDW_OQN_FILE', __FILE__ );
 define( 'DDW_OQN_DIR', __DIR__ );
 

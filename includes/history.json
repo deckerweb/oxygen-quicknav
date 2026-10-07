@@ -1,15 +1,93 @@
 [
- {"version":"2.0.0-rc.1","date":{"en":"October 7, 2026 · Test build","de":"7. Oktober 2026 · Testfassung"},"items":[
- {"category":"new","en":"Automatic support for Oxygen and Oxygen Classic, including reusable parts and official add-on shortcuts.","de":"Automatische Unterstützung für Oxygen und Oxygen Classic, einschließlich wiederverwendbarer Teile und Hersteller-Addons."},
- {"category":"new","en":"Website settings and personal toolbar preferences; configurable content types, groups, sorting, and unpublished content.","de":"Website-Einstellungen und persönliche Toolbar-Vorlieben; einstellbare Inhaltstypen, Gruppen, Sortierung und unveröffentlichte Inhalte."},
- {"category":"improved","en":"Each destination respects WordPress and builder permissions. Missing builders safely pause navigation.","de":"Jedes Ziel berücksichtigt WordPress- und Builder-Rechte. Fehlende Builder pausieren die Navigation sicher."},
- {"category":"fixed","en":"Corrected builder detection, settings links, query filters, and builder URLs for subdirectory installations.","de":"Builder-Erkennung, Einstellungen-Links, Abfragefilter und Builder-URLs bei Unterverzeichnis-Installationen korrigiert."},
- {"category":"misc","en":"Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.7.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.","de":"Nutzt die native Toolbar-Anzeige der WordPress-Editoren. Enthält deckerweb Updater 2.1.0 (PHP 8.1+) und Library 0.7.0 (PHP 8.0+); die Navigation bleibt mit PHP 7.4 kompatibel."}]},
- {"version":"1.1.0","date":{"en":"April 2025","de":"April 2025"},"items":[
- {"category":"new","en":"Configurable user IDs and item limits, Site Health information, German translations, and Git Updater integration.","de":"Einstellbare Benutzer-IDs und Eintragszahlen, Site-Health-Informationen, deutsche Übersetzungen und Git-Updater-Anbindung."},
- {"category":"new","en":"Toolbar display in block editor fullscreen mode.","de":"Toolbar-Anzeige im Vollbildmodus des Block-Editors."},
- {"category":"improved","en":"Toolbar styling and navigation defaults.","de":"Toolbar-Darstellung und Navigations-Standardwerte."}]},
- {"version":"1.0.0","date":{"en":"March 9, 2025","de":"9. März 2025"},"items":[
- {"category":"new","en":"Oxygen 6 toolbar navigation for pages, templates, headers, footers, components, and settings.","de":"Oxygen-6-Toolbar-Navigation für Seiten, Templates, Header, Footer, Components und Einstellungen."},
- {"category":"new","en":"Shortcuts for detected Migration Mode, Yabe Webfont, and WPSix Exporter integrations.","de":"Verknüpfungen für erkannte Migration-Mode-, Yabe-Webfont- und WPSix-Exporter-Integrationen."}]}
+  {
+    "version": "2.0.0-rc.2",
+    "date": {
+      "en": "October 8, 2026 · Test build",
+      "de": "8. Oktober 2026 · Testfassung"
+    },
+    "items": [
+      {
+        "category": "fixed",
+        "en": "Activation remains available when another plugin has already loaded a newer Library. Missing Oxygen 6+ or Oxygen Classic is explained within WordPress admin.",
+        "de": "Die Aktivierung bleibt möglich, wenn ein anderes Plugin bereits eine neuere Library geladen hat. Ein fehlendes Oxygen 6+ oder Oxygen Classic wird innerhalb des WordPress-Admins erklärt."
+      }
+    ]
+  },
+  {
+    "version": "2.0.0-rc.1",
+    "date": {
+      "en": "October 7, 2026 · Test build",
+      "de": "7. Oktober 2026 · Testfassung"
+    },
+    "items": [
+      {
+        "category": "new",
+        "en": "Automatic support for Oxygen and Oxygen Classic, including reusable parts and official add-on shortcuts.",
+        "de": "Automatische Unterstützung für Oxygen und Oxygen Classic, einschließlich wiederverwendbarer Teile und Hersteller-Addons."
+      },
+      {
+        "category": "new",
+        "en": "Website settings and personal toolbar preferences; configurable content types, groups, sorting, and unpublished content.",
+        "de": "Website-Einstellungen und persönliche Toolbar-Vorlieben; einstellbare Inhaltstypen, Gruppen, Sortierung und unveröffentlichte Inhalte."
+      },
+      {
+        "category": "improved",
+        "en": "Each destination respects WordPress and builder permissions. Missing builders safely pause navigation.",
+        "de": "Jedes Ziel berücksichtigt WordPress- und Builder-Rechte. Fehlende Builder pausieren die Navigation sicher."
+      },
+      {
+        "category": "fixed",
+        "en": "Corrected builder detection, settings links, query filters, and builder URLs for subdirectory installations.",
+        "de": "Builder-Erkennung, Einstellungen-Links, Abfragefilter und Builder-URLs bei Unterverzeichnis-Installationen korrigiert."
+      },
+      {
+        "category": "misc",
+        "en": "Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.7.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.",
+        "de": "Nutzt die native Toolbar-Anzeige der WordPress-Editoren. Enthält deckerweb Updater 2.1.0 (PHP 8.1+) und Library 0.7.0 (PHP 8.0+); die Navigation bleibt mit PHP 7.4 kompatibel."
+      }
+    ]
+  },
+  {
+    "version": "1.1.0",
+    "date": {
+      "en": "April 2025",
+      "de": "April 2025"
+    },
+    "items": [
+      {
+        "category": "new",
+        "en": "Configurable user IDs and item limits, Site Health information, German translations, and Git Updater integration.",
+        "de": "Einstellbare Benutzer-IDs und Eintragszahlen, Site-Health-Informationen, deutsche Übersetzungen und Git-Updater-Anbindung."
+      },
+      {
+        "category": "new",
+        "en": "Toolbar display in block editor fullscreen mode.",
+        "de": "Toolbar-Anzeige im Vollbildmodus des Block-Editors."
+      },
+      {
+        "category": "improved",
+        "en": "Toolbar styling and navigation defaults.",
+        "de": "Toolbar-Darstellung und Navigations-Standardwerte."
+      }
+    ]
+  },
+  {
+    "version": "1.0.0",
+    "date": {
+      "en": "March 9, 2025",
+      "de": "9. März 2025"
+    },
+    "items": [
+      {
+        "category": "new",
+        "en": "Oxygen 6 toolbar navigation for pages, templates, headers, footers, components, and settings.",
+        "de": "Oxygen-6-Toolbar-Navigation für Seiten, Templates, Header, Footer, Components und Einstellungen."
+      },
+      {
+        "category": "new",
+        "en": "Shortcuts for detected Migration Mode, Yabe Webfont, and WPSix Exporter integrations.",
+        "de": "Verknüpfungen für erkannte Migration-Mode-, Yabe-Webfont- und WPSix-Exporter-Integrationen."
+      }
+    ]
+  }
 ]

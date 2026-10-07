@@ -1,7 +1,7 @@
 {
   "en": {
     "about": "Quick access to the content and settings you use every day, for Oxygen and Oxygen Classic. QuickNav chooses the active builder automatically and keeps its own settings available when the builder is inactive.",
-    "requirements": "Version 2.0.0-rc.1 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundled Library: PHP 8.0+. Bundled updater integration: PHP 8.1+. Oxygen has its own platform requirements.",
+    "requirements": "Version 2.0.0-rc.2 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundled Library: PHP 8.0+. Bundled updater integration: PHP 8.1+. Oxygen has its own platform requirements.",
     "features": [
       "Automatic generation detection and generation-specific builder URLs.",
       "Pages, posts, and selected public custom post types; published content by default.",
@@ -58,7 +58,7 @@
   },
   "de": {
     "about": "Schneller Zugriff auf die Inhalte und Einstellungen, die Du täglich brauchst – für Oxygen und Oxygen Classic. QuickNav wählt den aktiven Builder automatisch und hält die eigenen Einstellungen auch bei deaktiviertem Builder erreichbar.",
-    "requirements": "Version 2.0.0-rc.1 ist eine Testfassung. Navigation: WordPress 6.7+, PHP 7.4+. Mitgelieferte Library: PHP 8.0+. Updater-Anbindung: PHP 8.1+. Oxygen hat eigene Plattformanforderungen.",
+    "requirements": "Version 2.0.0-rc.2 ist eine Testfassung. Navigation: WordPress 6.7+, PHP 7.4+. Mitgelieferte Library: PHP 8.0+. Updater-Anbindung: PHP 8.1+. Oxygen hat eigene Plattformanforderungen.",
     "features": [
       "Automatische Erkennung der Generation mit passenden Builder-URLs.",
       "Seiten, Beiträge und ausgewählte öffentliche Custom Post Types; standardmäßig veröffentlichte Inhalte.",

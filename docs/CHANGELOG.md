@@ -2,6 +2,10 @@
 
 [Deutsch](CHANGELOG-de.md)
 
+### 2.0.0-rc.2 · October 8, 2026 · Test build
+
+- **Fixed:** Activation remains available when another plugin has already loaded a newer Library. Missing Oxygen 6+ or Oxygen Classic is explained within WordPress admin.
+
 ### 2.0.0-rc.1 · October 7, 2026 · Test build
 
 - **New:** Automatic support for Oxygen and Oxygen Classic, including reusable parts and official add-on shortcuts.

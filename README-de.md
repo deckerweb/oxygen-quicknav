@@ -8,7 +8,7 @@
 
 Schneller Zugriff auf die Inhalte und Einstellungen, die Du täglich brauchst – für Oxygen und Oxygen Classic. QuickNav wählt den aktiven Builder automatisch und hält die eigenen Einstellungen auch bei deaktiviertem Builder erreichbar.
 
-Version 2.0.0-rc.1 ist eine Testfassung. Navigation: WordPress 6.7+, PHP 7.4+. Mitgelieferte Library: PHP 8.0+. Updater-Anbindung: PHP 8.1+. Oxygen hat eigene Plattformanforderungen.
+Version 2.0.0-rc.2 ist eine Testfassung. Navigation: WordPress 6.7+, PHP 7.4+. Mitgelieferte Library: PHP 8.0+. Updater-Anbindung: PHP 8.1+. Oxygen hat eigene Plattformanforderungen.
 
 [FAQ](#faq) · [Änderungsverlauf](#änderungsverlauf) · [GitHub](https://github.com/deckerweb/oxygen-quicknav)
 
@@ -89,6 +89,10 @@ Der Updater prüft dieses öffentliche GitHub-Repository im WordPress-Updateabla
 [Fragen nach Themen](docs/FAQ-de.md)
 
 ## Änderungsverlauf
+
+### 2.0.0-rc.2 · 8. Oktober 2026 · Testfassung
+
+- **Behoben:** Die Aktivierung bleibt möglich, wenn ein anderes Plugin bereits eine neuere Library geladen hat. Ein fehlendes Oxygen 6+ oder Oxygen Classic wird innerhalb des WordPress-Admins erklärt.
 
 ### 2.0.0-rc.1 · 7. Oktober 2026 · Testfassung
 

@@ -87,6 +87,7 @@
     "Website toolbar": "Toolbar auf der Website",
     "You do not have permission to manage these settings.": "Du hast keine Berechtigung, diese Einstellungen zu verwalten.",
     "Your shortcuts. Both Oxygen generations.": "Deine Direktwege. Beide Oxygen-Generationen.",
+    "No supported Oxygen builder (Oxygen 6+ or Oxygen Classic 4.x) is active. QuickNav settings remain available; toolbar navigation resumes when a supported builder is active.": "Kein unterstützter Oxygen-Builder (Oxygen 6+ oder Oxygen Classic 4.x) ist aktiv. Die QuickNav-Einstellungen bleiben erreichbar; die Toolbar-Navigation wird mit einem aktiven unterstützten Builder wieder verfügbar.",
     "Plugin information": "Plugin-Informationen",
     "Version": "Version",
     "Plugin website": "Plugin-Website",

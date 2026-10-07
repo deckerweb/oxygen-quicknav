@@ -3,7 +3,7 @@ Contributors: daveshine
 Tags: oxygen, toolbar, navigation
 Requires at least: 6.7
 Requires PHP: 7.4
-Stable tag: 2.0.0-rc.1
+Stable tag: 2.0.0-rc.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,7 +11,7 @@ Quick access to the content and settings you use every day, for Oxygen and Oxyge
 
 == Description ==
 
-Version 2.0.0-rc.1 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundled Library: PHP 8.0+. Bundled updater integration: PHP 8.1+. Oxygen has its own platform requirements.
+Version 2.0.0-rc.2 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundled Library: PHP 8.0+. Bundled updater integration: PHP 8.1+. Oxygen has its own platform requirements.
 
 * Automatic generation detection and generation-specific builder URLs.
 * Pages, posts, and selected public custom post types; published content by default.
@@ -58,6 +58,10 @@ QuickNav settings remain by default. Optional deletion removes only each opted-i
 The updater checks this public GitHub repository through WordPress update requests; GitHub receives normal request metadata. No token is required and no telemetry is added. The Library’s optional online catalog starts disabled; enabling it allows its documented GitHub catalog and package requests.
 
 == Changelog ==
+
+= 2.0.0-rc.2 =
+
+* Fixed: Activation remains available when another plugin has already loaded a newer Library. Missing Oxygen 6+ or Oxygen Classic is explained within WordPress admin.
 
 = 2.0.0-rc.1 =
 

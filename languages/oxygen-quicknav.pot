@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Oxygen QuickNav 2.0.0-rc.1\n"
+"Project-Id-Version: Oxygen QuickNav 2.0.0-rc.2\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
@@ -164,7 +164,7 @@ msgstr ""
 msgid "No icon"
 msgstr ""
 
-msgid "No supported Oxygen builder is active. Your settings remain available; toolbar navigation resumes when Oxygen is active."
+msgid "No supported Oxygen builder (Oxygen 6+ or Oxygen Classic 4.x) is active. QuickNav settings remain available; toolbar navigation resumes when a supported builder is active."
 msgstr ""
 
 msgid "None"
