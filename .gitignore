@@ -16,7 +16,6 @@ node_modules/
 .nova/
 .git/
 _config.yml
-assets-github/
 # Local diagnostics and generated archives
 *.sqlite
 *.sqlite-*
