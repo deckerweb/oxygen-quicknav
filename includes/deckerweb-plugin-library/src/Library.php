@@ -1,11 +1,11 @@
 <?php
 /** Copyright 2026 David Decker – DECKERWEB. SPDX-License-Identifier: GPL-2.0-or-later */
-namespace Deckerweb\PluginLibrary\V0_7_0;
+namespace Deckerweb\PluginLibrary\V0_8_0;
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /** WordPress-native, embedded catalog. Settings are shared across host plugins. */
 final class Library {
-	const VERSION = '0.7.0';
+	const VERSION = '0.8.0';
 	const OPTION = 'deckerweb_library_settings_v1';
 	const MANAGED = 'deckerweb_library_installed_v1';
 	private array $chosen;
@@ -61,6 +61,7 @@ final class Library {
 		add_action( 'network_admin_menu', [ $this, 'menu' ] );
 		add_action( 'admin_post_dwl_preferences', [ $this, 'preferences' ] );
 		add_action( 'admin_post_dwl_dismiss', [ $this, 'dismiss' ] );
+		add_action( 'wp_ajax_dwl_inline_status', [ $this, 'inline_status' ] );
 		add_action( 'wp_ajax_dwl_inline', [ $this, 'inline_action' ] );
 		add_action( 'admin_post_dwl_install', [ $this, 'install' ] );
 		add_action( 'admin_post_dwl_activate', [ $this, 'activate' ] );
@@ -105,7 +106,7 @@ final class Library {
 		if ( ( $hook === 'plugin-install.php' && ( $_GET['tab'] ?? '' ) === 'deckerweb' ) || str_contains( $hook, 'deckerweb-library' ) ) {
 			wp_enqueue_style( 'deckerweb-plugin-library', plugins_url( 'assets/library.css', $this->chosen['dir'] . '/bootstrap.php' ), [], self::VERSION );
    wp_enqueue_script( 'deckerweb-plugin-library', plugins_url( 'assets/library.js', $this->chosen['dir'] . '/bootstrap.php' ), [ 'jquery', 'updates' ], self::VERSION, true );
-   wp_localize_script( 'deckerweb-plugin-library', 'dwlInline', [ 'url' => admin_url( 'admin-ajax.php' ), 'installing' => self::t( 'Installing…' ), 'activating' => self::t( 'Activating…' ), 'failed' => self::t( 'The request could not be completed. Check the plugin status before trying again.' ), 'cancelled' => self::t( 'Installation cancelled.' ) ] );
+   wp_localize_script( 'deckerweb-plugin-library', 'dwlInline', [ 'url' => admin_url( 'admin-ajax.php' ), 'installing' => self::t( 'Installing…' ), 'activating' => self::t( 'Activating…' ), 'failed' => self::t( 'The request could not be completed. Check the plugin status before trying again.' ), 'cancelled' => self::t( 'Installation cancelled.' ), 'status' => self::t( 'Check status' ), 'checking' => self::t( 'Checking status…' ) ] );
 		}
 	}
 	/**
@@ -258,6 +259,7 @@ final class Library {
 			elseif ( ! $installed ) { $this->form( 'install', $entry['slug'], self::t( 'Install now' ), 'button' ); }
 			else { echo '<span>' . esc_html( self::t( 'Installed' ) ) . '</span>'; }
 			if ( $issues ) { echo '<div class="dwl-requirements"><ul>'; foreach ( $issues as $issue ) { echo '<li>' . esc_html( $issue ) . '</li>'; } echo '</ul><a href="' . esc_url( self_admin_url( 'plugins.php' ) ) . '">' . esc_html( self::t( 'Manage installed plugins' ) ) . '</a></div>'; }
+			if ( $installed && ( $plugins[$entry['plugin_file']]['Version'] ?? '' ) !== $entry['version'] ) { echo '<p class="dwl-meta">' . esc_html( self::t( 'The requirements below describe the offered release.' ) ) . '</p>'; }
 			echo '<details class="dwl-details"><summary>' . esc_html( self::t( 'Details & requirements' ) ) . '</summary><p>WordPress ≥ ' . esc_html( $entry['requires_wp'] ) . ' · PHP ≥ ' . esc_html( $entry['requires_php'] ) . '</p>';
 			foreach ( $entry['dependencies'] as $dep ) { echo '<p>' . esc_html( $dep['name'] . ( $dep['min_version'] !== '' ? ' ≥ ' . $dep['min_version'] : '' ) ) . ( isset( $dep['url'] ) ? ' · <a href="' . esc_url( $dep['url'] ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( self::t( 'Product website' ) ) . '</a>' : '' ) . '</p>'; }
 			echo '<p><a href="' . esc_url( 'https://github.com/' . $entry['repository'] ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( self::t( 'Repository & documentation' ) ) . '</a></p><p class="dwl-meta">' . esc_html( self::t( ! empty( $entry['_preview'] ) ? 'Requirements shown are preliminary until the stable release is verified.' : 'Release checksum is verified before installation. Activation is a separate step.' ) ) . '</p></details></div><footer><span>' . esc_html( self::t( 'Source: GitHub' ) ) . '</span><span>' . esc_html( ! empty( $entry['_preview'] ) ? self::t( 'Planned: ' ) . $entry['version'] : ( $installed ? self::t( 'Installed: ' ) . $plugins[$entry['plugin_file']]['Version'] : 'v' . $entry['version'] ) ) . '</span></footer></article>';
@@ -374,6 +376,38 @@ final class Library {
 		if ( is_wp_error( $result ) ) { wp_die( esc_html( $result->get_error_message() ) ); }
 		wp_safe_redirect( $this->catalog_url() ); exit;
 	}
+ /**
+  * Reconcile a card after a lost AJAX response without installing or activating anything.
+  * @return void Sends nonce/capability-protected JSON with current physical plugin state.
+  * Fresh catalog approval is required before returning a new activation action.
+  */
+ public function inline_status(): void {
+  $slug = $this->slug();
+  $operation = isset( $_POST['operation'] ) && is_string( $_POST['operation'] ) ? sanitize_key( wp_unslash( $_POST['operation'] ) ) : '';
+  if ( ( $_SERVER['REQUEST_METHOD'] ?? '' ) !== 'POST' || ! in_array( $operation, [ 'install', 'activate' ], true )
+   || ! is_string( $_POST['_wpnonce'] ?? null ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'dwl_' . $operation . '_' . $slug ) ) { wp_send_json_error( [ 'message' => self::t( 'Permission denied.' ) ], 403 ); }
+  $this->network = is_multisite() && ( $_POST['network'] ?? '' ) === '1';
+  if ( ! current_user_can( $operation === 'install' ? 'install_plugins' : 'activate_plugins' ) || ( $this->network && ! current_user_can( 'manage_network_plugins' ) ) ) { wp_send_json_error( [ 'message' => self::t( 'Permission denied.' ) ], 403 ); }
+  if ( ! self::settings()['enabled'] ) { wp_send_json_error( [ 'message' => self::t( 'The catalog is disabled.' ) ], 403 ); }
+  $entries = $this->catalog->entries( true );
+  if ( is_wp_error( $entries ) || ! isset( $entries[$slug] ) ) { wp_send_json_error( [ 'message' => is_wp_error( $entries ) ? $entries->get_error_message() : self::t( 'This release is not approved.' ) ] ); }
+  $entry = $entries[$slug];
+  $main = is_multisite() ? get_main_site_id( get_main_network_id() ) : get_current_blog_id();
+  $switched = $main !== get_current_blog_id(); if ( $switched ) { switch_to_blog( $main ); }
+  $lock = get_option( 'dwl_inline_lock_' . $slug, '' );
+  if ( $switched ) { restore_current_blog(); }
+  if ( is_string( $lock ) && $lock !== '' && (int) $lock >= time() - 900 ) { wp_send_json_success( [ 'pending' => true, 'message' => self::t( 'The action is still running. Check its status again.' ) ] ); }
+  require_once ABSPATH . 'wp-admin/includes/plugin.php';
+  wp_clean_plugins_cache( false ); $plugins = get_plugins();
+  $installed = isset( $plugins[$entry['plugin_file']] );
+  $active = $installed && ( $this->network ? is_plugin_active_for_network( $entry['plugin_file'] ) : is_plugin_active( $entry['plugin_file'] ) );
+  $response = [ 'installed' => $installed, 'active' => $active, 'message' => self::t( $active ? 'Already active' : ( $installed ? 'Installed' : 'Not installed. You can try again.' ) ) ];
+  if ( $installed && ! $active && current_user_can( 'activate_plugin', $entry['plugin_file'] ) && ! Requirements::check( $entry, $plugins, $this->network ) ) {
+   $response['next'] = [ 'nonce' => wp_create_nonce( 'dwl_activate_' . $slug ), 'label' => self::t( $this->network ? 'Network activate' : 'Activate' ) ];
+  }
+  wp_send_json_success( $response );
+ }
+
  /**
   * Install or activate a freshly approved package without leaving its catalog card.
   *

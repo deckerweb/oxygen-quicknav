@@ -88,6 +88,8 @@
     "You do not have permission to manage these settings.": "Du hast keine Berechtigung, diese Einstellungen zu verwalten.",
     "Your shortcuts. Both Oxygen generations.": "Deine Direktwege. Beide Oxygen-Generationen.",
     "No supported Oxygen builder (Oxygen 6+ or Oxygen Classic 4.x) is active. QuickNav settings remain available; toolbar navigation resumes when a supported builder is active.": "Kein unterstützter Oxygen-Builder (Oxygen 6+ oder Oxygen Classic 4.x) ist aktiv. Die QuickNav-Einstellungen bleiben erreichbar; die Toolbar-Navigation wird mit einem aktiven unterstützten Builder wieder verfügbar.",
+    "Stylesheets": "Stylesheets",
+    "Export & Import": "Export & Import",
     "Show in the Admin Dashboard": "Im Admin-Dashboard anzeigen",
     "Admin Dashboard toolbar": "Toolbar im Admin-Dashboard",
     "Plugin information": "Plugin-Informationen",
@@ -102,7 +104,18 @@
     "The private update download failed. Check credentials and try again.": "Der Download des privaten Updates ist fehlgeschlagen. Prüfe die Zugangsdaten und versuche es erneut.",
     "GitHub release does not contain the plugin main file.": "Der GitHub-Release enthält nicht die Hauptdatei des Plugins.",
     "Could not prepare the GitHub release package.": "Das GitHub-Release-Paket konnte nicht vorbereitet werden.",
-    "See the release on GitHub.": "Sieh dir den Release auf GitHub an."
+    "See the release on GitHub.": "Sieh dir den Release auf GitHub an.",
+    "Links": "Links",
+    "About": "Über",
+    "Oxygen HQ": "Oxygen Zentrale",
+    "Learn Oxygen (Tutorials)": "Oxygen lernen (Tutorials)",
+    "Oxygen Documentation": "Oxygen Dokumentation",
+    "Oxygen YouTube Channel": "Oxygen YouTube-Kanal",
+    "Oxygen FB Group": "Oxygen FB Gruppe",
+    "Oxygen4Fun (Tutorials, Tips, Resources)": "Oxygen4Fun (Anleitungen, Tipps, Ressourcen)",
+    "Author: David Decker": "Autor: David Decker",
+    "Plugin on GitHub": "Plugin auf GitHub",
+    "Buy Me a Coffee": "Kaufe mir einen Kaffee"
   },
   "de_DE_formal": {
     "Leave user IDs empty to allow all eligible users. Separate IDs with commas. WordPress and Oxygen permissions always apply to each destination.": "Lassen Sie die Benutzer-IDs leer, um alle berechtigten Benutzer zuzulassen. Trennen Sie IDs durch Kommas. Für jedes Ziel gelten weiterhin die WordPress- und Oxygen-Rechte.",
@@ -121,6 +134,17 @@
     "Could not access the update filesystem.": "Auf das Dateisystem für das Update konnte nicht zugegriffen werden.",
     "GitHub release does not contain the plugin main file.": "Der GitHub-Release enthält nicht die Hauptdatei des Plugins.",
     "Could not prepare the GitHub release package.": "Das GitHub-Release-Paket konnte nicht vorbereitet werden.",
-    "See the release on GitHub.": "Sehen Sie sich den Release auf GitHub an."
+    "See the release on GitHub.": "Sehen Sie sich den Release auf GitHub an.",
+    "Links": "Links",
+    "About": "Über",
+    "Oxygen HQ": "Oxygen Zentrale",
+    "Learn Oxygen (Tutorials)": "Oxygen lernen (Tutorials)",
+    "Oxygen Documentation": "Oxygen Dokumentation",
+    "Oxygen YouTube Channel": "Oxygen YouTube-Kanal",
+    "Oxygen FB Group": "Oxygen FB Gruppe",
+    "Oxygen4Fun (Tutorials, Tips, Resources)": "Oxygen4Fun (Anleitungen, Tipps, Ressourcen)",
+    "Author: David Decker": "Autor: David Decker",
+    "Plugin on GitHub": "Plugin auf GitHub",
+    "Buy Me a Coffee": "Kaufen Sie mir einen Kaffee"
   }
 }

@@ -1,5 +1,29 @@
 [
   {
+    "version": "2.0.0-rc.3",
+    "date": {
+      "en": "October 8, 2026 · Test build",
+      "de": "8. Oktober 2026 · Testfassung"
+    },
+    "items": [
+      {
+        "category": "new",
+        "en": "Oxygen Classic navigation includes Stylesheets and Export & Import in their appropriate menu positions.",
+        "de": "Die Oxygen-Classic-Navigation enthält Stylesheets sowie Export & Import an passenden Menüpositionen."
+      },
+      {
+        "category": "improved",
+        "en": "Library 0.8.0 handles activation of the new dual-generation QuickNav directly. Clearer Admin Dashboard labels and separated checkbox rows improve settings readability.",
+        "de": "Library 0.8.0 berücksichtigt die Aktivierung des neuen QuickNav für beide Oxygen-Generationen direkt. Präzisere Admin-Dashboard-Bezeichnungen und getrennte Checkbox-Zeilen verbessern die Einstellungen."
+      },
+      {
+        "category": "fixed",
+        "en": "Original resource and author links are retained, and admin notices appear below the complete header.",
+        "de": "Die ursprünglichen Ressourcen- und Autorenlinks bleiben erhalten; Admin-Meldungen erscheinen unter dem vollständigen Header."
+      }
+    ]
+  },
+  {
     "version": "2.0.0-rc.2",
     "date": {
       "en": "October 8, 2026 · Test build",

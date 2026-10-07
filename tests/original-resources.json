@@ -1,0 +1,38 @@
+{
+  "oqn-link-oxygen": {
+    "url": "https://oxygenbuilder.com/",
+    "parent": "oqn-links"
+  },
+  "oqn-link-oxygen-learn": {
+    "url": "https://oxygenbuilder.com/learn/",
+    "parent": "oqn-links"
+  },
+  "oqn-link-oxygen-docs": {
+    "url": "https://oxygenbuilder.com/documentation/",
+    "parent": "oqn-links"
+  },
+  "oqn-link-oxygen-youtube": {
+    "url": "https://www.youtube.com/oxygen-builder",
+    "parent": "oqn-links"
+  },
+  "oqn-link-oxygen-fb-group": {
+    "url": "https://www.facebook.com/groups/1626639680763454",
+    "parent": "oqn-links"
+  },
+  "oqn-link-oxygen4fun": {
+    "url": "https://oxygen4fun.supadezign.com/",
+    "parent": "oqn-links"
+  },
+  "oqn-about-author": {
+    "url": "https://deckerweb.de/",
+    "parent": "oqn-about"
+  },
+  "oqn-about-github": {
+    "url": "https://github.com/deckerweb/oxygen-quicknav",
+    "parent": "oqn-about"
+  },
+  "oqn-about-kofi": {
+    "url": "https://ko-fi.com/deckerweb",
+    "parent": "oqn-about"
+  }
+}

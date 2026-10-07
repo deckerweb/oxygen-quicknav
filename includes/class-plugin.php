@@ -6,41 +6,6 @@ defined( 'ABSPATH' ) || exit;
 
 /** Coordinates toolbar rendering, diagnostics, and website/user settings. */
 final class Plugin {
-	/**
-	 * Keeps historical Library catalogs from blocking this new dual-builder host.
-	 * The Library's cold activation handoff runs at -100; all other hosts retain its guard.
-	 * WordPress still checks this plugin's own platform headers before activation.
-	 * @param string $file Plugin being activated.
-	 * @param bool $network Whether this is a network activation.
-	 * @return void
-	 */
-	public static function activation_compatibility( $file, $network ) {
-		if ( $file !== plugin_basename( DDW_OQN_FILE ) ) {
-			return;
-		}
-		global $wp_filter;
-		$library = $GLOBALS['deckerweb_library_runtime_v1'] ?? null;
-		if ( ! is_object( $library ) || 0 !== strpos( get_class( $library ), 'Deckerweb\\PluginLibrary\\' ) ) {
-			return;
-		}
-		$callbacks = isset( $wp_filter['activate_plugin']->callbacks[0] ) ? $wp_filter['activate_plugin']->callbacks[0] : array();
-		foreach ( $callbacks as $entry ) {
-			$callback = $entry['function'];
-			if ( ! is_array( $callback ) || ! is_object( $callback[0] ) || $library !== $callback[0] || 'activation_guard' !== $callback[1] ) {
-				continue;
-			}
-			remove_action( 'activate_plugin', $callback, 0 );
-			add_action( 'activate_plugin',
-				/** @param string $target Activated plugin file. @param bool $is_network Network scope. @return void */
-				static function ( $target, $is_network ) use ( $callback ) {
-					if ( $target !== plugin_basename( DDW_OQN_FILE ) ) {
-						call_user_func( $callback, $target, $is_network );
-					}
-				}, 0, 2
-			);
-		}
-	}
-
 	/** @return void Registers one instance after all active plugins load. */
 	public static function boot() {
 		new self();
@@ -192,18 +157,51 @@ final class Plugin {
 				if ( ! $full || ! $object || ! current_user_can( $object->cap->edit_posts ) || ! in_array( $group, $settings['groups'], true ) ) { continue; }
 				$this->content_group( $bar, $prefix . $group, $parent, $info[0], $info[2], $info[1], $generation, $group, $settings );
 			}
-			if ( in_array( 'settings', $settings['groups'], true ) && current_user_can( 'manage_options' ) && $this->full_access( $generation ) ) {
+			if ( in_array( 'settings', $settings['groups'], true ) && current_user_can( 'classic' === $generation ? 'read' : 'manage_options' ) && $this->full_access( $generation ) ) {
+				if ( 'classic' === $generation && function_exists( 'ct_css_management_page' ) ) {
+					$bar->add_node( array( 'id' => $prefix . 'stylesheets', 'parent' => $parent, 'title' => esc_html__( 'Stylesheets', 'oxygen-quicknav' ), 'href' => admin_url( 'admin.php?page=ct_css_management' ) ) );
+				}
 				$id = $prefix . 'settings';
 				$bar->add_node( array( 'id' => $id, 'parent' => $parent, 'title' => esc_html__( 'Oxygen Settings', 'oxygen-quicknav' ), 'href' => Builder::settings_url( $generation ) ) );
 				foreach ( Builder::tabs( $generation ) as $tab => $label ) { $bar->add_node( array( 'id' => $id . '-' . sanitize_key( $tab ), 'parent' => $id, 'title' => esc_html( $label ), 'href' => Builder::settings_url( $generation, $tab ) ) ); }
+				if ( 'classic' === $generation && function_exists( 'ct_export_import_page' ) ) {
+					$bar->add_node( array( 'id' => $prefix . 'export-import', 'parent' => $id, 'title' => esc_html__( 'Export & Import', 'oxygen-quicknav' ), 'href' => admin_url( 'admin.php?page=ct_export_import' ) ) );
+				}
 				if ( 'modern' === $generation && function_exists( '\Breakdance\DesignLibrary\hideDesignLibrary' ) && ! \Breakdance\DesignLibrary\hideDesignLibrary() ) { $bar->add_node( array( 'id' => $prefix . 'design-library', 'parent' => $parent, 'title' => esc_html__( 'Design Library', 'oxygen-quicknav' ), 'href' => admin_url( 'admin.php?page=oxygen_design_library' ) ) ); }
 			}
 			if ( in_array( 'addons', $settings['groups'], true ) ) { $this->addon_nodes( $bar, $parent, $prefix, $generation ); }
 		}
 		if ( current_user_can( 'manage_options' ) ) { $bar->add_node( array( 'id' => 'oqn-own-settings', 'parent' => $root, 'title' => esc_html__( 'QuickNav Settings', 'oxygen-quicknav' ), 'href' => self::url() ) ); }
-		if ( $settings['footer'] ) {
-			$bar->add_node( array( 'id' => 'oqn-links', 'parent' => $root, 'title' => esc_html__( 'Links & About', 'oxygen-quicknav' ) ) );
-			foreach ( array( 'oxygen' => array( 'Oxygen', 'https://oxygenbuilder.com/' ), 'github' => array( __( 'Documentation', 'oxygen-quicknav' ), 'https://github.com/deckerweb/oxygen-quicknav' ), 'author' => array( 'David Decker – DECKERWEB', 'https://github.com/deckerweb' ), 'support' => array( __( 'Support this plugin', 'oxygen-quicknav' ), 'https://ko-fi.com/deckerweb' ) ) as $key => $item ) { $bar->add_node( array( 'id' => 'oqn-link-' . $key, 'parent' => 'oqn-links', 'title' => esc_html( $item[0] ), 'href' => $item[1], 'meta' => array( 'target' => '_blank', 'rel' => 'noopener noreferrer' ) ) ); }
+		if ( $settings['footer'] ) { $this->resources( $bar, $root ); }
+	}
+
+	/**
+	 * Retain the original resource and author menus for either Oxygen generation.
+	 * @param \WP_Admin_Bar $bar WordPress toolbar instance.
+	 * @param string $root QuickNav root node.
+	 * @return void Adds the original shared Links/About footer group.
+	 */
+	private function resources( $bar, $root ) {
+		$bar->add_group( array( 'id' => 'oqn-group-footer', 'parent' => $root, 'meta' => array( 'class' => 'ab-sub-secondary' ) ) );
+		$bar->add_node( array( 'id' => 'oqn-links', 'parent' => 'oqn-group-footer', 'title' => esc_html__( 'Links', 'oxygen-quicknav' ) ) );
+		$links = array(
+			'oxygen' => array( __( 'Oxygen HQ', 'oxygen-quicknav' ), 'https://oxygenbuilder.com/' ),
+			'oxygen-learn' => array( __( 'Learn Oxygen (Tutorials)', 'oxygen-quicknav' ), 'https://oxygenbuilder.com/learn/' ),
+			'oxygen-docs' => array( __( 'Oxygen Documentation', 'oxygen-quicknav' ), 'https://oxygenbuilder.com/documentation/' ),
+			'oxygen-youtube' => array( __( 'Oxygen YouTube Channel', 'oxygen-quicknav' ), 'https://www.youtube.com/oxygen-builder' ),
+			'oxygen-fb-group' => array( __( 'Oxygen FB Group', 'oxygen-quicknav' ), 'https://www.facebook.com/groups/1626639680763454' ),
+			'oxygen4fun' => array( __( 'Oxygen4Fun (Tutorials, Tips, Resources)', 'oxygen-quicknav' ), 'https://oxygen4fun.supadezign.com/' ),
+		);
+		$bar->add_node( array( 'id' => 'oqn-about', 'parent' => 'oqn-group-footer', 'title' => esc_html__( 'About', 'oxygen-quicknav' ) ) );
+		$about = array(
+			'author' => array( __( 'Author: David Decker', 'oxygen-quicknav' ), 'https://deckerweb.de/' ),
+			'github' => array( __( 'Plugin on GitHub', 'oxygen-quicknav' ), 'https://github.com/deckerweb/oxygen-quicknav' ),
+			'kofi' => array( __( 'Buy Me a Coffee', 'oxygen-quicknav' ), 'https://ko-fi.com/deckerweb' ),
+		);
+		foreach ( array( 'links' => $links, 'about' => $about ) as $group => $items ) {
+			foreach ( $items as $key => $item ) {
+				$bar->add_node( array( 'id' => ( 'links' === $group ? 'oqn-link-' : 'oqn-about-' ) . $key, 'parent' => 'oqn-' . $group, 'title' => esc_html( $item[0] ), 'href' => esc_url( $item[1] ), 'meta' => array( 'target' => '_blank', 'rel' => 'nofollow noopener noreferrer' ) ) );
+			}
 		}
 	}
 
@@ -272,7 +270,7 @@ final class Plugin {
 		$fields = array( 'plugin' => array( 'label' => __( 'Plugin version', 'oxygen-quicknav' ), 'value' => DDW_OQN_VERSION ), 'builders' => array( 'label' => __( 'Active builders', 'oxygen-quicknav' ), 'value' => implode( ', ', Builder::active() ) ?: __( 'None', 'oxygen-quicknav' ) ) );
 		foreach ( Builder::active() as $generation ) { $fields[ $generation ] = array( 'label' => 'classic' === $generation ? 'Oxygen Classic' : 'Oxygen', 'value' => 'classic' === $generation ? CT_VERSION : __BREAKDANCE_VERSION ); }
 		foreach ( Builder::addons() as $name => $version ) { $fields[ sanitize_key( $name ) ] = array( 'label' => $name, 'value' => $version ); }
-		$fields['library'] = array( 'label' => 'deckerweb Library', 'value' => '0.7.0' );
+		$fields['library'] = array( 'label' => 'deckerweb Library', 'value' => '0.8.0' );
 		$fields['updater'] = array( 'label' => 'deckerweb Updater', 'value' => '2.1.0' );
 		$fields['overrides'] = array( 'label' => __( 'Configuration overrides', 'oxygen-quicknav' ), 'value' => implode( ', ', array_filter( Settings::constant_map(), 'defined' ) ) ?: __( 'None', 'oxygen-quicknav' ) );
 		$info['oxygen-quicknav'] = array( 'label' => 'Oxygen QuickNav', 'fields' => $fields );
@@ -283,7 +281,7 @@ final class Plugin {
 	public function page() {
 		if ( ! current_user_can( 'manage_options' ) ) { wp_die( esc_html__( 'You do not have permission to manage these settings.', 'oxygen-quicknav' ) ); }
 		$s = Settings::get( false );
-		echo '<div class="wrap oqn-settings"><header class="oqn-header"><img src="' . esc_url( plugins_url( 'assets/brand/icon.svg', DDW_OQN_FILE ) ) . '" width="52" height="52" alt=""><div><h1>Oxygen QuickNav</h1><p>' . esc_html__( 'Your shortcuts. Both Oxygen generations.', 'oxygen-quicknav' ) . '</p></div></header>';
+		echo '<div class="wrap oqn-settings"><header class="oqn-header"><img src="' . esc_url( plugins_url( 'assets/brand/icon.svg', DDW_OQN_FILE ) ) . '" width="52" height="52" alt=""><div><h1>Oxygen QuickNav</h1><p>' . esc_html__( 'Your shortcuts. Both Oxygen generations.', 'oxygen-quicknav' ) . '</p></div></header><hr class="wp-header-end">';
 		if ( ! Builder::active() ) { echo '<div class="notice notice-info inline"><p>' . esc_html__( 'No supported Oxygen builder (Oxygen 6+ or Oxygen Classic 4.x) is active. QuickNav settings remain available; toolbar navigation resumes when a supported builder is active.', 'oxygen-quicknav' ) . '</p></div>'; }
 		if ( version_compare( PHP_VERSION, '8.1', '<' ) || Updates::$error ) { echo '<div class="notice notice-warning inline"><p>' . esc_html__( 'Navigation remains available. The bundled Library needs PHP 8.0; the updater integration needs PHP 8.1 and a compatible deckerweb Updater. Update manually while a component is unavailable.', 'oxygen-quicknav' ) . '</p></div>'; }
 		echo '<form method="post" action="options.php">';

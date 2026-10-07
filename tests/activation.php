@@ -9,7 +9,7 @@ global $checks; $checks = 0;
 function oqn_activation_assert( $ok, $label ) { global $checks; if ( ! $ok ) { throw new RuntimeException( 'FAIL: ' . $label ); } $checks++; echo 'PASS: ' . $label . "\n"; }
 $library = $GLOBALS['deckerweb_library_runtime_v1'];
 echo 'Elected Library: ' . constant( get_class( $library ) . '::VERSION' ) . "\n";
-// Run the native pre-activation sequence, including cold handoff and own-host correction.
+// Run the native pre-activation sequence, including the component cold handoff.
 do_action( 'activate_plugin', plugin_basename( DDW_OQN_FILE ), false );
 oqn_activation_assert( true, 'own host activation returns normally without a builder' );
 /** @return callable Test-only die handler preserving the actual Library message. */

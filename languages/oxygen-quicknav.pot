@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Oxygen QuickNav 2.0.0-rc.2\n"
+"Project-Id-Version: Oxygen QuickNav 2.0.0-rc.3\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,9 @@ msgid "0 uses the website default."
 msgstr ""
 
 msgid "API Keys"
+msgstr ""
+
+msgid "About"
 msgstr ""
 
 msgid "Access"
@@ -32,7 +35,13 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
+msgid "Author: David Decker"
+msgstr ""
+
 msgid "Bloat Eliminator"
+msgstr ""
+
+msgid "Buy Me a Coffee"
 msgstr ""
 
 msgid "CSS Cache"
@@ -98,6 +107,9 @@ msgstr ""
 msgid "Element Management"
 msgstr ""
 
+msgid "Export & Import"
+msgstr ""
+
 msgid "Extensions"
 msgstr ""
 
@@ -137,6 +149,9 @@ msgstr ""
 msgid "Items per group"
 msgstr ""
 
+msgid "Learn Oxygen (Tutorials)"
+msgstr ""
+
 msgid "Leave user IDs empty to allow all eligible users. Separate IDs with commas. WordPress and Oxygen permissions always apply to each destination."
 msgstr ""
 
@@ -146,7 +161,7 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-msgid "Links & About"
+msgid "Links"
 msgstr ""
 
 msgid "Menu groups"
@@ -179,7 +194,22 @@ msgstr ""
 msgid "Original blue icon"
 msgstr ""
 
+msgid "Oxygen Documentation"
+msgstr ""
+
+msgid "Oxygen FB Group"
+msgstr ""
+
+msgid "Oxygen HQ"
+msgstr ""
+
 msgid "Oxygen Settings"
+msgstr ""
+
+msgid "Oxygen YouTube Channel"
+msgstr ""
+
+msgid "Oxygen4Fun (Tutorials, Tips, Resources)"
 msgstr ""
 
 msgid "Performance"
@@ -189,6 +219,9 @@ msgid "Personal preferences for this website. Website permissions and configurat
 msgstr ""
 
 msgid "Plugin information"
+msgstr ""
+
+msgid "Plugin on GitHub"
 msgstr ""
 
 msgid "Plugin version"
@@ -249,6 +282,9 @@ msgid "Show on the website"
 msgstr ""
 
 msgid "Sort by"
+msgstr ""
+
+msgid "Stylesheets"
 msgstr ""
 
 msgid "Support this plugin"

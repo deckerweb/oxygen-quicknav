@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Oxygen QuickNav 2.0.0-rc.2\n"
+"Project-Id-Version: Oxygen QuickNav 2.0.0-rc.3\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr "0 verwendet den Website-Standardwert."
 msgid "API Keys"
 msgstr "API-Schlüssel"
 
+msgid "About"
+msgstr "Über"
+
 msgid "Access"
 msgstr "Zugriff"
 
@@ -34,8 +37,14 @@ msgstr "Toolbar im Admin-Dashboard"
 msgid "Advanced"
 msgstr "Erweitert"
 
+msgid "Author: David Decker"
+msgstr "Autor: David Decker"
+
 msgid "Bloat Eliminator"
 msgstr "Bloat Eliminator"
+
+msgid "Buy Me a Coffee"
+msgstr "Kaufe mir einen Kaffee"
 
 msgid "CSS Cache"
 msgstr "CSS-Cache"
@@ -100,6 +109,9 @@ msgstr "Dokumentation"
 msgid "Element Management"
 msgstr "Elementverwaltung"
 
+msgid "Export & Import"
+msgstr "Export & Import"
+
 msgid "Extensions"
 msgstr "Erweiterungen"
 
@@ -139,6 +151,9 @@ msgstr "Ungültiger Authentifizierungsanbieter."
 msgid "Items per group"
 msgstr "Einträge pro Gruppe"
 
+msgid "Learn Oxygen (Tutorials)"
+msgstr "Oxygen lernen (Tutorials)"
+
 msgid "Leave user IDs empty to allow all eligible users. Separate IDs with commas. WordPress and Oxygen permissions always apply to each destination."
 msgstr "Lass die Benutzer-IDs leer, um alle berechtigten Benutzer zuzulassen. Trenne IDs durch Kommas. Für jedes Ziel gelten weiterhin die WordPress- und Oxygen-Rechte."
 
@@ -148,8 +163,8 @@ msgstr "Library"
 msgid "License"
 msgstr "Lizenz"
 
-msgid "Links & About"
-msgstr "Links & Über das Plugin"
+msgid "Links"
+msgstr "Links"
 
 msgid "Menu groups"
 msgstr "Menügruppen"
@@ -181,8 +196,23 @@ msgstr "Es erscheinen nur Gruppen, die im aktiven Builder verfügbar sind."
 msgid "Original blue icon"
 msgstr "Originales blaues Icon"
 
+msgid "Oxygen Documentation"
+msgstr "Oxygen Dokumentation"
+
+msgid "Oxygen FB Group"
+msgstr "Oxygen FB Gruppe"
+
+msgid "Oxygen HQ"
+msgstr "Oxygen Zentrale"
+
 msgid "Oxygen Settings"
 msgstr "Oxygen-Einstellungen"
+
+msgid "Oxygen YouTube Channel"
+msgstr "Oxygen YouTube-Kanal"
+
+msgid "Oxygen4Fun (Tutorials, Tips, Resources)"
+msgstr "Oxygen4Fun (Anleitungen, Tipps, Ressourcen)"
 
 msgid "Performance"
 msgstr "Performance"
@@ -192,6 +222,9 @@ msgstr "Persönliche Vorlieben für diese Website. Website-Rechte und feste Konf
 
 msgid "Plugin information"
 msgstr "Plugin-Informationen"
+
+msgid "Plugin on GitHub"
+msgstr "Plugin auf GitHub"
 
 msgid "Plugin version"
 msgstr "Pluginversion"
@@ -252,6 +285,9 @@ msgstr "Auf der Website anzeigen"
 
 msgid "Sort by"
 msgstr "Sortieren nach"
+
+msgid "Stylesheets"
+msgstr "Stylesheets"
 
 msgid "Support this plugin"
 msgstr "Dieses Plugin unterstützen"

@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md)
 
+### 2.0.0-rc.3 · 8. Oktober 2026 · Testfassung
+
+- **Neu:** Die Oxygen-Classic-Navigation enthält Stylesheets sowie Export & Import an passenden Menüpositionen.
+- **Verbessert:** Library 0.8.0 berücksichtigt die Aktivierung des neuen QuickNav für beide Oxygen-Generationen direkt. Präzisere Admin-Dashboard-Bezeichnungen und getrennte Checkbox-Zeilen verbessern die Einstellungen.
+- **Behoben:** Die ursprünglichen Ressourcen- und Autorenlinks bleiben erhalten; Admin-Meldungen erscheinen unter dem vollständigen Header.
+
 ### 2.0.0-rc.2 · 8. Oktober 2026 · Testfassung
 
 - **Behoben:** Die Aktivierung bleibt möglich, wenn ein anderes Plugin bereits eine neuere Library geladen hat. Ein fehlendes Oxygen 6+ oder Oxygen Classic wird innerhalb des WordPress-Admins erklärt.

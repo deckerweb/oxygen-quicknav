@@ -5,11 +5,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) { exit; }
 delete_site_transient( 'ddw_ghru_' . substr( md5( 'https://github.com/deckerweb/oxygen-quicknav' ), 0, 24 ) );
 
 require_once __DIR__ . '/includes/deckerweb-plugin-library/lifecycle.php';
-if ( function_exists( 'deckerweb_library_uninstall_v3' ) ) {
-	deckerweb_library_uninstall_v3( __DIR__ . '/oxygen-quicknav.php' );
-} else {
-	deckerweb_library_uninstall_v2( __DIR__ . '/oxygen-quicknav.php' );
-}
+deckerweb_library_uninstall_v3( __DIR__ . '/oxygen-quicknav.php' );
 
 /**
  * Remove one website's host settings only when that website opted in.

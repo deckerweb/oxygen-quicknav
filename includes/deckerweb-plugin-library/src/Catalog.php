@@ -1,11 +1,12 @@
 <?php
 /** Copyright 2026 David Decker – DECKERWEB. SPDX-License-Identifier: GPL-2.0-or-later */
-namespace Deckerweb\PluginLibrary\V0_7_0;
+namespace Deckerweb\PluginLibrary\V0_8_0;
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /** Strict metadata-only catalog. No remote PHP, JavaScript, CSS, icons or telemetry. */
 final class Catalog {
- public const SERIES = [ 'quicknav' => 'QuickNav', 'builder' => 'Builder', 'purify' => 'Purify', 'manage-content' => 'Manage Content', 'connect' => 'Connect' ];
+ public const SERIES = [ 'quicknav' => 'QuickNav', 'builder' => 'Builder', 'purify' => 'Purify', 'manage-content' => 'Manage Content', 'connect' => 'Connect', 'tools' => 'Tools', 'shop' => 'Shop' ];
+ public const LEGACY_SERIES = [ 'quicknav' => true, 'builder' => true, 'purify' => true, 'manage-content' => true, 'connect' => true ];
  public const DEFAULT_URL = 'https://raw.githubusercontent.com/deckerweb/deckerweb-plugin-library/main/catalog/catalog.json';
 	private string $dir;
 	public string $status = 'bundled';
@@ -40,7 +41,7 @@ final class Catalog {
 	 * @return array Ordered unique series identifiers; no memberships for independent plugins.
 	 */
 	public static function series( array $entry ): array {
-		return $entry['series_memberships'] ?? ( isset( $entry['series'] ) ? [ $entry['series'] ] : [] );
+		return $entry['series_memberships_v2'] ?? $entry['series_memberships'] ?? ( isset( $entry['series'] ) ? [ $entry['series'] ] : [] );
 	}
 
 	/**
@@ -74,17 +75,31 @@ final class Catalog {
 			foreach ( [ 'slug', 'name', 'description', 'version', 'repository', 'plugin_file', 'download_url', 'sha256', 'requires_wp', 'requires_php' ] as $field ) {
 				if ( ! isset( $entry[$field] ) || ! is_string( $entry[$field] ) || strlen( $entry[$field] ) > 2000 ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid catalog field: ' ) . $field ); }
 			}
-			if ( isset( $entry['series'] ) && ( ! is_string( $entry['series'] ) || ! isset( self::SERIES[$entry['series']] ) ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
+			if ( isset( $entry['series'] ) && ( ! is_string( $entry['series'] ) || ! isset( self::LEGACY_SERIES[$entry['series']] ) ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
 			if ( isset( $entry['series_memberships'] ) ) {
 				$memberships = $entry['series_memberships'];
-				if ( ! is_array( $memberships ) || array_keys( $memberships ) !== array_keys( array_values( $memberships ) ) || count( $memberships ) > count( self::SERIES ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
+				if ( ! is_array( $memberships ) || array_keys( $memberships ) !== array_keys( array_values( $memberships ) ) || count( $memberships ) > count( self::LEGACY_SERIES ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
 				$seen_series = [];
 				foreach ( $memberships as $membership ) {
-					if ( ! is_string( $membership ) || ! isset( self::SERIES[$membership] ) || isset( $seen_series[$membership] ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
+					if ( ! is_string( $membership ) || ! isset( self::LEGACY_SERIES[$membership] ) || isset( $seen_series[$membership] ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
 					$seen_series[$membership] = true;
 				}
 				if ( isset( $entry['series'] ) && ! isset( $seen_series[$entry['series']] ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
 			}
+
+   if ( isset( $entry['series_memberships_v2'] ) ) {
+    $extended = $entry['series_memberships_v2'];
+    if ( ! is_array( $extended ) || array_keys( $extended ) !== array_keys( array_values( $extended ) ) || count( $extended ) > count( self::SERIES ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
+    $seen = [];
+    foreach ( $extended as $membership ) {
+     if ( ! is_string( $membership ) || ! isset( self::SERIES[$membership] ) || isset( $seen[$membership] ) ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
+     $seen[$membership] = true;
+    }
+    // Older readers see exactly the supported projection and ignore this additive field.
+    $projection = array_values( array_intersect( $extended, array_keys( self::LEGACY_SERIES ) ) );
+    $legacy = $entry['series_memberships'] ?? ( isset( $entry['series'] ) ? [ $entry['series'] ] : [] );
+    if ( $projection !== $legacy ) { return new \WP_Error( 'dwl_catalog', Library::t( 'Invalid plugin series.' ) ); }
+   }
 			$slug = $entry['slug'];
 			if ( ! preg_match( '/^[a-z0-9]+(?:-[a-z0-9]+)*$/D', $slug ) || isset( $result[$slug] )
 				|| ! preg_match( '~^deckerweb/[a-zA-Z0-9_.-]+$~D', $entry['repository'] )

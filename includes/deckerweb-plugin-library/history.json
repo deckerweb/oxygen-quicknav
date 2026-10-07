@@ -1,5 +1,41 @@
 [
   {
+    "version": "0.8.0",
+    "date": null,
+    "changes": {
+      "Fixed": [
+        {
+          "en": "Final-host uninstall removes current catalog and update caches as well as legacy caches.",
+          "de": "Beim Entfernen des letzten Hosts werden aktuelle Katalog- und Update-Caches ebenso wie ältere Caches bereinigt."
+        },
+        {
+          "en": "The current uninstall entry point remains effective when an older cleanup copy was loaded first.",
+          "de": "Der aktuelle Deinstallationseinstieg bleibt wirksam, wenn zuvor eine ältere Cleanup-Kopie geladen wurde."
+        }
+      ],
+      "New": [
+        {
+          "en": "Tools and Shop catalog series, with backward-compatible metadata.",
+          "de": "Katalogserien Werkzeuge und Shop mit rückwärtskompatiblen Metadaten."
+        }
+      ],
+      "Improved": [
+        {
+          "en": "The bundled catalog includes all 20 approved plugins and their current local icons.",
+          "de": "Der mitgelieferte Katalog enthält alle 20 freigegebenen Plugins und ihre aktuellen lokalen Icons."
+        },
+        {
+          "en": "Check the plugin status after interrupted inline actions without repeating a successful operation.",
+          "de": "Nach unterbrochenen Inline-Aktionen den Plugin-Status prüfen, ohne eine erfolgreiche Aktion zu wiederholen."
+        },
+        {
+          "en": "Match builder runtime markers to the active installation and apply the versioned Oxygen QuickNav 2.0 activation contract.",
+          "de": "Builder-Laufzeitmarker der aktiven Installation zuordnen und den versionsabhängigen Aktivierungsvertrag von Oxygen QuickNav 2.0 berücksichtigen."
+        }
+      ]
+    }
+  },
+  {
     "version": "0.7.0",
     "date": "2026-10-07",
     "changes": {

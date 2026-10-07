@@ -1,6 +1,6 @@
 <?php
 /** Copyright 2026 David Decker – DECKERWEB. SPDX-License-Identifier: GPL-2.0-or-later */
-namespace Deckerweb\PluginLibrary\V0_7_0;
+namespace Deckerweb\PluginLibrary\V0_8_0;
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /** Verify the original release, then normalize a bounded, single-plugin archive. */

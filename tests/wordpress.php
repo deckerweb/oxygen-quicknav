@@ -104,6 +104,15 @@ if ( 'none' !== $generation ) {
 	}
 
 	$bar = new WP_Admin_Bar(); $plugin->toolbar( $bar );
+	$original = json_decode( file_get_contents( __DIR__ . '/original-resources.json' ), true );
+	$preserved = true;
+	foreach ( $original as $node_id => $expected ) { $node = $bar->get_node( $node_id ); $preserved = $preserved && $node && $node->href === $expected['url'] && $node->parent === $expected['parent']; }
+	oqn_assert( $preserved && 9 === count( $original ), 'all nine original resource/author destinations retained' );
+	if ( 'classic' === $generation ) {
+		$css = $bar->get_node( 'oqn-classic-stylesheets' ); $transfer = $bar->get_node( 'oqn-classic-export-import' );
+		oqn_assert( $css && 'ddw-oxygen-quicknav' === $css->parent && false !== strpos( $css->href, 'page=ct_css_management' ), 'Classic stylesheet archive follows content groups' );
+		oqn_assert( $transfer && 'oqn-classic-settings' === $transfer->parent && false !== strpos( $transfer->href, 'page=ct_export_import' ), 'Classic export/import under Oxygen settings' );
+	}
 	if ( defined( 'BREAKDANCE_FORMS_FOR_OXYGEN_VERSION' ) && 'modern' === $generation ) {
 		oqn_assert( (bool) $bar->get_node( 'oqn-modern-addon-forms' ), 'official Forms submissions shortcut' );
 	}
