@@ -19,7 +19,7 @@ Version 2.0.0-rc.3 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundle
 - Automatic generation detection and generation-specific builder URLs.
 - Pages, posts, and selected public custom post types; published content by default.
 - Templates, headers, footers, and components in Oxygen; templates and reusable parts in Classic. Classic also links directly to stylesheets and export/import tools.
-- Official add-on detection, form submissions, element management, and optional product navigation.
+- Official add-on detection, form submissions, element management, and optional product navigation. Migration Mode is picked up automatically from registered settings tabs.
 - Website defaults, personal profile preferences, legacy constants, and permission-aware destinations.
 - Local English, German (Du), and German (Sie) resources, structured local history, and Multisite support.
 
@@ -44,9 +44,9 @@ Pages, posts, and selected public custom post types; published content by defaul
 
 Templates, headers, footers, and components in Oxygen; templates and reusable parts in Classic. Classic also links directly to stylesheets and export/import tools.
 
-### Official add-on detection, form submissions, element management, and optional product navigation.
+### Official add-on detection, form submissions, element management, and optional product navigation. Migration Mode is picked up automatically from registered settings tabs.
 
-Official add-on detection, form submissions, element management, and optional product navigation.
+Official add-on detection, form submissions, element management, and optional product navigation. Migration Mode is picked up automatically from registered settings tabs.
 
 ### Website defaults, personal profile preferences, legacy constants, and permission-aware destinations.
 

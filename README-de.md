@@ -19,7 +19,7 @@ Version 2.0.0-rc.3 ist eine Testfassung. Navigation: WordPress 6.7+, PHP 7.4+. M
 - Automatische Erkennung der Generation mit passenden Builder-URLs.
 - Seiten, Beiträge und ausgewählte öffentliche Custom Post Types; standardmäßig veröffentlichte Inhalte.
 - Templates, Header, Footer und Components in Oxygen; Templates und wiederverwendbare Teile in Classic. Classic bietet außerdem Direktwege zu Stylesheets sowie Export & Import.
-- Erkennung der Hersteller-Addons, Formular-Einsendungen, Elementverwaltung und optionale Produktnavigation.
+- Erkennung der Hersteller-Addons, Formular-Einsendungen, Elementverwaltung und optionale Produktnavigation. Migration Mode wird automatisch aus den registrierten Einstellungen-Tabs übernommen.
 - Website-Standardwerte, persönliche Profil-Vorlieben, vorhandene Konstanten und Ziele mit Rechteprüfung.
 - Lokale Sprachressourcen für Englisch, Deutsch (Du) und Deutsch (Sie), strukturierter Verlauf und Multisite-Unterstützung.
 
@@ -44,9 +44,9 @@ Seiten, Beiträge und ausgewählte öffentliche Custom Post Types; standardmäß
 
 Templates, Header, Footer und Components in Oxygen; Templates und wiederverwendbare Teile in Classic. Classic bietet außerdem Direktwege zu Stylesheets sowie Export & Import.
 
-### Erkennung der Hersteller-Addons, Formular-Einsendungen, Elementverwaltung und optionale Produktnavigation.
+### Erkennung der Hersteller-Addons, Formular-Einsendungen, Elementverwaltung und optionale Produktnavigation. Migration Mode wird automatisch aus den registrierten Einstellungen-Tabs übernommen.
 
-Erkennung der Hersteller-Addons, Formular-Einsendungen, Elementverwaltung und optionale Produktnavigation.
+Erkennung der Hersteller-Addons, Formular-Einsendungen, Elementverwaltung und optionale Produktnavigation. Migration Mode wird automatisch aus den registrierten Einstellungen-Tabs übernommen.
 
 ### Website-Standardwerte, persönliche Profil-Vorlieben, vorhandene Konstanten und Ziele mit Rechteprüfung.
 
