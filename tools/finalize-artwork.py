@@ -1,24 +1,39 @@
-"""Export the approved dark B identity in repository and platform formats."""
+"""Derive every approved banner from the same dark B vector composition."""
 from pathlib import Path
-from PIL import Image,ImageDraw,ImageFont
-import shutil,json
+from PIL import Image, ImageDraw, ImageFont, ImageChops
+import shutil, json, math, re
 root=Path(__file__).resolve().parents[1];source=root/'assets-github/variants/B';out=root/'assets-github/approved';out.mkdir(parents=True,exist_ok=True)
-regular='/System/Library/Fonts/Supplemental/Arial.ttf';bold='/System/Library/Fonts/Supplemental/Arial Bold.ttf';bg='#14243e';fg='#ffffff';accent='#8bc4ff';muted='#c1d2e8'
+bg='#14243e';muted='#c1d2e8';regular='/System/Library/Fonts/Supplemental/Arial.ttf'
+def background(w,h):
+ """Render a restrained blue glow and grid, corresponding to the SVG master."""
+ im=Image.new('RGB',(w,h));pixels=im.load()
+ for y in range(h):
+  for x in range(w):
+   nx=x/w;ny=y/h
+   glow=max(0,1-math.hypot((nx-.72)/.82,(ny-.22)/1.1))*.65
+   lower=max(0,1-math.hypot((nx-.08)/.72,(ny-.95)/1.2))*.24
+   light=glow+lower
+   pixels[x,y]=(round(20+10*light),round(36+20*light),round(62+28*light))
+ overlay=Image.new('RGBA',(w,h));d=ImageDraw.Draw(overlay);step=max(16,round(48*h/640))
+ for x in range(0,w,step):d.line((x,0,x,h),fill=(139,196,255,9),width=1)
+ for y in range(0,h,step):d.line((0,y,w,y),fill=(139,196,255,9),width=1)
+ return Image.alpha_composite(im.convert('RGBA'),overlay).convert('RGB')
+def svg_background(w):
+ return f'''<defs><radialGradient id="glow" cx="72%" cy="22%" r="82%"><stop stop-color="#1e385a" stop-opacity=".65"/><stop offset="1" stop-color="#14243e" stop-opacity="0"/></radialGradient><radialGradient id="lower" cx="8%" cy="95%" r="72%"><stop stop-color="#1e385a" stop-opacity=".24"/><stop offset="1" stop-color="#14243e" stop-opacity="0"/></radialGradient><pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#8bc4ff" stroke-opacity=".035" stroke-width="1"/></pattern></defs><rect width="{w}" height="640" fill="{bg}"/><rect width="{w}" height="640" fill="url(#glow)"/><rect width="{w}" height="640" fill="url(#lower)"/><rect width="{w}" height="640" fill="url(#grid)"/>'''
 for lang in ['en','de']:
- p=source/f'banner-{lang}.svg';s=p.read_text().replace('Oxygen QuickNav B '+lang,'Oxygen QuickNav '+lang).replace(('Artwork proposal ' if lang=='en' else 'Grafikentwurf ')+'B','QuickNav');(out/f'banner-{lang}.svg').write_text(s)
- img=Image.open(source/f'banner-{lang}.png');d=ImageDraw.Draw(img);d.rectangle((60,560,700,615),fill=bg);d.text((66,570),'deckerweb  ·  QuickNav',font=ImageFont.truetype(regular,18),fill=muted);img.save(out/f'banner-{lang}.png')
-for name in ['icon.svg','icon-128.png','icon-256.png']:shutil.copy2(source/name,out/name)
-# A separately composed wide banner avoids cropping the approved portrait-like layout.
-for lang in ['en','de']:
+ original=Image.open(source/f'banner-{lang}.png').convert('RGB');d=ImageDraw.Draw(original);d.rectangle((60,560,700,615),fill=bg);d.text((66,570),'deckerweb  ·  QuickNav',font=ImageFont.truetype(regular,18),fill=muted)
+ # The foreground is the unchanged approved composition, with an opaque selected row.
+ mask=ImageChops.difference(original,Image.new('RGB',original.size,bg)).convert('L').point(lambda v:255 if v else 0);ImageDraw.Draw(mask).rectangle((784,244,1181,290),fill=255)
+ foreground=original.convert('RGBA');foreground.putalpha(mask)
+ im=background(1280,640);im.paste(foreground,(0,0),foreground);im.save(out/f'banner-{lang}.png')
+ svg=(source/f'banner-{lang}.svg').read_text();body=svg[svg.index('>')+1:svg.rindex('</svg>')];body=re.sub(r'<title>.*?</title>','',body);body=body.replace('<rect width="1280" height="640" fill="#14243e"/>','',1);body=body.replace(('Artwork proposal ' if lang=='en' else 'Grafikentwurf ')+'B','QuickNav')
+ (out/f'banner-{lang}.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640"><title>Oxygen QuickNav</title>{svg_background(1280)}{body}</svg>\n')
  for w,h in [(772,250),(1544,500)]:
-  scale=w/772;im=Image.new('RGB',(w,h),bg);d=ImageDraw.Draw(im)
-  def text(x,y,s,size,color=fg,weight=False):d.text((round(x*scale),round(y*scale)),s,font=ImageFont.truetype(bold if weight else regular,round(size*scale)),fill=color)
-  text(36,31,'Oxygen QuickNav',43,weight=True);text(38,99,'One menu. Your Oxygen.' if lang=='en' else 'Ein Menü. Dein Oxygen.',22,weight=True);text(38,145,'Oxygen 6+  /  Oxygen Classic',18,accent);text(38,208,'deckerweb  ·  QuickNav',13,muted)
-  icon=Image.open(out/'icon-256.png').resize((round(186*scale),round(186*scale)),Image.Resampling.LANCZOS);im.paste(icon,(round(560*scale),round(32*scale)));im.save(out/f'wp-banner-{lang}-{w}x{h}.png')
- icon=(out/'icon.svg').read_text();inside=icon[icon.index('>')+1:icon.rindex('</svg>')]
- slogan='One menu. Your Oxygen.' if lang=='en' else 'Ein Menü. Dein Oxygen.'
- (out/f'wp-banner-{lang}.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="1544" height="500" viewBox="0 0 772 250"><title>Oxygen QuickNav</title><rect width="772" height="250" fill="{bg}"/><g font-family="Arial,sans-serif" fill="{fg}"><text x="36" y="70" font-size="43" font-weight="700">Oxygen QuickNav</text><text x="38" y="120" font-size="22" font-weight="700">{slogan}</text><text x="38" y="164" font-size="18" fill="{accent}">Oxygen 6+ / Oxygen Classic</text><text x="38" y="221" font-size="13" fill="{muted}">deckerweb · QuickNav</text></g><svg x="560" y="32" width="186" height="186" viewBox="0 0 256 256">{inside}</svg></svg>')
+  im=background(w,h);scale=h/640;size=(round(1280*scale),h);fg=foreground.resize(size,Image.Resampling.LANCZOS);im.paste(fg,((w-size[0])//2,0),fg);im.save(out/f'wp-banner-{lang}-{w}x{h}.png')
+ wide=772/250*640;offset=(wide-1280)/2
+ (out/f'wp-banner-{lang}.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="1544" height="500" viewBox="0 0 {wide:.2f} 640"><title>Oxygen QuickNav</title>{svg_background(wide)}<g transform="translate({offset:.2f} 0)">{body}</g></svg>\n')
+for name in ['icon.svg','icon-128.png','icon-256.png']:shutil.copy2(source/name,out/name)
 brand=root/'assets/brand';brand.mkdir(exist_ok=True)
 for name in ['icon.svg','icon-128.png','icon-256.png']:shutil.copy2(out/name,brand/name)
-(root/'assets-github/design.json').write_text(json.dumps({'approved_variant':'B','approved_on':'2026-10-08','copyright':'2026 David Decker – DECKERWEB','license':'GPL-2.0-or-later','source':'Original vector artwork; drafts retained under variants','fonts':'System Arial references only; no font binaries distributed'},indent=2)+'\n')
-print('Approved B: bilingual GitHub and WordPress banners, SVG masters, 128/256 PNG icons.')
+(root/'assets-github/design.json').write_text(json.dumps({'approved_variant':'B','approved_on':'2026-10-08','refinement':'One shared banner composition with restrained blue glow and fine grid; wide formats retain every foreground element','copyright':'2026 David Decker – DECKERWEB','license':'GPL-2.0-or-later','source':'Original vector artwork; drafts retained under variants','fonts':'System Arial references only; no font binaries distributed'},indent=2)+'\n')
+print('One approved composition for every banner; subtle glow and grid background.')
