@@ -1,5 +1,34 @@
 [
   {
+    "version": "2.1.0",
+    "date": {
+      "en": "October 22, 2026",
+      "de": "22. Oktober 2026"
+    },
+    "items": [
+      {
+        "category": "new",
+        "en": "QuickNav settings appear under the active Oxygen menu, with a WordPress Settings fallback when no Oxygen menu is available.",
+        "de": "Die QuickNav-Einstellungen stehen unter dem aktiven Oxygen-Menü. Ist kein Oxygen-Menü verfügbar, bleiben sie unter den WordPress-Einstellungen erreichbar."
+      },
+      {
+        "category": "improved",
+        "en": "Includes deckerweb Updater 2.2.1 and Library 1.1.0 with current host translations.",
+        "de": "Enthält deckerweb Updater 2.2.1 und Library 1.1.0 mit aktuellen Host-Übersetzungen."
+      },
+      {
+        "category": "fixed",
+        "en": "The local changelog remains hidden when closed and keeps a working documentation link if the dialog cannot open.",
+        "de": "Der lokale Änderungsverlauf bleibt im geschlossenen Zustand verborgen; falls sich der Dialog nicht öffnet, bleibt der Dokumentationslink nutzbar."
+      },
+      {
+        "category": "misc",
+        "en": "Requires PHP 8.1 or later. The WordPress minimum remains 6.7.",
+        "de": "Erfordert PHP 8.1 oder höher. Die WordPress-Mindestversion bleibt 6.7."
+      }
+    ]
+  },
+  {
     "version": "2.0.0",
     "date": {
       "en": "October 8, 2026",
@@ -17,24 +46,24 @@
         "de": "Website-Einstellungen und persönliche Toolbar-Vorlieben; einstellbare Inhaltstypen, Gruppen, Sortierung und unveröffentlichte Inhalte."
       },
       {
-        "category": "improved",
-        "en": "Each destination respects WordPress and builder permissions. Missing builders safely pause navigation.",
-        "de": "Jedes Ziel berücksichtigt WordPress- und Builder-Rechte. Fehlende Builder pausieren die Navigation sicher."
-      },
-      {
-        "category": "fixed",
-        "en": "Corrected builder detection, settings links, query filters, and builder URLs for subdirectory installations.",
-        "de": "Builder-Erkennung, Einstellungen-Links, Abfragefilter und Builder-URLs bei Unterverzeichnis-Installationen korrigiert."
-      },
-      {
         "category": "new",
         "en": "Oxygen Classic navigation includes Stylesheets and Export & Import in their appropriate menu positions.",
         "de": "Die Oxygen-Classic-Navigation enthält Stylesheets sowie Export & Import an passenden Menüpositionen."
       },
       {
         "category": "improved",
+        "en": "Each destination respects WordPress and builder permissions. Missing builders safely pause navigation.",
+        "de": "Jedes Ziel berücksichtigt WordPress- und Builder-Rechte. Fehlende Builder pausieren die Navigation sicher."
+      },
+      {
+        "category": "improved",
         "en": "Clearer Admin Dashboard labels, readable checkbox groups, matching artwork, and original resource links. Registered Oxygen settings tabs include Migration Mode when available.",
         "de": "Präzisere Admin-Dashboard-Bezeichnungen, übersichtliche Checkbox-Gruppen, abgestimmte Grafiken und ursprüngliche Ressourcenlinks. Registrierte Oxygen-Einstellungstabs enthalten Migration Mode, sofern verfügbar."
+      },
+      {
+        "category": "fixed",
+        "en": "Corrected builder detection, settings links, query filters, and builder URLs for subdirectory installations.",
+        "de": "Builder-Erkennung, Einstellungen-Links, Abfragefilter und Builder-URLs bei Unterverzeichnis-Installationen korrigiert."
       },
       {
         "category": "fixed",

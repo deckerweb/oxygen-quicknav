@@ -12,10 +12,10 @@ final class Updates {
 	/** @return void Registers pinned update hooks after host translations load. */
 	public static function register() {
 		if ( version_compare( PHP_VERSION, '8.1', '<' ) ) { self::$error = true; return; }
-		if ( ! class_exists( '\\Deckerweb\\GitHubReleaseUpdater\\V2\\Updater' ) ) { require_once DDW_OQN_DIR . '/includes/deckerweb-github-release-updater-v2.php'; }
-		if ( ! defined( '\\Deckerweb\\GitHubReleaseUpdater\\V2\\Updater::SUPPORTS_HOST_TRANSLATIONS' ) || ! \Deckerweb\GitHubReleaseUpdater\V2\Updater::SUPPORTS_HOST_TRANSLATIONS ) { self::$error = true; return; }
+		$updater_class = require DDW_OQN_DIR . '/includes/deckerweb-github-release-updater-v2.php';
+		if ( ! is_string( $updater_class ) || ! class_exists( $updater_class, false ) || ! defined( $updater_class . '::SUPPORTS_HOST_TRANSLATIONS' ) || ! constant( $updater_class . '::SUPPORTS_HOST_TRANSLATIONS' ) ) { self::$error = true; return; }
 		try {
-			$updater = new \Deckerweb\GitHubReleaseUpdater\V2\Updater(
+			$updater = new $updater_class(
 				DDW_OQN_FILE, 'https://github.com/deckerweb/oxygen-quicknav', 'Oxygen QuickNav',
 				__( 'Quick access to Oxygen and Oxygen Classic content, templates, settings, and official add-ons from the WordPress toolbar.', 'oxygen-quicknav' ),
 				array( 'icons' => array( 'default' => plugins_url( 'assets/brand/icon-256.png', DDW_OQN_FILE ) ) ),

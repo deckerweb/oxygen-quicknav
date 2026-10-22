@@ -2,7 +2,10 @@
 /** Scoped uninstall; Oxygen and other plugins' data always remain. @package OxygenQuickNav */
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) { exit; }
 
-delete_site_transient( 'ddw_ghru_' . substr( md5( 'https://github.com/deckerweb/oxygen-quicknav' ), 0, 24 ) );
+$ddw_oqn_updater_class = require __DIR__ . '/includes/deckerweb-github-release-updater-v2.php';
+if ( is_string( $ddw_oqn_updater_class ) && method_exists( $ddw_oqn_updater_class, 'clear_repository_cache' ) ) {
+	$ddw_oqn_updater_class::clear_repository_cache( 'https://github.com/deckerweb/oxygen-quicknav' );
+}
 
 require_once __DIR__ . '/includes/deckerweb-plugin-library/lifecycle.php';
 deckerweb_library_uninstall_v3( __DIR__ . '/oxygen-quicknav.php' );
@@ -22,10 +25,10 @@ function ddw_oqn_uninstall_site() {
 }
 
 if ( is_multisite() ) {
-	$offset = 0;
+	$ddw_oqn_offset = 0;
 	do {
-		$sites = get_sites( array( 'fields' => 'ids', 'number' => 100, 'offset' => $offset ) );
-		foreach ( $sites as $site ) { switch_to_blog( $site ); ddw_oqn_uninstall_site(); restore_current_blog(); }
-		$offset += 100;
-	} while ( count( $sites ) === 100 );
+		$ddw_oqn_sites = get_sites( array( 'fields' => 'ids', 'number' => 100, 'offset' => $ddw_oqn_offset ) );
+		foreach ( $ddw_oqn_sites as $ddw_oqn_site ) { switch_to_blog( $ddw_oqn_site ); ddw_oqn_uninstall_site(); restore_current_blog(); }
+		$ddw_oqn_offset += 100;
+	} while ( count( $ddw_oqn_sites ) === 100 );
 } else { ddw_oqn_uninstall_site(); }

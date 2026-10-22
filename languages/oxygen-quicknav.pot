@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Oxygen QuickNav 2.0.0\n"
+"Project-Id-Version: Oxygen QuickNav 2.1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
@@ -98,6 +98,9 @@ msgstr ""
 msgid "Disabled by default. When enabled, uninstall removes this website’s QuickNav settings and personal QuickNav preferences. Oxygen content and other plugins’ data are always retained. Network uninstall applies each website’s own choice."
 msgstr ""
 
+msgid "Dismiss this notice"
+msgstr ""
+
 msgid "Display & Content"
 msgstr ""
 
@@ -120,6 +123,9 @@ msgid "Form Submissions"
 msgstr ""
 
 msgid "General"
+msgstr ""
+
+msgid "Git Updater is active. If a deckerweb installation or update fails, temporarily deactivate Git Updater and retry. Reactivate it afterwards if other plugins or themes need it. Only leave it disabled when those extensions have another reliable update provider."
 msgstr ""
 
 msgid "GitHub release does not contain the plugin main file."
@@ -162,6 +168,9 @@ msgid "License"
 msgstr ""
 
 msgid "Links"
+msgstr ""
+
+msgid "Manage installed plugins"
 msgstr ""
 
 msgid "Menu groups"
@@ -215,6 +224,9 @@ msgstr ""
 msgid "Performance"
 msgstr ""
 
+msgid "Permission denied."
+msgstr ""
+
 msgid "Personal preferences for this website. Website permissions and configuration overrides still apply."
 msgstr ""
 
@@ -234,6 +246,9 @@ msgid "Post Types"
 msgstr ""
 
 msgid "Private mode must be boolean."
+msgstr ""
+
+msgid "Public catalog callbacks require both providers and cannot be used in private mode."
 msgstr ""
 
 msgid "Quick access to Oxygen and Oxygen Classic content, templates, settings, and official add-ons from the WordPress toolbar."
@@ -291,6 +306,12 @@ msgid "Support this plugin"
 msgstr ""
 
 msgid "Templates"
+msgstr ""
+
+msgid "The approved release changed. Refresh updates first."
+msgstr ""
+
+msgid "The approved release could not be verified."
 msgstr ""
 
 msgid "The plugin must be installed in a stable slug directory."

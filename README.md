@@ -8,7 +8,7 @@
 
 Quick access to the content and settings you use every day, for Oxygen and Oxygen Classic. QuickNav chooses the active builder automatically and keeps its own settings available when the builder is inactive.
 
-Version 2.0.0-rc.3 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundled Library: PHP 8.0+. Bundled updater integration: PHP 8.1+. Oxygen has its own platform requirements.
+Version 2.1.0. Requires WordPress 6.7+ and PHP 8.1+. Includes deckerweb Updater 2.2.1 and Library 1.1.0. Oxygen has its own platform requirements.
 
 [FAQ](#faq) · [Changelog](#changelog) · [GitHub](https://github.com/deckerweb/oxygen-quicknav)
 
@@ -27,7 +27,7 @@ Version 2.0.0-rc.3 is a test build. Navigation: WordPress 6.7+, PHP 7.4+. Bundle
 
 1. Install the oxygen-quicknav.zip test package under Plugins → Add New → Upload Plugin.
 2. Activate QuickNav alongside your supported Oxygen builder.
-3. Open Settings → Oxygen QuickNav. Choose content types, groups, sorting, and visibility.
+3. Open Oxygen → QuickNav (or Settings → Oxygen QuickNav when Oxygen is inactive). Choose content types, groups, sorting, and visibility.
 4. Open Users → Profile for personal visibility and item-count preferences.
 
 ## Features
@@ -90,14 +90,21 @@ The updater checks this public GitHub repository through WordPress update reques
 
 ## Changelog
 
+### 2.1.0 · October 22, 2026
+
+- **New:** QuickNav settings appear under the active Oxygen menu, with a WordPress Settings fallback when no Oxygen menu is available.
+- **Improved:** Includes deckerweb Updater 2.2.1 and Library 1.1.0 with current host translations.
+- **Fixed:** The local changelog remains hidden when closed and keeps a working documentation link if the dialog cannot open.
+- **Misc:** Requires PHP 8.1 or later. The WordPress minimum remains 6.7.
+
 ### 2.0.0 · October 8, 2026
 
 - **New:** Automatic support for Oxygen and Oxygen Classic, including reusable parts and official add-on shortcuts.
 - **New:** Website settings and personal toolbar preferences; configurable content types, groups, sorting, and unpublished content.
-- **Improved:** Each destination respects WordPress and builder permissions. Missing builders safely pause navigation.
-- **Fixed:** Corrected builder detection, settings links, query filters, and builder URLs for subdirectory installations.
 - **New:** Oxygen Classic navigation includes Stylesheets and Export & Import in their appropriate menu positions.
+- **Improved:** Each destination respects WordPress and builder permissions. Missing builders safely pause navigation.
 - **Improved:** Clearer Admin Dashboard labels, readable checkbox groups, matching artwork, and original resource links. Registered Oxygen settings tabs include Migration Mode when available.
+- **Fixed:** Corrected builder detection, settings links, query filters, and builder URLs for subdirectory installations.
 - **Fixed:** Activation works without a supported builder; settings remain available and notices appear within WordPress admin below the complete header.
 - **Misc:** Uses native WordPress editor toolbar visibility. Includes deckerweb Updater 2.1.0 (PHP 8.1+) and Library 0.8.0 (PHP 8.0+); navigation retains PHP 7.4 compatibility.
 
@@ -120,4 +127,4 @@ David Decker – DECKERWEB. QuickNav.
 
 This plugin originated as a fork of [Breakdance Navigator](https://github.com/beamkiller/breakdance-navigator), Peter Kulcsár, © 2024, GPL v2 or later.
 
-Copyright © 2025–2026 David Decker – DECKERWEB. GPL v2 or later. The existing Oxygen logo belongs to Soflyy. The navigation symbol is original vector artwork. deckerweb Updater 2.1.0 and Library 0.8.0: © 2026 David Decker – DECKERWEB, GPL-2.0-or-later.
+Copyright © 2025–2026 David Decker – DECKERWEB. GPL v2 or later. The existing Oxygen logo belongs to Soflyy. The navigation symbol is original vector artwork. deckerweb Updater 2.2.1 and Library 1.1.0: © 2026 David Decker – DECKERWEB, GPL-2.0-or-later.

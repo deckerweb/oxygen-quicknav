@@ -25,7 +25,7 @@ for p in list((root/'includes').glob('class-*.php'))+[(root/'includes/updater-tr
 missing=strings-set(translations)
 if missing:raise SystemExit('Missing host translations: '+repr(sorted(missing)))
 quote=lambda s:json.dumps(s,ensure_ascii=False)
-header='msgid ""\nmsgstr ""\n"Project-Id-Version: Oxygen QuickNav 2.0.0\\n"\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"\n"MIME-Version: 1.0\\n"\n"PO-Revision-Date: 2026-10-07 22:00+0000\\n"\n"Last-Translator: David Decker – DECKERWEB\\n"\n"Language-Team: German\\n"\n'
+header='msgid ""\nmsgstr ""\n"Project-Id-Version: Oxygen QuickNav 2.1.0\\n"\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"\n"MIME-Version: 1.0\\n"\n"PO-Revision-Date: 2026-10-07 22:00+0000\\n"\n"Last-Translator: David Decker – DECKERWEB\\n"\n"Language-Team: German\\n"\n'
 for lang in ['de_DE','de_DE_formal']:
  mapping=dict(translations)
  if lang=='de_DE_formal':mapping.update(formal)

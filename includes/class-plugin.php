@@ -16,7 +16,7 @@ final class Plugin {
 		add_action( 'init', array( $this, 'translations' ), 5 );
 		add_action( 'init', array( '\Deckerweb\OxygenQuickNav\Updates', 'register' ), 20 );
 		add_action( 'admin_bar_menu', array( $this, 'toolbar' ), 999 );
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_menu', array( $this, 'admin_menu' ), 99 );
 		add_action( 'admin_notices', array( $this, 'builder_notice' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
@@ -35,14 +35,52 @@ final class Plugin {
 		load_plugin_textdomain( 'oxygen-quicknav', false, dirname( plugin_basename( DDW_OQN_FILE ) ) . '/languages' );
 	}
 
-	/** @return string Website-scoped settings URL. */
-	public static function url() {
-		return admin_url( 'options-general.php?page=oxygen-quicknav' );
+	/**
+	 * Resolve a repository document in the active admin language.
+	 * @param string $document Maintained document basename (FAQ or CHANGELOG).
+	 * @return string Real formatted repository document URL.
+	 */
+	public static function documentation_url( $document ) {
+		$language = 0 === strpos( determine_locale(), 'de' ) ? '-de' : '';
+		return 'https://github.com/deckerweb/oxygen-quicknav/blob/main/docs/' . $document . $language . '.md';
 	}
 
-	/** @return void Adds a native settings page even when neither builder is active. */
+	/** @return string Website-scoped settings URL. */
+	public static function url() {
+		return admin_url( ( self::parent_menu() ? 'admin.php' : 'options-general.php' ) . '?page=oxygen-quicknav' );
+	}
+
+	/**
+	 * Find the active generation's native parent without creating an empty menu.
+	 * @return string Registered Oxygen parent slug, or an empty fallback marker.
+	 */
+	public static function parent_menu() {
+		global $menu;
+		$active = Builder::active();
+		foreach ( array( 'modern' => 'oxygen', 'classic' => 'ct_dashboard_page' ) as $generation => $slug ) {
+			if ( ! in_array( $generation, $active, true ) ) { continue; }
+			if ( ! is_admin() ) {
+				$full = 'modern' === $generation
+					? ( function_exists( '\\Breakdance\\Permissions\\hasPermission' ) && \Breakdance\Permissions\hasPermission( 'full' ) && current_user_can( 'manage_options' ) )
+					: ( function_exists( 'oxygen_vsb_current_user_can_full_access' ) && oxygen_vsb_current_user_can_full_access() );
+				if ( $full ) { return $slug; }
+				continue;
+			}
+			foreach ( (array) $menu as $item ) {
+				if ( isset( $item[2] ) && $slug === $item[2] ) { return $slug; }
+			}
+		}
+		return '';
+	}
+
+	/** @return void Adds settings under the available Oxygen menu, with a native fallback. */
 	public function admin_menu() {
-		add_options_page( 'Oxygen QuickNav', 'Oxygen QuickNav', 'manage_options', 'oxygen-quicknav', array( $this, 'page' ) );
+		$parent = self::parent_menu();
+		if ( $parent ) {
+			add_submenu_page( $parent, 'Oxygen QuickNav', 'QuickNav', 'manage_options', 'oxygen-quicknav', array( $this, 'page' ) );
+		} else {
+			add_options_page( 'Oxygen QuickNav', 'Oxygen QuickNav', 'manage_options', 'oxygen-quicknav', array( $this, 'page' ) );
+		}
 	}
 
 	/** @return void Explains inactive navigation within the website's native plugin screen. */
@@ -91,7 +129,7 @@ final class Plugin {
 	 * @return void Enqueues scoped CSS and settings-only accessible dialog JS.
 	 */
 	public function assets( $hook = '' ) {
-		$page = 'settings_page_oxygen-quicknav' === $hook;
+		$page = (bool) preg_match( '/(?:^|_)page_oxygen-quicknav$/', $hook ) || 'settings_page_oxygen-quicknav' === $hook;
 		if ( ! $page && ( ! $this->visible( Settings::get() ) || ! Builder::active() ) ) { return; }
 		wp_enqueue_style( 'ddw-oqn', plugins_url( 'assets/quicknav.css', DDW_OQN_FILE ), array(), DDW_OQN_VERSION );
 		if ( $page ) { wp_enqueue_script( 'ddw-oqn-dialog', plugins_url( 'assets/dialog.js', DDW_OQN_FILE ), array(), DDW_OQN_VERSION, true ); }
@@ -270,8 +308,8 @@ final class Plugin {
 		$fields = array( 'plugin' => array( 'label' => __( 'Plugin version', 'oxygen-quicknav' ), 'value' => DDW_OQN_VERSION ), 'builders' => array( 'label' => __( 'Active builders', 'oxygen-quicknav' ), 'value' => implode( ', ', Builder::active() ) ?: __( 'None', 'oxygen-quicknav' ) ) );
 		foreach ( Builder::active() as $generation ) { $fields[ $generation ] = array( 'label' => 'classic' === $generation ? 'Oxygen Classic' : 'Oxygen', 'value' => 'classic' === $generation ? CT_VERSION : __BREAKDANCE_VERSION ); }
 		foreach ( Builder::addons() as $name => $version ) { $fields[ sanitize_key( $name ) ] = array( 'label' => $name, 'value' => $version ); }
-		$fields['library'] = array( 'label' => 'deckerweb Library', 'value' => '0.8.0' );
-		$fields['updater'] = array( 'label' => 'deckerweb Updater', 'value' => '2.1.0' );
+		$fields['library'] = array( 'label' => 'deckerweb Library', 'value' => '1.1.0' );
+		$fields['updater'] = array( 'label' => 'deckerweb Updater', 'value' => '2.2.1' );
 		$fields['overrides'] = array( 'label' => __( 'Configuration overrides', 'oxygen-quicknav' ), 'value' => implode( ', ', array_filter( Settings::constant_map(), 'defined' ) ) ?: __( 'None', 'oxygen-quicknav' ) );
 		$info['oxygen-quicknav'] = array( 'label' => 'Oxygen QuickNav', 'fields' => $fields );
 		return $info;
@@ -282,6 +320,7 @@ final class Plugin {
 		if ( ! current_user_can( 'manage_options' ) ) { wp_die( esc_html__( 'You do not have permission to manage these settings.', 'oxygen-quicknav' ) ); }
 		$s = Settings::get( false );
 		echo '<div class="wrap oqn-settings"><header class="oqn-header"><img src="' . esc_url( plugins_url( 'assets/brand/icon.svg', DDW_OQN_FILE ) ) . '" width="52" height="52" alt=""><div><h1>Oxygen QuickNav</h1><p>' . esc_html__( 'Your shortcuts. Both Oxygen generations.', 'oxygen-quicknav' ) . '</p></div></header><hr class="wp-header-end">';
+		if ( self::parent_menu() ) { settings_errors(); }
 		if ( ! Builder::active() ) { echo '<div class="notice notice-info inline"><p>' . esc_html__( 'No supported Oxygen builder (Oxygen 6+ or Oxygen Classic 4.x) is active. QuickNav settings remain available; toolbar navigation resumes when a supported builder is active.', 'oxygen-quicknav' ) . '</p></div>'; }
 		if ( version_compare( PHP_VERSION, '8.1', '<' ) || Updates::$error ) { echo '<div class="notice notice-warning inline"><p>' . esc_html__( 'Navigation remains available. The bundled Library needs PHP 8.0; the updater integration needs PHP 8.1 and a compatible deckerweb Updater. Update manually while a component is unavailable.', 'oxygen-quicknav' ) . '</p></div>'; }
 		echo '<form method="post" action="options.php">';
@@ -305,10 +344,10 @@ final class Plugin {
 		submit_button();
 		echo '</form><h2>' . esc_html__( 'Detected components', 'oxygen-quicknav' ) . '</h2><dl class="oqn-diagnostics">';
 		foreach ( $this->diagnostics( array() )['oxygen-quicknav']['fields'] as $field ) { echo '<dt>' . esc_html( $field['label'] ) . '</dt><dd>' . esc_html( $field['value'] ) . '</dd>'; }
-		echo '</dl><footer class="oqn-footer" aria-label="' . esc_attr__( 'Plugin information', 'oxygen-quicknav' ) . '"><div><strong>Oxygen QuickNav</strong> <span>' . esc_html__( 'Version', 'oxygen-quicknav' ) . ' ' . esc_html( DDW_OQN_VERSION ) . '</span> · <button type="button" class="button-link" data-oqn-open="oqn-history">' . esc_html__( 'Changelog', 'oxygen-quicknav' ) . '</button> · <a href="https://github.com/deckerweb/oxygen-quicknav">' . esc_html__( 'Documentation', 'oxygen-quicknav' ) . '</a><p>' . esc_html__( 'Your shortcuts. Both Oxygen generations.', 'oxygen-quicknav' ) . '</p></div><div><span>© 2025–2026 <a href="https://github.com/deckerweb" target="_blank" rel="noopener noreferrer">David Decker – DECKERWEB</a></span><a href="https://github.com/deckerweb/oxygen-quicknav" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Plugin website', 'oxygen-quicknav' ) . '</a></div></footer>';
-		echo '<dialog id="oqn-history" aria-labelledby="oqn-history-title"><button type="button" class="button oqn-close" data-oqn-close>' . esc_html__( 'Close', 'oxygen-quicknav' ) . '</button><h2 id="oqn-history-title">' . esc_html__( 'Changelog', 'oxygen-quicknav' ) . '</h2>';
+		echo '</dl><footer class="oqn-footer" aria-label="' . esc_attr__( 'Plugin information', 'oxygen-quicknav' ) . '"><div><strong>Oxygen QuickNav</strong> <span>' . esc_html__( 'Version', 'oxygen-quicknav' ) . ' ' . esc_html( DDW_OQN_VERSION ) . '</span> · <a class="button-link" href="' . esc_url( self::documentation_url( 'CHANGELOG' ) ) . '" data-oqn-open="oqn-history">' . esc_html__( 'Changelog', 'oxygen-quicknav' ) . '</a> · <a href="' . esc_url( self::documentation_url( 'FAQ' ) ) . '">' . esc_html__( 'Documentation', 'oxygen-quicknav' ) . '</a><p>' . esc_html__( 'Your shortcuts. Both Oxygen generations.', 'oxygen-quicknav' ) . '</p></div><div><span>© 2025–2026 <a href="https://github.com/deckerweb" target="_blank" rel="noopener noreferrer">David Decker – DECKERWEB</a></span><a href="https://github.com/deckerweb/oxygen-quicknav" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Plugin website', 'oxygen-quicknav' ) . '</a></div></footer>';
+		echo '<dialog id="oqn-history" hidden aria-labelledby="oqn-history-title"><form method="dialog"><button type="submit" class="button oqn-close" data-oqn-close>' . esc_html__( 'Close', 'oxygen-quicknav' ) . '</button></form><h2 id="oqn-history-title">' . esc_html__( 'Changelog', 'oxygen-quicknav' ) . '</h2>';
 		$history = require DDW_OQN_DIR . '/includes/plugin-history.php';
-		echo $history( 0 === strpos( determine_locale(), 'de' ) ); // All source values escaped in the renderer.
+		echo wp_kses_post( $history( 0 === strpos( determine_locale(), 'de' ) ) );
 		echo '</dialog></div>';
 	}
 
@@ -375,7 +414,7 @@ final class Plugin {
 	 */
 	public function save_profile( $id ) {
 		if ( is_network_admin() || is_user_admin() || ! current_user_can( 'edit_user', $id ) || ! isset( $_POST['oqn_profile_nonce'] ) || ! is_string( $_POST['oqn_profile_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['oqn_profile_nonce'] ) ), 'oqn-profile-' . $id ) ) { return; }
-		$input = isset( $_POST['oqn_preferences'] ) && is_array( $_POST['oqn_preferences'] ) ? wp_unslash( $_POST['oqn_preferences'] ) : array();
+		$input = isset( $_POST['oqn_preferences'] ) && is_array( $_POST['oqn_preferences'] ) ? map_deep( wp_unslash( $_POST['oqn_preferences'] ), 'sanitize_text_field' ) : array();
 		$prefs = array( 'limit' => is_scalar( $input['limit'] ?? null ) ? min( 100, absint( $input['limit'] ) ) : 0 );
 		foreach ( array( 'backend', 'frontend' ) as $key ) { $prefs[ $key ] = 'hide' === ( $input[ $key ] ?? '' ) ? 'hide' : 'inherit'; }
 		update_user_option( $id, Settings::USER_OPTION, $prefs, false );
