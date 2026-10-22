@@ -22,6 +22,10 @@ for name in ['_Sidebar','_Footer']:
  for key,value in values.items():text=text.replace('{{'+key+'}}',value)
  assert '{{' not in text
  pages[name]=text
+pairs = [('Home', 'Startseite'), ('Getting-started', 'Erste-Schritte'), ('User-guide', 'Anleitung'), ('FAQ-by-topic', 'Fragen-nach-Themen'), ('Changelog', 'Aenderungsverlauf'), ('Help-and-security', 'Hilfe-und-Sicherheit')]
+for english, german in pairs:
+ for page in (english, german):
+  pages[page] = pages[page].replace('[English](Home) · [Deutsch](Startseite)', '[English](' + english + ') · [Deutsch](' + german + ')')
 for name,text in pages.items():
  for label,url in re.findall(r'(?<!!)\[([^]]+)\]\(([^)]+)\)',text):
   if not url.startswith(('https://','http://','#')):assert url.split('#')[0] in pages,(name,url)

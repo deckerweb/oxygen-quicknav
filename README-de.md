@@ -10,7 +10,7 @@ Schneller Zugriff auf die Inhalte und Einstellungen, die Du täglich brauchst �
 
 Version 2.1.0. Erfordert WordPress 6.7+ und PHP 8.1+. Enthält deckerweb Updater 2.2.1 und Library 1.1.0. Oxygen hat eigene Plattformanforderungen.
 
-[FAQ](#faq) · [Änderungsverlauf](#änderungsverlauf) · [GitHub](https://github.com/deckerweb/oxygen-quicknav)
+[FAQ](#faq) · [Änderungsverlauf](#änderungsverlauf) · [GitHub](https://github.com/deckerweb/oxygen-quicknav) · [Wiki](https://github.com/deckerweb/oxygen-quicknav/wiki/Startseite)
 
 **Inhalt:** [Über das Plugin](#über-das-plugin) · [Auf einen Blick](#auf-einen-blick) · [Installation & Erste Schritte](#installation--erste-schritte) · [Funktionen](#funktionen) · [FAQ](#faq) · [Änderungsverlauf](#änderungsverlauf) · [Projekt & Unterstützung](#projekt--unterstützung)
 
