@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse,zipfile,hashlib,json
 root=Path(__file__).resolve().parents[1]
 a=argparse.ArgumentParser();a.add_argument('destination',type=Path);args=a.parse_args();args.destination.mkdir(parents=True,exist_ok=True)
-version='2.1.0'
+version='2.1.1'
 runtime_dirs={'assets','images','includes','languages','docs'}
 runtime_files={'oxygen-quicknav.php','uninstall.php','index.php','LICENSE','readme.txt','README.md','README-de.md','SECURITY.md'}
 skip={'dictionary.json','content.json','.DS_Store'}

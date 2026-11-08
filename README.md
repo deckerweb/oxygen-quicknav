@@ -8,7 +8,7 @@
 
 Quick access to the content and settings you use every day, for Oxygen and Oxygen Classic. QuickNav chooses the active builder automatically and keeps its own settings available when the builder is inactive.
 
-Version 2.1.0. Requires WordPress 6.7+ and PHP 8.1+. Includes deckerweb Updater 2.2.1 and Library 1.1.0. Oxygen has its own platform requirements.
+Version 2.1.1. Requires WordPress 6.7+ and PHP 8.1+. Includes deckerweb Updater 2.4.0 and Library 1.3.0. Oxygen has its own platform requirements.
 
 [FAQ](#faq) · [Changelog](#changelog) · [GitHub](https://github.com/deckerweb/oxygen-quicknav) · [Wiki](https://github.com/deckerweb/oxygen-quicknav/wiki/Home)
 
@@ -90,6 +90,10 @@ The updater checks this public GitHub repository through WordPress update reques
 
 ## Changelog
 
+### 2.1.1 · November 9, 2026
+
+- **Fixed:** Updated deckerweb Library to 1.3.0 and Updater to 2.4.0: normal updates are independent of the catalog, with bounded downloads and stricter package checks.
+
 ### 2.1.0 · October 22, 2026
 
 - **New:** QuickNav settings appear under the active Oxygen menu, with a WordPress Settings fallback when no Oxygen menu is available.
@@ -127,4 +131,4 @@ David Decker – DECKERWEB. QuickNav.
 
 This plugin originated as a fork of [Breakdance Navigator](https://github.com/beamkiller/breakdance-navigator), Peter Kulcsár, © 2024, GPL v2 or later.
 
-Copyright © 2025–2026 David Decker – DECKERWEB. GPL v2 or later. The existing Oxygen logo belongs to Soflyy. The navigation symbol is original vector artwork. deckerweb Updater 2.2.1 and Library 1.1.0: © 2026 David Decker – DECKERWEB, GPL-2.0-or-later.
+Copyright © 2025–2026 David Decker – DECKERWEB. GPL v2 or later. The existing Oxygen logo belongs to Soflyy. The navigation symbol is original vector artwork. deckerweb Updater 2.4.0 and Library 1.3.0: © 2026 David Decker – DECKERWEB, GPL-2.0-or-later.

@@ -140,6 +140,6 @@ oqn_assert( false !== strpos( $history( true ), 'Neu:' ) && false === strpos( $h
 ob_start(); $plugin->page(); $html = ob_get_clean();
 oqn_assert( false !== strpos( $html, 'action="options.php"' ) && false !== strpos( $html, '<dialog' ), 'native Settings API and accessible history dialog' );
 oqn_assert( false === strpos( $html, 'is-fullscreen-mode' ), 'native editor visibility untouched' );
-oqn_assert( '2.2.1' === \Deckerweb\GitHubReleaseUpdater\V2\Runtime_2_2_1\Updater::IMPLEMENTATION_VERSION, 'pinned updater registered' );
+oqn_assert( '2.4.0' === \Deckerweb\GitHubReleaseUpdater\V2\Runtime_2_4_0\Updater::IMPLEMENTATION_VERSION, 'pinned updater registered' );
 oqn_assert( isset( $GLOBALS['deckerweb_library_candidates_v1'] ), 'shared Library registered' );
 echo 'RESULT: ' . $checks . ' checks; WordPress ' . $GLOBALS['wp_version'] . '; PHP ' . PHP_VERSION . '; ' . $generation . "\n";

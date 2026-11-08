@@ -1,7 +1,7 @@
 {
   "en": {
     "about": "Quick access to the content and settings you use every day, for Oxygen and Oxygen Classic. QuickNav chooses the active builder automatically and keeps its own settings available when the builder is inactive.",
-    "requirements": "Version 2.1.0. Requires WordPress 6.7+ and PHP 8.1+. Includes deckerweb Updater 2.2.1 and Library 1.1.0. Oxygen has its own platform requirements.",
+    "requirements": "Version 2.1.1. Requires WordPress 6.7+ and PHP 8.1+. Includes deckerweb Updater 2.4.0 and Library 1.3.0. Oxygen has its own platform requirements.",
     "features": [
       "Automatic generation detection and generation-specific builder URLs.",
       "Pages, posts, and selected public custom post types; published content by default.",
@@ -58,7 +58,7 @@
   },
   "de": {
     "about": "Schneller Zugriff auf die Inhalte und Einstellungen, die Du täglich brauchst – für Oxygen und Oxygen Classic. QuickNav wählt den aktiven Builder automatisch und hält die eigenen Einstellungen auch bei deaktiviertem Builder erreichbar.",
-    "requirements": "Version 2.1.0. Erfordert WordPress 6.7+ und PHP 8.1+. Enthält deckerweb Updater 2.2.1 und Library 1.1.0. Oxygen hat eigene Plattformanforderungen.",
+    "requirements": "Version 2.1.1. Erfordert WordPress 6.7+ und PHP 8.1+. Enthält deckerweb Updater 2.4.0 und Library 1.3.0. Oxygen hat eigene Plattformanforderungen.",
     "features": [
       "Automatische Erkennung der Generation mit passenden Builder-URLs.",
       "Seiten, Beiträge und ausgewählte öffentliche Custom Post Types; standardmäßig veröffentlichte Inhalte.",

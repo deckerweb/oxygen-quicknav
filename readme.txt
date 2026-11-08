@@ -4,7 +4,7 @@ Tags: oxygen, toolbar, navigation
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Quick access to Oxygen and Oxygen Classic content, templates, settings, and add-
 
 == Description ==
 
-Version 2.1.0. Requires WordPress 6.7+ and PHP 8.1+. Includes deckerweb Updater 2.2.1 and Library 1.1.0. Oxygen has its own platform requirements.
+Version 2.1.1. Requires WordPress 6.7+ and PHP 8.1+. Includes deckerweb Updater 2.4.0 and Library 1.3.0. Oxygen has its own platform requirements.
 
 * Automatic generation detection and generation-specific builder URLs.
 * Pages, posts, and selected public custom post types; published content by default.
@@ -59,6 +59,10 @@ QuickNav settings remain by default. Optional deletion removes only each opted-i
 The updater checks this public GitHub repository through WordPress update requests; GitHub receives normal request metadata. No token is required and no telemetry is added. The Library’s optional online catalog starts disabled; enabling it allows its documented GitHub catalog and package requests.
 
 == Changelog ==
+
+= 2.1.1 =
+
+* Fixed: Updated deckerweb Library to 1.3.0 and Updater to 2.4.0: normal updates are independent of the catalog, with bounded downloads and stricter package checks.
 
 = 2.1.0 =
 

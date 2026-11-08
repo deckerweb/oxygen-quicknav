@@ -2,6 +2,10 @@
 
 [English](CHANGELOG.md)
 
+### 2.1.1 · 9. November 2026
+
+- **Behoben:** deckerweb Library auf 1.3.0 und Updater auf 2.4.0 aktualisiert: normale Updates unabhängig vom Katalog, begrenzte Downloads und strengere Paketprüfung.
+
 ### 2.1.0 · 22. Oktober 2026
 
 - **Neu:** Die QuickNav-Einstellungen stehen unter dem aktiven Oxygen-Menü. Ist kein Oxygen-Menü verfügbar, bleiben sie unter den WordPress-Einstellungen erreichbar.
